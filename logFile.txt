@@ -1,0 +1,505 @@
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-03-31 16:09:43 WARNING]: Maybe illegal command passed to getServerCommand() @ ServerCommand!
+[2025-03-31 16:09:44 WARNING]: Maybe illegal command passed to getServerCommand() @ ServerCommand!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-03-31 16:10:25 INFO]: GE
+[2025-03-31 16:10:25 WARNING]: Maybe illegal command passed to getServerCommand() @ ServerCommand!
+[2025-03-31 16:10:25 WARNING]: Maybe illegal command passed to getServerCommand() @ ServerCommand!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-03-31 16:10:49 INFO]: GET
+[2025-03-31 16:10:49 INFO]: GET
+[2025-03-31 16:10:49 INFO]: CLO
+[2025-03-31 16:10:49 WARNING]: Maybe illegal command passed to getServerCommand() @ ServerCommand!
+[2025-03-31 16:10:49 INFO]: CLOSE
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-03-31 16:11:15 WARNING]: Maybe illegal command passed to getServerCommand() @ ServerCommand!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-03-31 16:11:21 WARNING]: Maybe illegal command passed to getServerCommand() @ ServerCommand!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-03-31 16:11:35 WARNING]: Maybe illegal command passed to getServerCommand() @ ServerCommand!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-03 14:12:45 INFO]: Generating Ressource with title: Vorlesung
+[2025-04-03 14:12:45 INFO]: UUID of Ressource is: 49ab2142596947019f8f1254a1a38c3f
+[2025-04-03 14:12:46 INFO]: Creating ressource from source with 149304389 bytes!
+[2025-04-03 14:12:47 INFO]: Generating 9 blocks!
+[2025-04-03 14:12:48 INFO]: 9 blocks generated!
+[2025-04-03 14:12:48 INFO]: Initiating ressource file!
+[2025-04-03 14:12:48 INFO]: Ressource file initialized!
+[2025-04-03 14:12:48 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-03 14:12:48 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 11:57:24 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 11:57:24 INFO]: ServerSocket running on port 7000!
+[2025-04-04 11:57:35 INFO]: A client connected!
+[2025-04-04 11:57:35 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 11:57:35 INFO]: Client connected and waiting for commands!
+[2025-04-04 11:57:45 INFO]: 
+[2025-04-04 11:57:45 ERROR]: Error while setting up client handler!
+[2025-04-04 11:57:45 ERROR]: Message / Cause: Connection reset
+[2025-04-04 11:57:45 ERROR]: Exception: java.net.SocketException
+[2025-04-04 11:57:45 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 11:57:45 ERROR]: [java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:318), java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346), java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796), java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:1116), java.base/java.net.Socket$SocketInputStream.read(Socket.java:1103), java.base/java.io.DataInputStream.readFully(DataInputStream.java:208), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:33)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 11:59:45 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 11:59:46 INFO]: ServerSocket running on port 7000!
+[2025-04-04 11:59:51 INFO]: A client connected!
+[2025-04-04 11:59:51 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 11:59:51 INFO]: Client connected and waiting for commands!
+[2025-04-04 11:59:55 INFO]: [GET, 49ab2142596947019f8f1254a1a38c3f]
+[2025-04-04 11:59:55 INFO]: 
+[2025-04-04 11:59:55 ERROR]: Error while setting up client handler!
+[2025-04-04 11:59:55 ERROR]: Message / Cause: Connection reset
+[2025-04-04 11:59:55 ERROR]: Exception: java.net.SocketException
+[2025-04-04 11:59:55 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 11:59:55 ERROR]: [java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:318), java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346), java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796), java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:1116), java.base/java.net.Socket$SocketInputStream.read(Socket.java:1103), java.base/java.io.DataInputStream.readFully(DataInputStream.java:208), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:34)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 12:00:33 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 12:00:33 INFO]: ServerSocket running on port 7000!
+[2025-04-04 12:00:36 INFO]: A client connected!
+[2025-04-04 12:00:36 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 12:00:36 INFO]: Client connected and waiting for commands!
+[2025-04-04 12:00:41 INFO]: Reached GET
+[2025-04-04 12:00:41 INFO]: 
+[2025-04-04 12:00:41 ERROR]: Error while setting up client handler!
+[2025-04-04 12:00:41 ERROR]: Message / Cause: Connection reset
+[2025-04-04 12:00:41 ERROR]: Exception: java.net.SocketException
+[2025-04-04 12:00:41 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 12:00:41 ERROR]: [java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:318), java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346), java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796), java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:1116), java.base/java.net.Socket$SocketInputStream.read(Socket.java:1103), java.base/java.io.DataInputStream.readFully(DataInputStream.java:208), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:34)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 12:02:29 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 12:02:29 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 12:04:00 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 12:04:01 INFO]: ServerSocket running on port 7000!
+[2025-04-04 12:04:08 INFO]: A client connected!
+[2025-04-04 12:04:08 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 12:04:08 INFO]: Client connected and waiting for commands!
+[2025-04-04 12:04:13 INFO]: Sending ressource file to client! uuid: 49ab2142596947019f8f1254a1a38c3f
+[2025-04-04 12:04:13 INFO]: GET sending ressource file!
+[2025-04-04 12:04:15 ERROR]: Error while sending file!
+[2025-04-04 12:04:15 ERROR]: Message / Cause: Broken pipe
+[2025-04-04 12:04:15 ERROR]: Exception: java.net.SocketException
+[2025-04-04 12:04:15 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 12:04:15 ERROR]: [java.base/sun.nio.ch.SocketDispatcher.write0(Native Method), java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:62), java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:394), java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:410), java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:440), java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:819), java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1231), java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1218), java.base/java.io.DataOutputStream.write(DataOutputStream.java:118), org.geooo.util.FilesRemote.sendFile(FilesRemote.java:24), org.geooo.ClientHandler.run(ClientHandler.java:86)]
+[2025-04-04 12:04:15 ERROR]: Error while setting up client handler!
+[2025-04-04 12:04:15 ERROR]: Message / Cause: null
+[2025-04-04 12:04:15 ERROR]: Exception: java.io.EOFException
+[2025-04-04 12:04:15 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 12:04:15 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:34)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 12:05:23 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 12:05:24 INFO]: ServerSocket running on port 7000!
+[2025-04-04 12:05:26 INFO]: A client connected!
+[2025-04-04 12:05:26 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 12:05:26 INFO]: Client connected and waiting for commands!
+[2025-04-04 12:05:30 INFO]: Sending ressource file to client! uuid: 49ab2142596947019f8f1254a1a38c3f
+[2025-04-04 12:05:30 INFO]: GET sending ressource file!
+[2025-04-04 12:05:30 INFO]: Getting metadata for requested ressource!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 12:09:33 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 12:09:34 INFO]: ServerSocket running on port 7000!
+[2025-04-04 12:09:36 INFO]: A client connected!
+[2025-04-04 12:09:36 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 12:09:36 INFO]: Client connected and waiting for commands!
+[2025-04-04 12:09:39 INFO]: Sending ressource file to client! uuid: 49ab2142596947019f8f1254a1a38c3f
+[2025-04-04 12:09:39 INFO]: GET sending ressource file!
+[2025-04-04 12:09:39 INFO]: Getting metadata for requested ressource!
+[2025-04-04 12:09:39 ERROR]: Error while receiving file!
+[2025-04-04 12:09:39 ERROR]: Message / Cause: client/res/49ab2142596947019f8f1254a1a38c3f49ab2142596947019f8f1254a1a38c3f/ressourceFile.g2g (No such file or directory)
+[2025-04-04 12:09:39 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 12:09:39 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 12:09:39 ERROR]: [java.base/java.io.FileOutputStream.open0(Native Method), java.base/java.io.FileOutputStream.open(FileOutputStream.java:295), java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:237), java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:124), org.geooo.util.FilesRemote.receiveFile(FilesRemote.java:40), org.geooo.Client.<init>(Client.java:61), org.geooo.ClientApp.main(ClientApp.java:9)]
+[2025-04-04 12:10:02 ERROR]: Error while setting up client handler!
+[2025-04-04 12:10:02 ERROR]: Message / Cause: Connection reset
+[2025-04-04 12:10:02 ERROR]: Exception: java.net.SocketException
+[2025-04-04 12:10:02 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 12:10:02 ERROR]: [java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:318), java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346), java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796), java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:1116), java.base/java.net.Socket$SocketInputStream.read(Socket.java:1103), java.base/java.io.DataInputStream.readFully(DataInputStream.java:208), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:34)]
+[2025-04-04 12:12:45 INFO]: A client connected!
+[2025-04-04 12:12:45 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 12:12:45 INFO]: Client connected and waiting for commands!
+[2025-04-04 12:12:59 INFO]: Sending ressource file to client! uuid: 49ab2142596947019f8f1254a1a38c3f
+[2025-04-04 12:12:59 INFO]: GET sending ressource file!
+[2025-04-04 12:12:59 INFO]: Getting metadata for requested ressource!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 18:17:05 ERROR]: Error while parsing existing G2GFile to EmptyRessource object!
+[2025-04-04 18:17:05 ERROR]: Message / Cause: res/test.jpg/Test (Not a directory)
+[2025-04-04 18:17:05 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 18:17:05 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 18:17:05 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.EmptyRessource.<init>(EmptyRessource.java:48), org.geooo.Ressource.<init>(Ressource.java:89), org.geooo.Server.<init>(Server.java:17), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 18:17:05 ERROR]: Error while parsing existing G2GFile to Ressource object!
+[2025-04-04 18:17:05 ERROR]: Message / Cause: res/test.jpg/Test (Not a directory)
+[2025-04-04 18:17:05 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 18:17:05 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 18:17:05 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.Ressource.<init>(Ressource.java:91), org.geooo.Server.<init>(Server.java:17), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 18:17:05 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 18:17:06 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 18:19:51 INFO]: Generating Ressource with title: Test
+[2025-04-04 18:19:51 INFO]: UUID of Ressource is: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 18:19:51 INFO]: Creating ressource from source with 17136603 bytes!
+[2025-04-04 18:19:51 INFO]: Generating 2 blocks!
+[2025-04-04 18:19:51 INFO]: 2 blocks generated!
+[2025-04-04 18:19:51 INFO]: Initiating ressource file!
+[2025-04-04 18:19:51 INFO]: Ressource file initialized!
+[2025-04-04 18:19:51 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 18:19:52 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:06:41 INFO]: Generating Ressource with title: Test
+[2025-04-04 19:06:41 INFO]: UUID of Ressource is: 5076cd79d21249a6be9a9546078fa751
+[2025-04-04 19:06:41 ERROR]: Error while getting Data from sourceFile: res/test.jpg
+[2025-04-04 19:06:41 ERROR]: Message / Cause: res/test.jpg
+[2025-04-04 19:06:41 ERROR]: Exception: java.nio.file.NoSuchFileException
+[2025-04-04 19:06:41 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:06:41 ERROR]: [java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111), java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:262), java.base/java.nio.file.Files.newByteChannel(Files.java:380), java.base/java.nio.file.Files.newByteChannel(Files.java:432), java.base/java.nio.file.Files.readAllBytes(Files.java:3292), org.geooo.Ressource.<init>(Ressource.java:45), org.geooo.Server.<init>(Server.java:17), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:06:41 ERROR]: Error while parsing existing G2GFile to EmptyRessource object!
+[2025-04-04 19:06:41 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:06:41 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:06:41 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:06:41 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.EmptyRessource.<init>(EmptyRessource.java:48), org.geooo.ServerFile.reloadRessources(ServerFile.java:97), org.geooo.ServerFile.getInstance(ServerFile.java:38), org.geooo.ServerFile.initializeServerFile(ServerFile.java:46), org.geooo.Server.<init>(Server.java:19), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:06:41 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:06:41 ERROR]: Error while parsing existing G2GFile to EmptyRessource object!
+[2025-04-04 19:06:41 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:06:41 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:06:41 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:06:41 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.EmptyRessource.<init>(EmptyRessource.java:48), org.geooo.ServerFile.reloadRessources(ServerFile.java:97), org.geooo.Ressource.<init>(Ressource.java:141), org.geooo.ServerFile.initializeServerFile(ServerFile.java:68), org.geooo.Server.<init>(Server.java:19), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:06:41 ERROR]: Error while parsing existing G2GFile to EmptyRessource object!
+[2025-04-04 19:06:41 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:06:41 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:06:41 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:06:41 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.EmptyRessource.<init>(EmptyRessource.java:48), org.geooo.Ressource.<init>(Ressource.java:89), org.geooo.ServerFile.initializeServerFile(ServerFile.java:68), org.geooo.Server.<init>(Server.java:19), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:06:41 ERROR]: Error while parsing existing G2GFile to Ressource object!
+[2025-04-04 19:06:41 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:06:41 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:06:41 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:06:41 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.Ressource.<init>(Ressource.java:91), org.geooo.ServerFile.initializeServerFile(ServerFile.java:68), org.geooo.Server.<init>(Server.java:19), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:06:41 ERROR]: Error while parsing existing G2GFile to EmptyRessource object!
+[2025-04-04 19:06:41 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:06:41 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:06:41 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:06:41 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.EmptyRessource.<init>(EmptyRessource.java:48), org.geooo.ServerFile.reloadRessources(ServerFile.java:97), org.geooo.Ressource.<init>(Ressource.java:141), org.geooo.ServerFile.initializeServerFile(ServerFile.java:68), org.geooo.Server.<init>(Server.java:19), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:06:41 ERROR]: Error while parsing existing G2GFile to EmptyRessource object!
+[2025-04-04 19:06:41 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:06:41 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:06:41 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:06:41 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.EmptyRessource.<init>(EmptyRessource.java:48), org.geooo.ServerFile.reloadRessources(ServerFile.java:97), org.geooo.Ressource.<init>(Ressource.java:141), org.geooo.ServerFile.initializeServerFile(ServerFile.java:68), org.geooo.Server.<init>(Server.java:19), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:06:41 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:07:12 ERROR]: Error while parsing existing G2GFile to EmptyRessource object!
+[2025-04-04 19:07:12 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:07:12 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:07:12 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:07:12 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.EmptyRessource.<init>(EmptyRessource.java:48), org.geooo.ServerFile.reloadRessources(ServerFile.java:97), org.geooo.ServerFile.getInstance(ServerFile.java:38), org.geooo.ServerFile.initializeServerFile(ServerFile.java:46), org.geooo.Server.<init>(Server.java:17), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:07:12 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:07:13 ERROR]: Error while parsing existing G2GFile to EmptyRessource object!
+[2025-04-04 19:07:13 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:07:13 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:07:13 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:07:13 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.EmptyRessource.<init>(EmptyRessource.java:48), org.geooo.ServerFile.reloadRessources(ServerFile.java:97), org.geooo.Ressource.<init>(Ressource.java:141), org.geooo.ServerFile.initializeServerFile(ServerFile.java:68), org.geooo.Server.<init>(Server.java:17), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:07:13 ERROR]: Error while parsing existing G2GFile to EmptyRessource object!
+[2025-04-04 19:07:13 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:07:13 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:07:13 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:07:13 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.EmptyRessource.<init>(EmptyRessource.java:48), org.geooo.Ressource.<init>(Ressource.java:89), org.geooo.ServerFile.initializeServerFile(ServerFile.java:68), org.geooo.Server.<init>(Server.java:17), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:07:13 ERROR]: Error while parsing existing G2GFile to Ressource object!
+[2025-04-04 19:07:13 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:07:13 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:07:13 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:07:13 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.Ressource.<init>(Ressource.java:91), org.geooo.ServerFile.initializeServerFile(ServerFile.java:68), org.geooo.Server.<init>(Server.java:17), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:07:13 ERROR]: Error while parsing existing G2GFile to EmptyRessource object!
+[2025-04-04 19:07:13 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:07:13 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:07:13 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:07:13 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.EmptyRessource.<init>(EmptyRessource.java:48), org.geooo.ServerFile.reloadRessources(ServerFile.java:97), org.geooo.Ressource.<init>(Ressource.java:141), org.geooo.ServerFile.initializeServerFile(ServerFile.java:68), org.geooo.Server.<init>(Server.java:17), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:07:13 ERROR]: Error while parsing existing G2GFile to EmptyRessource object!
+[2025-04-04 19:07:13 ERROR]: Message / Cause: res/5076cd79d21249a6be9a9546078fa751/ressourceFile.g2g (No such file or directory)
+[2025-04-04 19:07:13 ERROR]: Exception: java.io.FileNotFoundException
+[2025-04-04 19:07:13 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:07:13 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:219), java.base/java.io.FileInputStream.<init>(FileInputStream.java:159), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.EmptyRessource.<init>(EmptyRessource.java:48), org.geooo.ServerFile.reloadRessources(ServerFile.java:97), org.geooo.Ressource.<init>(Ressource.java:141), org.geooo.ServerFile.initializeServerFile(ServerFile.java:68), org.geooo.Server.<init>(Server.java:17), org.geooo.ServerApp.main(ServerApp.java:6)]
+[2025-04-04 19:07:13 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:07:40 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:07:41 INFO]: ServerSocket running on port 7000!
+[2025-04-04 19:07:49 INFO]: A client connected!
+[2025-04-04 19:07:49 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:07:49 INFO]: Client connected and waiting for commands!
+[2025-04-04 19:07:58 INFO]: Sending ressource file to client! uuid: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:07:58 INFO]: GET sending ressource file!
+[2025-04-04 19:07:58 INFO]: Getting metadata for requested ressource!
+[2025-04-04 19:08:00 INFO]: Receving block amount: 2
+[2025-04-04 19:08:00 ERROR]: Received subsequent GET wrong additional arguments even though it should be 'block'!
+[2025-04-04 19:08:47 ERROR]: Error while setting up client handler!
+[2025-04-04 19:08:47 ERROR]: Message / Cause: null
+[2025-04-04 19:08:47 ERROR]: Exception: java.io.EOFException
+[2025-04-04 19:08:47 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:08:47 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:84)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:09:03 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:09:04 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:10:24 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:10:25 INFO]: ServerSocket running on port 7000!
+[2025-04-04 19:10:31 INFO]: A client connected!
+[2025-04-04 19:10:31 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:10:31 INFO]: Client connected and waiting for commands!
+[2025-04-04 19:10:33 ERROR]: Received GET command without additional arguments!
+[2025-04-04 19:10:33 INFO]: ERROR invalid number of arguments!
+[2025-04-04 19:10:33 ERROR]: No UUID supplied for GET command - should have been caught by server!
+[2025-04-04 19:10:41 ERROR]: Error while setting up client socket!
+[2025-04-04 19:10:41 ERROR]: Message / Cause: null
+[2025-04-04 19:10:41 ERROR]: Exception: java.io.EOFException
+[2025-04-04 19:10:41 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:10:41 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.Client.<init>(Client.java:44), org.geooo.ClientApp.main(ClientApp.java:9)]
+[2025-04-04 19:10:57 INFO]: A client connected!
+[2025-04-04 19:10:57 INFO]: Now handling 2 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:10:57 INFO]: Client connected and waiting for commands!
+[2025-04-04 19:11:05 INFO]: Sending ressource file to client! uuid: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:11:05 INFO]: GET sending ressource file!
+[2025-04-04 19:11:05 INFO]: Getting metadata for requested ressource!
+[2025-04-04 19:11:07 INFO]: Receving block amount: 2
+[2025-04-04 19:11:07 INFO]: trying to send block file: 0/2
+[2025-04-04 19:11:07 ERROR]: Received subsequent GET wrong additional arguments even though it should be 'block'!
+[2025-04-04 19:11:07 INFO]: trying to send block file: 1/2
+[2025-04-04 19:11:25 ERROR]: Error while receiving file!
+[2025-04-04 19:11:25 ERROR]: Message / Cause: null
+[2025-04-04 19:11:25 ERROR]: Exception: java.io.EOFException
+[2025-04-04 19:11:25 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:11:25 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readLong(DataInputStream.java:407), org.geooo.util.FilesRemote.receiveFile(FilesRemote.java:61), org.geooo.Client.<init>(Client.java:110), org.geooo.ClientApp.main(ClientApp.java:9)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:14:48 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:14:49 INFO]: ServerSocket running on port 7000!
+[2025-04-04 19:14:52 INFO]: A client connected!
+[2025-04-04 19:14:52 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:14:52 INFO]: Client connected and waiting for commands!
+[2025-04-04 19:14:58 INFO]: Sending ressource file to client! uuid: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:14:58 INFO]: GET sending ressource file!
+[2025-04-04 19:14:58 ERROR]: Error while creating client ressource directory!
+[2025-04-04 19:14:58 ERROR]: Message / Cause: client/res/2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:14:58 ERROR]: Exception: java.nio.file.FileAlreadyExistsException
+[2025-04-04 19:14:58 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:14:58 ERROR]: [java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:94), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111), java.base/sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:463), java.base/java.nio.file.Files.createDirectory(Files.java:700), org.geooo.Client.<init>(Client.java:61), org.geooo.ClientApp.main(ClientApp.java:9)]
+[2025-04-04 19:15:00 INFO]: trying to send block file: 0/2
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:15:21 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:15:21 INFO]: ServerSocket running on port 7000!
+[2025-04-04 19:15:32 INFO]: A client connected!
+[2025-04-04 19:15:32 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:15:32 INFO]: Client connected and waiting for commands!
+[2025-04-04 19:15:36 INFO]: Sending ressource file to client! uuid: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:15:36 INFO]: GET sending ressource file!
+[2025-04-04 19:15:36 INFO]: Getting metadata for requested ressource!
+[2025-04-04 19:15:38 INFO]: Receving block amount: 2
+[2025-04-04 19:15:38 INFO]: trying to send block file: 0/2
+[2025-04-04 19:15:38 ERROR]: Received subsequent GET wrong additional arguments even though it should be 'block'! Command: GET block ac7df61df5c54ce696363b2a52dc2389
+[2025-04-04 19:15:38 INFO]: trying to send block file: 1/2
+[2025-04-04 19:15:57 ERROR]: Error while receiving file!
+[2025-04-04 19:15:57 ERROR]: Message / Cause: null
+[2025-04-04 19:15:57 ERROR]: Exception: java.io.EOFException
+[2025-04-04 19:15:57 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:15:57 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readLong(DataInputStream.java:407), org.geooo.util.FilesRemote.receiveFile(FilesRemote.java:61), org.geooo.Client.<init>(Client.java:110), org.geooo.ClientApp.main(ClientApp.java:9)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:24:16 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:24:17 INFO]: ServerSocket running on port 7000!
+[2025-04-04 19:24:21 INFO]: A client connected!
+[2025-04-04 19:24:22 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:24:22 INFO]: Client connected and waiting for commands!
+[2025-04-04 19:25:14 INFO]: Sending ressource file to client! uuid: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:25:14 INFO]: GET sending ressource file!
+[2025-04-04 19:25:14 INFO]: Getting metadata for requested ressource!
+[2025-04-04 19:25:16 INFO]: Receving block amount: 2
+[2025-04-04 19:25:16 INFO]: trying to send block file: 0/2
+[2025-04-04 19:25:16 ERROR]: Received subsequent GET wrong additional arguments! Command: GET block ac7df61df5c54ce696363b2a52dc2389
+[2025-04-04 19:25:16 INFO]: trying to send block file: 1/2
+[2025-04-04 19:26:32 ERROR]: Error while setting up client handler!
+[2025-04-04 19:26:32 ERROR]: Message / Cause: null
+[2025-04-04 19:26:32 ERROR]: Exception: java.io.EOFException
+[2025-04-04 19:26:32 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:26:32 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:85)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:29:14 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:29:15 INFO]: ServerSocket running on port 7000!
+[2025-04-04 19:29:17 INFO]: A client connected!
+[2025-04-04 19:29:17 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:29:17 INFO]: Client connected and waiting for commands!
+[2025-04-04 19:29:22 INFO]: Sending ressource file to client! uuid: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:29:22 INFO]: GET sending ressource file!
+[2025-04-04 19:29:22 ERROR]: Error while creating client ressource directory!
+[2025-04-04 19:29:22 ERROR]: Message / Cause: client/res/2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:29:22 ERROR]: Exception: java.nio.file.FileAlreadyExistsException
+[2025-04-04 19:29:22 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:29:22 ERROR]: [java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:94), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111), java.base/sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:463), java.base/java.nio.file.Files.createDirectory(Files.java:700), org.geooo.Client.<init>(Client.java:61), org.geooo.ClientApp.main(ClientApp.java:9)]
+[2025-04-04 19:29:24 INFO]: trying to send block file: 0/2
+[2025-04-04 19:29:34 INFO]: 
+[2025-04-04 19:29:34 INFO]: 2
+[2025-04-04 19:29:34 INFO]: Getting metadata for requested ressource!
+[2025-04-04 19:29:34 ERROR]: Received subsequent GET wrong additional arguments even though it should be 'block'! Command: GET 2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:29:34 INFO]: trying to send block file: 1/2
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:29:56 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:29:57 INFO]: ServerSocket running on port 7000!
+[2025-04-04 19:29:58 INFO]: A client connected!
+[2025-04-04 19:29:58 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:29:59 INFO]: Client connected and waiting for commands!
+[2025-04-04 19:30:10 INFO]: Sending ressource file to client! uuid: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:30:10 INFO]: GET sending ressource file!
+[2025-04-04 19:30:10 INFO]: Getting metadata for requested ressource!
+[2025-04-04 19:30:12 INFO]: Receving block amount: 2
+[2025-04-04 19:30:12 INFO]: trying to send block file: 0/2
+[2025-04-04 19:30:12 INFO]: 2
+[2025-04-04 19:30:12 ERROR]: Received subsequent GET wrong additional arguments even though it should be 'block'! Command: GET block ac7df61df5c54ce696363b2a52dc2389
+[2025-04-04 19:30:12 INFO]: trying to send block file: 1/2
+[2025-04-04 19:30:26 ERROR]: Error while receiving file!
+[2025-04-04 19:30:26 ERROR]: Message / Cause: null
+[2025-04-04 19:30:26 ERROR]: Exception: java.io.EOFException
+[2025-04-04 19:30:26 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:30:26 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readLong(DataInputStream.java:407), org.geooo.util.FilesRemote.receiveFile(FilesRemote.java:61), org.geooo.Client.<init>(Client.java:110), org.geooo.ClientApp.main(ClientApp.java:9)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:31:08 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:31:09 INFO]: ServerSocket running on port 7000!
+[2025-04-04 19:31:10 INFO]: A client connected!
+[2025-04-04 19:31:10 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:31:10 INFO]: Client connected and waiting for commands!
+[2025-04-04 19:31:42 INFO]: Sending ressource file to client! uuid: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:31:42 INFO]: GET sending ressource file!
+[2025-04-04 19:31:42 ERROR]: Error while creating client ressource directory!
+[2025-04-04 19:31:42 ERROR]: Message / Cause: client/res/2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:31:42 ERROR]: Exception: java.nio.file.FileAlreadyExistsException
+[2025-04-04 19:31:42 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:31:42 ERROR]: [java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:94), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111), java.base/sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:463), java.base/java.nio.file.Files.createDirectory(Files.java:700), org.geooo.Client.<init>(Client.java:61), org.geooo.ClientApp.main(ClientApp.java:9)]
+[2025-04-04 19:31:44 INFO]: trying to send block file: 0/2
+[2025-04-04 19:31:45 ERROR]: Error while setting up client handler!
+[2025-04-04 19:31:45 ERROR]: Message / Cause: Connection reset
+[2025-04-04 19:31:45 ERROR]: Exception: java.net.SocketException
+[2025-04-04 19:31:45 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:31:45 ERROR]: [java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:318), java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346), java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796), java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:1116), java.base/java.net.Socket$SocketInputStream.read(Socket.java:1103), java.base/java.io.DataInputStream.readFully(DataInputStream.java:208), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:85)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:32:01 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-04 19:32:02 INFO]: ServerSocket running on port 7000!
+[2025-04-04 19:32:03 INFO]: A client connected!
+[2025-04-04 19:32:03 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-04 19:32:03 INFO]: Client connected and waiting for commands!
+[2025-04-04 19:32:17 INFO]: Sending ressource file to client! uuid: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-04 19:32:17 INFO]: GET sending ressource file!
+[2025-04-04 19:32:17 INFO]: Getting metadata for requested ressource!
+[2025-04-04 19:32:19 INFO]: Receving block amount: 2
+[2025-04-04 19:32:19 INFO]: trying to send block file: 0/2
+[2025-04-04 19:32:19 INFO]: Sending block file: ac7df61df5c54ce696363b2a52dc2389
+[2025-04-04 19:32:19 INFO]: trying to send block file: 1/2
+[2025-04-04 19:32:19 INFO]: Sending block file: 0b369c33620745e993aa019233085a89
+[2025-04-04 19:32:53 ERROR]: Error while setting up client handler!
+[2025-04-04 19:32:53 ERROR]: Message / Cause: null
+[2025-04-04 19:32:53 ERROR]: Exception: java.io.EOFException
+[2025-04-04 19:32:53 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-04 19:32:53 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:36)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:47:25 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-09 11:47:26 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:47:35 INFO]: Client connected and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:48:25 INFO]: Client connected and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:49:24 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-09 11:49:25 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:49:31 INFO]: Client connected and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:51:20 ERROR]: Error while setting up client socket!
+[2025-04-09 11:51:20 ERROR]: Message / Cause: Connection refused
+[2025-04-09 11:51:20 ERROR]: Exception: java.net.ConnectException
+[2025-04-09 11:51:20 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-09 11:51:20 ERROR]: [java.base/sun.nio.ch.Net.connect0(Native Method), java.base/sun.nio.ch.Net.connect(Net.java:589), java.base/sun.nio.ch.Net.connect(Net.java:578), java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583), java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327), java.base/java.net.Socket.connect(Socket.java:760), java.base/java.net.Socket.connect(Socket.java:695), java.base/java.net.Socket.<init>(Socket.java:564), java.base/java.net.Socket.<init>(Socket.java:328), org.geooo.Client.<init>(Client.java:39), org.geooo.Client.main(Client.java:25)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:51:31 WARNING]: Serverfile detected! Initializer-function will delete the old and re-initialize it!
+[2025-04-09 11:51:32 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:51:39 INFO]: Client connected and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:55:50 WARNING]: Serverfile detected! Initializer-function will re-initialize it to be sure!
+[2025-04-09 11:55:51 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:55:56 INFO]: Client connected and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:56:36 WARNING]: Serverfile detected! Initializer-function will re-initialize it to be sure!
+[2025-04-09 11:56:38 INFO]: ServerSocket running on port 7000!
+[2025-04-09 11:56:42 INFO]: A client connected!
+[2025-04-09 11:56:42 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 11:56:42 INFO]: Client connected and waiting for commands!
+[2025-04-09 11:56:46 INFO]: Sending server information to client!
+[2025-04-09 11:56:46 INFO]: INFO sending server information!
+[2025-04-09 11:56:46 INFO]: Getting serverfile from server...
+[2025-04-09 11:56:46 INFO]: Received serverfile!
+[2025-04-09 11:57:03 INFO]: Sending ressource file to client! uuid: 49ab2142596947019f8f1254a1a38c3f
+[2025-04-09 11:57:03 INFO]: GET sending ressource file!
+[2025-04-09 11:57:03 INFO]: Getting metadata for requested ressource!
+[2025-04-09 11:57:05 INFO]: Receving block amount: 9
+[2025-04-09 11:57:05 INFO]: trying to send block file: 0/9
+[2025-04-09 11:57:05 INFO]: Sending block file: 671b0ff051b742d8a1cf2a0488effb25
+[2025-04-09 11:57:05 INFO]: trying to send block file: 1/9
+[2025-04-09 11:57:05 INFO]: Sending block file: 6186c104dde14be5b916510ed4497dbf
+[2025-04-09 11:57:05 INFO]: trying to send block file: 2/9
+[2025-04-09 11:57:05 INFO]: Sending block file: 16d6c2c26c7344bf8856a09b2a8ee733
+[2025-04-09 11:57:05 INFO]: trying to send block file: 3/9
+[2025-04-09 11:57:05 INFO]: Sending block file: 57c1962d1fbb4d8ea9c973f2c40bf264
+[2025-04-09 11:57:05 INFO]: trying to send block file: 4/9
+[2025-04-09 11:57:05 INFO]: Sending block file: ecd1a98badc5435baf00e0eee2275081
+[2025-04-09 11:57:05 INFO]: trying to send block file: 5/9
+[2025-04-09 11:57:05 INFO]: Sending block file: b0adceeb3a9e4f15bce1ada0f46423c4
+[2025-04-09 11:57:05 INFO]: trying to send block file: 6/9
+[2025-04-09 11:57:05 INFO]: Sending block file: 52803681f9c34d11b8c07733105962d6
+[2025-04-09 11:57:05 INFO]: trying to send block file: 7/9
+[2025-04-09 11:57:05 INFO]: Sending block file: d583445c05eb4c78a6ae5725efee9976
+[2025-04-09 11:57:05 INFO]: trying to send block file: 8/9
+[2025-04-09 11:57:05 INFO]: Sending block file: 0e32ce09bbf141c0bb154f4c74f2d125
+[2025-04-09 11:57:28 INFO]: Sending ressource file to client! uuid: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-09 11:57:28 INFO]: GET sending ressource file!
+[2025-04-09 11:57:28 INFO]: Getting metadata for requested ressource!
+[2025-04-09 11:57:30 INFO]: trying to send block file: 0/2
+[2025-04-09 11:57:30 INFO]: Receving block amount: 2
+[2025-04-09 11:57:30 INFO]: Sending block file: ac7df61df5c54ce696363b2a52dc2389
+[2025-04-09 11:57:30 INFO]: trying to send block file: 1/2
+[2025-04-09 11:57:30 INFO]: Sending block file: 0b369c33620745e993aa019233085a89
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 12:03:57 ERROR]: Error while setting up client socket!
+[2025-04-09 12:03:58 ERROR]: Message / Cause: Connection refused
+[2025-04-09 12:03:58 ERROR]: Exception: java.net.ConnectException
+[2025-04-09 12:03:58 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-09 12:03:58 ERROR]: [java.base/sun.nio.ch.Net.connect0(Native Method), java.base/sun.nio.ch.Net.connect(Net.java:589), java.base/sun.nio.ch.Net.connect(Net.java:578), java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583), java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327), java.base/java.net.Socket.connect(Socket.java:760), java.base/java.net.Socket.connect(Socket.java:695), java.base/java.net.Socket.<init>(Socket.java:564), java.base/java.net.Socket.<init>(Socket.java:328), org.geooo.Client.<init>(Client.java:39), org.geooo.Client.main(Client.java:25)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 12:04:21 INFO]: Client connected and waiting for commands!
+[2025-04-09 12:04:21 WARNING]: Creating ressource from a ressource file which is not in the ressource directory! Is this intended?
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 12:16:39 WARNING]: Serverfile detected! Initializer-function will re-initialize it to be sure!
+[2025-04-09 12:16:40 INFO]: ServerSocket running on port 7000!
+[2025-04-09 12:16:43 INFO]: A client connected!
+[2025-04-09 12:16:43 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 12:16:43 INFO]: Client connected and waiting for commands!
+[2025-04-09 12:17:00 INFO]: Sending ressource file to client! uuid: 2266302b65a742d584c37540b2d5e4a2
+[2025-04-09 12:17:00 INFO]: GET sending ressource file!
+[2025-04-09 12:17:00 INFO]: Getting metadata for requested ressource!
+[2025-04-09 12:17:02 INFO]: Receving block amount: 2
+[2025-04-09 12:17:02 INFO]: trying to send block file: 0/2
+[2025-04-09 12:17:02 INFO]: Sending block file: ac7df61df5c54ce696363b2a52dc2389
+[2025-04-09 12:17:02 INFO]: trying to send block file: 1/2
+[2025-04-09 12:17:02 INFO]: Sending block file: 0b369c33620745e993aa019233085a89
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-09 12:17:23 INFO]: Client connected and waiting for commands!
+[2025-04-09 12:17:23 WARNING]: Creating ressource from a ressource file which is not in the ressource directory! Is this intended?

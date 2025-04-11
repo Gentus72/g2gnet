@@ -1,0 +1,16 @@
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/Client.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/util/LoggingType.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/util/FilesRemote.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/Ressource.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/util/Logger.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/Server.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/ServerApp.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/RessourceBlock.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/RessourceFile.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/ServerFile.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/ClientFile.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/EmptyRessource.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/util/HashSum.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/ServerCommand.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/ClientApp.java
+/root/code/java/programmierbeleg/g2gnet/src/main/java/org/geooo/ClientHandler.java
