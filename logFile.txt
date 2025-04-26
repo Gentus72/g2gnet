@@ -503,3 +503,60 @@
 --------------------------------NEW APPLICATION START--------------------------------
 [2025-04-09 12:17:23 INFO]: Client connected and waiting for commands!
 [2025-04-09 12:17:23 WARNING]: Creating ressource from a ressource file which is not in the ressource directory! Is this intended?
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-24 15:08:14 WARNING]: Serverfile detected! Initializer-function will re-initialize it to be sure!
+[2025-04-24 15:08:15 INFO]: ServerSocket running on port 7000!
+[2025-04-24 15:08:25 INFO]: A client connected!
+[2025-04-24 15:08:25 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-24 15:08:25 INFO]: Client connected and waiting for commands!
+[2025-04-24 15:08:29 INFO]: Sending server information to client!
+[2025-04-24 15:08:29 INFO]: INFO sending server information!
+[2025-04-24 15:08:29 INFO]: Getting serverfile from server...
+[2025-04-24 15:08:29 INFO]: Received serverfile!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-24 15:09:24 ERROR]: Error while setting up client socket!
+[2025-04-24 15:09:24 ERROR]: Message / Cause: Connection refused
+[2025-04-24 15:09:24 ERROR]: Exception: java.net.ConnectException
+[2025-04-24 15:09:24 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-24 15:09:24 ERROR]: [java.base/sun.nio.ch.Net.connect0(Native Method), java.base/sun.nio.ch.Net.connect(Net.java:589), java.base/sun.nio.ch.Net.connect(Net.java:578), java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583), java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327), java.base/java.net.Socket.connect(Socket.java:760), java.base/java.net.Socket.connect(Socket.java:695), java.base/java.net.Socket.<init>(Socket.java:564), java.base/java.net.Socket.<init>(Socket.java:328), org.geooo.Client.<init>(Client.java:40), org.geooo.Client.main(Client.java:26)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-24 15:09:37 WARNING]: Serverfile detected! Initializer-function will re-initialize it to be sure!
+[2025-04-24 15:09:38 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-24 15:09:49 WARNING]: Serverfile detected! Initializer-function will re-initialize it to be sure!
+[2025-04-24 15:09:50 ERROR]: Error while setting up server socket!
+[2025-04-24 15:09:50 ERROR]: Message / Cause: Address already in use
+[2025-04-24 15:09:50 ERROR]: Exception: java.net.BindException
+[2025-04-24 15:09:50 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-24 15:09:50 ERROR]: [java.base/sun.nio.ch.Net.bind0(Native Method), java.base/sun.nio.ch.Net.bind(Net.java:565), java.base/sun.nio.ch.Net.bind(Net.java:554), java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:636), java.base/java.net.ServerSocket.bind(ServerSocket.java:389), java.base/java.net.ServerSocket.<init>(ServerSocket.java:276), java.base/java.net.ServerSocket.<init>(ServerSocket.java:170), org.geooo.Server.<init>(Server.java:25), org.geooo.Server.main(Server.java:17)]
+[2025-04-24 15:10:10 INFO]: A client connected!
+[2025-04-24 15:10:10 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-24 15:10:10 INFO]: Client connected and waiting for commands!
+[2025-04-24 15:10:14 INFO]: Sending server information to client!
+[2025-04-24 15:10:14 INFO]: INFO sending server information!
+[2025-04-24 15:10:14 INFO]: Getting serverfile from server...
+[2025-04-24 15:10:14 INFO]: title,
+[2025-04-24 15:10:14 INFO]: Received serverfile!
+[2025-04-24 15:11:03 ERROR]: Error while setting up client handler!
+[2025-04-24 15:11:03 ERROR]: Message / Cause: null
+[2025-04-24 15:11:03 ERROR]: Exception: java.io.EOFException
+[2025-04-24 15:11:03 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-24 15:11:03 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:34), org.geooo.Server.<init>(Server.java:32), org.geooo.Server.main(Server.java:17)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-24 15:12:11 WARNING]: No serverfile found, creating a new one! Is this the first start of this server?
+[2025-04-24 15:12:11 WARNING]: Serverfile detected! Initializer-function will re-initialize it to be sure!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-24 15:13:50 WARNING]: No serverfile found! Creating new server UUID!
+[2025-04-24 15:13:50 INFO]: New server UUID is: 23624d913568465b99972e7c024ddc19
+[2025-04-24 15:13:51 INFO]: ServerSocket running on port 7000!
+[2025-04-24 15:14:02 INFO]: A client connected!
+[2025-04-24 15:14:02 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-24 15:14:02 INFO]: Client connected and waiting for commands!
+[2025-04-24 15:14:06 INFO]: Sending server information to client!
+[2025-04-24 15:14:06 INFO]: INFO sending server information!
+[2025-04-24 15:14:06 INFO]: Getting serverfile from server...
+[2025-04-24 15:14:06 INFO]: 23624d913568465b99972e7c024ddc19
+[2025-04-24 15:14:06 INFO]: Received serverfile!

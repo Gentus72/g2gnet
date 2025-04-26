@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import org.geooo.util.Logger;
 
+// TODO add server ownership of ressources
 public class ClientFile {
 
     public static final String CLIENTFILE_NAME = "clientfile.g2gclient";
@@ -67,9 +69,9 @@ public class ClientFile {
                     getInstance().ressources.add(new EmptyRessource(values[1], values[0], values[4], Integer.parseInt(values[2])));
                 }
             }
-            } catch (IOException | NumberFormatException e) {
-                Logger.error("Error while parsing ressources to serverfile instance!");
-                Logger.exception(e);
-            }
+        } catch (IOException | NumberFormatException e) {
+            Logger.error("Error while parsing ressources to serverfile instance!");
+            Logger.exception(e);
         }
     }
+}

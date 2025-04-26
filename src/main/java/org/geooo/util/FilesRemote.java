@@ -54,6 +54,10 @@ public class FilesRemote {
         }
     }
 
+    /*
+     * Inspiriert von https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-socket-in-java/
+     * Letzter Zugriff: 28.03.2025, 12:21 Uhr
+     */
     public static void receiveFile(File file, DataInputStream inputStream) {
         try {
             int bytes = 0;

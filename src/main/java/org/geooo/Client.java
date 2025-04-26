@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.Socket;
@@ -56,7 +57,8 @@ public class Client {
                 switch (responseCommand) {
                     case INFO -> {
                         Logger.info("Getting serverfile from server...");
-                        FilesRemote.receiveFile("clientFile.g2gclient", inputStream);
+                        FilesRemote.receiveFile("tempServerfile.g2gsrv", inputStream);
+                        renameServerFileWithUUID(new File("tempServerfile.g2gsrv"));
                         Logger.info("Received serverfile!");
                     }
                     case GET -> {
@@ -108,6 +110,22 @@ public class Client {
         }
 
         return arguments;
+    }
+
+    private void renameServerFileWithUUID(File tempServerfile) {
+        try (BufferedReader fileReader = new BufferedReader(new FileReader(tempServerfile.getName()))) {
+            String uuidLine = fileReader.readLine();
+            String serverUUID = uuidLine.split(" ")[1];
+
+            // TODO check for already downloaded serverfiles
+            tempServerfile.renameTo(new File(serverUUID + ".g2gserver"));
+        } catch (FileNotFoundException e) {
+            Logger.error("Temporary serverfile not found!");
+            Logger.exception(e);
+        } catch (IOException e) {
+            Logger.error("Error while renaming temporary serverfile!");
+            Logger.exception(e);
+        }
     }
 
     private void readRessourceFile(File ressourceFile, HashMap<String, String> metadata, HashMap<String, String> blocksData) {

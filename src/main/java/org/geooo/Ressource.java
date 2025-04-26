@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
+
 import org.geooo.util.HashSum;
 import org.geooo.util.Logger;
 
-public final class Ressource extends EmptyRessource {
+public class Ressource extends EmptyRessource {
 
     public static final int BLOCK_SIZE = 16 * 1024 * 1024; // 16 MiB
     public static final String PARENT_DIRECTORY = "res/"; // directory for all ressources

@@ -10,6 +10,7 @@ import org.geooo.util.Logger;
 public class Server {
 
     public static final int SERVER_PORT = 7000;
+    public static String serverUUID = "";
     public ArrayList<Client> clients;
 
     public static void main(String[] args) {

@@ -1,34 +1,42 @@
 package org.geooo;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.geooo.util.Logger;
 
+/*
+ * Die Serverdatei hält alle wichtigen Metadaten über den Server und seine Ressourcen.
+ * Sie wird auf Anfrage dem Client übergeben.
+ */
 public class ServerFile {
 
     public static final String SERVERFILE_NAME = "serverfile.g2gsrv";
 
     private static ServerFile serverFile;
     private final File file;
+    private static String serverUUID;
 
     private ArrayList<EmptyRessource> ressources;
 
     public ServerFile(String filePath) {
         this.file = new File(filePath);
 
-        try {
-            if (file.createNewFile()) {
-                Logger.warn("No serverfile found, creating a new one! Is this the first start of this server?");
-            }
-        } catch (IOException e) {
-            Logger.error("Error while instantiating serverfile!");
-            Logger.exception(e);
-        }
+        // try {
+        //     if (file.createNewFile()) {
+        //         Logger.warn("No serverfile found, creating a new one! Is this the first start of this server?");
+        //     }
+        // } catch (IOException e) {
+        //     Logger.error("Error while instantiating serverfile!");
+        //     Logger.exception(e);
+        // }
     }
 
     public static ServerFile getInstance() {
@@ -48,8 +56,17 @@ public class ServerFile {
             if (!thisServerFile.createNewFile()) {
                 Logger.warn("Serverfile detected! Initializer-function will re-initialize it to be sure!");
 
+                try (BufferedReader fileReader = new BufferedReader(new FileReader(getInstance().file.getName()))) {
+                    String uuidLine = fileReader.readLine();
+                    serverUUID = uuidLine.split(" ")[1];
+                }
+
                 Files.delete(thisServerFile.toPath());
                 Files.createFile(thisServerFile.toPath());
+            } else {
+                Logger.warn("No serverfile found! Creating new server UUID!");
+                serverUUID = UUID.randomUUID().toString().replace("-", "");
+                Logger.info("New server UUID is: " + serverUUID);
             }
         } catch (IOException e) {
             Logger.error("Error while creating / detecting serverFile!");
@@ -59,6 +76,9 @@ public class ServerFile {
         try (BufferedWriter fileContent = new BufferedWriter(new FileWriter(getInstance().file.getName(), true))) {
             File ressourcesDirectory = new File(Ressource.PARENT_DIRECTORY);
             File[] ressources = ressourcesDirectory.listFiles(File::isDirectory);
+
+            // Server UUID hinzufügen
+            fileContent.append("ServerUUID: " + serverUUID + "\n");
 
             fileContent.append("UUID, title, blocksAmount, ressourceFile, hashSum:\n");
 
@@ -74,7 +94,7 @@ public class ServerFile {
                 }
             }
         } catch (IOException e) {
-            Logger.error("Error while writing to log File!");
+            Logger.error("Error while initializing serverfile!");
             Logger.exception(e);
             System.exit(1);
         }
