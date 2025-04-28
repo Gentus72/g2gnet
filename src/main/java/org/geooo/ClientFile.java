@@ -1,14 +1,18 @@
 package org.geooo;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.geooo.util.Logger;
 
-// TODO add server ownership of ressources
 public class ClientFile {
 
     public static final String CLIENTFILE_NAME = "clientfile.g2gclient";
@@ -17,6 +21,8 @@ public class ClientFile {
     private final File file;
 
     private ArrayList<EmptyRessource> ressources;
+    private ArrayList<ServerDTO> servers;
+    // Server: uuid, file, address
 
     public ClientFile(String filePath) {
         this.file = new File(filePath);
@@ -24,6 +30,10 @@ public class ClientFile {
         try {
             if (file.createNewFile()) {
                 Logger.warn("No clientfile found, creating a new one!");
+
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file))) {
+                    writer.append("serverUUID, address, serverfile");
+                }
             }
         } catch (IOException e) {
             Logger.error("Error while instantiating clientfile!");
@@ -46,27 +56,47 @@ public class ClientFile {
             }
 
             getInstance().ressources = new ArrayList<>();
+            getInstance().servers = new ArrayList<>();
 
-            try (BufferedReader reader = new BufferedReader(new FileReader(getInstance().file))) {
-                // erste Zeile lesen, da sie die "Überschrift" ist
-                reader.readLine();
+            // reload servers
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(getInstance().file))) {
+                List<Path> serverFilePaths = Files.list(Path.of(".")).filter((file) -> file.endsWith(".g2gsrv")).toList();
 
-                // Ressource-Informationen lesen
-                while (true) {
-                    String line = reader.readLine();
+                for (Path path : serverFilePaths) {
+                    File serverFile = new File(path.toString());
+                    ServerDTO server = new ServerDTO();
+                    server.setFile(serverFile);
 
-                    if (line == null) {
-                        break;
+                    try (BufferedReader reader = new BufferedReader(new FileReader(server.getFile()))) {
+                        String firstLine = reader.readLine();
+
+                        String[] values = firstLine.split(",");
+
+                        server.setUUID(values[0]);
+                        server.setAddress(values[1]);
                     }
 
-                    String[] values = line.split(",");
+                    getInstance().servers.add(server);
+                    writer.append(server.toString());
+                }
+            }
 
-                    if (values.length != 5) {
-                        Logger.error("Malformed clientfile! Mismatching number of arguments: " + values.length + " -> should be 5!");
+            for (ServerDTO server : getInstance().servers) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(server.getFile()))) {
+                    reader.readLine();
+                    reader.readLine();
+
+                    while (true) {
+                        String line = reader.readLine();
+
+                        if (line == null) {
+                            break;
+                        }
+
+                        String[] values = line.split(",");
+
+                        getInstance().ressources.add(new EmptyRessource(values[1], values[0], values[4], Integer.parseInt(values[2])));
                     }
-
-                    // new EmptyRessource with title, uuid, hashSum and blockAmount
-                    getInstance().ressources.add(new EmptyRessource(values[1], values[0], values[4], Integer.parseInt(values[2])));
                 }
             }
         } catch (IOException | NumberFormatException e) {
@@ -75,3 +105,6 @@ public class ClientFile {
         }
     }
 }
+
+// TODO add serverfile verification if server changes
+// TODO add removeServer

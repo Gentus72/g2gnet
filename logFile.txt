@@ -560,3 +560,55 @@
 [2025-04-24 15:14:06 INFO]: Getting serverfile from server...
 [2025-04-24 15:14:06 INFO]: 23624d913568465b99972e7c024ddc19
 [2025-04-24 15:14:06 INFO]: Received serverfile!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-28 16:32:55 WARNING]: Serverfile detected! Initializer-function will re-initialize it to be sure!
+[2025-04-28 16:32:56 INFO]: ServerSocket running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-28 16:33:03 WARNING]: No clientfile found, creating a new one!
+[2025-04-28 16:33:03 INFO]: A client connected!
+[2025-04-28 16:33:03 INFO]: Now handling 1 clients!
+[2025-04-28 16:33:03 INFO]: Client connected and waiting for commands!
+[2025-04-28 16:33:15 INFO]: Sending server information to client!
+[2025-04-28 16:33:15 INFO]: INFO sending server information!
+[2025-04-28 16:33:15 INFO]: Getting serverfile from server...
+[2025-04-28 16:33:15 INFO]: Received serverfile!
+[2025-04-28 16:33:50 ERROR]: Error while setting up client handler!
+[2025-04-28 16:33:50 ERROR]: Message / Cause: null
+[2025-04-28 16:33:50 ERROR]: Exception: java.io.EOFException
+[2025-04-28 16:33:50 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-28 16:33:50 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:34), org.geooo.Server.<init>(Server.java:32), org.geooo.Server.main(Server.java:17)]
+[2025-04-28 16:33:51 INFO]: A client connected!
+[2025-04-28 16:33:51 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-28 16:33:51 INFO]: Client connected and waiting for commands!
+[2025-04-28 16:33:59 INFO]: Sending server information to client!
+[2025-04-28 16:33:59 INFO]: INFO sending server information!
+[2025-04-28 16:33:59 INFO]: Getting serverfile from server...
+[2025-04-28 16:33:59 INFO]: Received serverfile!
+[2025-04-28 16:35:10 ERROR]: Error while setting up client handler!
+[2025-04-28 16:35:10 ERROR]: Message / Cause: null
+[2025-04-28 16:35:10 ERROR]: Exception: java.io.EOFException
+[2025-04-28 16:35:10 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-28 16:35:10 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:34), org.geooo.Server.<init>(Server.java:32), org.geooo.Server.main(Server.java:17)]
+[2025-04-28 16:36:08 INFO]: A client connected!
+[2025-04-28 16:36:08 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-28 16:36:08 INFO]: Client connected and waiting for commands!
+[2025-04-28 16:36:15 INFO]: Sending server information to client!
+[2025-04-28 16:36:15 INFO]: INFO sending server information!
+[2025-04-28 16:36:15 INFO]: Getting serverfile from server...
+[2025-04-28 16:36:15 INFO]: Received serverfile!
+[2025-04-28 16:37:51 ERROR]: Error while setting up client handler!
+[2025-04-28 16:37:51 ERROR]: Message / Cause: null
+[2025-04-28 16:37:51 ERROR]: Exception: java.io.EOFException
+[2025-04-28 16:37:51 ERROR]: ----------------------Full stack trace----------------------
+[2025-04-28 16:37:51 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:34), org.geooo.Server.<init>(Server.java:32), org.geooo.Server.main(Server.java:17)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-04-28 16:38:01 WARNING]: No clientfile found, creating a new one!
+[2025-04-28 16:38:01 INFO]: A client connected!
+[2025-04-28 16:38:01 INFO]: Now handling 1 clients!
+[2025-04-28 16:38:01 INFO]: Client connected and waiting for commands!
+[2025-04-28 16:38:06 INFO]: Sending server information to client!
+[2025-04-28 16:38:06 INFO]: INFO sending server information!
+[2025-04-28 16:38:06 INFO]: Getting serverfile from server...
+[2025-04-28 16:38:06 INFO]: Received serverfile!

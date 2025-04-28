@@ -12,6 +12,8 @@ import java.util.UUID;
 
 import org.geooo.util.Logger;
 
+// TODO add address to file
+
 /*
  * Die Serverdatei hält alle wichtigen Metadaten über den Server und seine Ressourcen.
  * Sie wird auf Anfrage dem Client übergeben.

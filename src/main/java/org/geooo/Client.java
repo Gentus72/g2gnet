@@ -36,6 +36,8 @@ public class Client {
     }
 
     public Client(String hostAddress, int hostPort) {
+        ClientFile.reloadRessources();
+
         try {
             this.socket = new Socket(hostAddress, hostPort);
             this.outputStream = new DataOutputStream(this.socket.getOutputStream());
@@ -57,8 +59,11 @@ public class Client {
                 switch (responseCommand) {
                     case INFO -> {
                         Logger.info("Getting serverfile from server...");
+
                         FilesRemote.receiveFile("tempServerfile.g2gsrv", inputStream);
-                        renameServerFileWithUUID(new File("tempServerfile.g2gsrv"));
+                        String uuid = renameServerFileWithUUID(new File("tempServerfile.g2gsrv"));
+                        ClientFile.reloadRessources();
+
                         Logger.info("Received serverfile!");
                     }
                     case GET -> {
@@ -112,13 +117,15 @@ public class Client {
         return arguments;
     }
 
-    private void renameServerFileWithUUID(File tempServerfile) {
+    private String renameServerFileWithUUID(File tempServerfile) {
         try (BufferedReader fileReader = new BufferedReader(new FileReader(tempServerfile.getName()))) {
             String uuidLine = fileReader.readLine();
             String serverUUID = uuidLine.split(" ")[1];
 
             // TODO check for already downloaded serverfiles
             tempServerfile.renameTo(new File(serverUUID + ".g2gserver"));
+
+            return serverUUID;
         } catch (FileNotFoundException e) {
             Logger.error("Temporary serverfile not found!");
             Logger.exception(e);
@@ -126,6 +133,8 @@ public class Client {
             Logger.error("Error while renaming temporary serverfile!");
             Logger.exception(e);
         }
+
+        return "";
     }
 
     private void readRessourceFile(File ressourceFile, HashMap<String, String> metadata, HashMap<String, String> blocksData) {
