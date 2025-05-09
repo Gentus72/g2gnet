@@ -1,5 +1,6 @@
 package org.geooo;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,6 +20,8 @@ public class Server {
 
     public Server() {
         ServerFile.initializeServerFile();
+
+        Ressource res1 = new Ressource(new File("res/test.jpg"), "test_ressource");
 
         clients = new ArrayList<>();
 

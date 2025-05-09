@@ -50,7 +50,7 @@ public class RessourceTest {
     @Test
     public void testReassembly() {
         File temporaryDestinationFile = new File("res/reassembled.jpg");
-        ressource = new Ressource(new File("res/test_ressource", "ressourceFile.g2g"));
+        ressource = new Ressource(new File("res/b5cb5724fcf5420aa07fe2a948ec11d3", "ressourceFile.g2g"));
 
         ressource.assembleSourceFile(temporaryDestinationFile);
 

@@ -14,8 +14,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>23</maven.compiler.source>
-        <maven.compiler.target>23</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -90,7 +90,7 @@
                             <!-- Usage: mvn clean javafx:run -->
                             <id>default-cli</id>
                             <configuration>
-                                <mainClass>org.geooo.ClientApp</mainClass>
+                                <mainClass>org.geooo.gui.FXTest</mainClass>
                             </configuration>
                         </execution>
                     </executions>

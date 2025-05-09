@@ -1,0 +1,9 @@
+sourceFile: test.jpg
+title: test_ressource
+uuid: b5cb5724fcf5420aa07fe2a948ec11d3
+scope: public
+totalHashSum: 98e4c860a44c648a4d1cc6f6d33a96b6778d609e6c71f5f6049872da1c493c34
+total_blocks: 2
+blocks (uuid, hash):
+4e09bd91091f4aa4b84562b8ac64c5ba,869471ec262ac446ba66d7b13a58da2e890f0e1ac4edbc5b1050cfb08aa68f7b
+09572d22607a40f4889543f531f446bc,afde7e0e4d57d26bbcd4738bd490918dd2199038c9f668ebf2d30a8896368cf3
