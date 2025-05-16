@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HexFormat;
 
-public class HashSum {
+public abstract class HashSum {
     public static String fromBytes(byte[] data) {
         String hashSum = "";
 

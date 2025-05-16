@@ -1,11 +1,18 @@
 package org.geooo.gui;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import javax.swing.text.Position;
+
+import org.geooo.ServerDTO;
+import org.geooo.ServerNetwork;
+import org.geooo.util.Logger;
 
 import javafx.application.Application;
 import javafx.beans.InvalidationListener;
@@ -27,6 +34,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FXTest extends Application {
+    public static ServerNetwork connectedNetwork;
+
     @Override
     public void start(Stage primaryStage) {
         HBox topSearchBox = new HBox();
@@ -41,9 +50,18 @@ public class FXTest extends Application {
         Text currentConnectionTitle = new Text("conn lol");
         currentConnection.getChildren().add(currentConnectionTitle);
 
-        ChoiceBox<Text> choiceBox = new ChoiceBox<Text>();
-        ObservableList<Text> items = javafx.collections.FXCollections.observableArrayList();
-        choiceBox.setItems(items);
+        ChoiceBox<ServerDTO> choiceBox = new ChoiceBox<ServerDTO>();
+        choiceBox.getItems().add(new ServerDTO("1", "1.1.1.1", new File("")));
+        choiceBox.getItems().add(new ServerDTO("3", "2.2.2.2", new File("")));
+        choiceBox.getItems().add(new ServerDTO("4", "3.3.3.3", new File("")));
+
+        choiceBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                Logger.info("New Server chosen: " + choiceBox.getValue());
+            }
+
+        });
 
         TextField searchField = new TextField();
         searchField.setMinWidth(500);
@@ -52,19 +70,45 @@ public class FXTest extends Application {
 
         topSearchBox.getChildren().addAll(choiceBox, searchField, searchButton);
 
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
+        // Button btn = new Button();
+        // btn.setText("Say 'Hello World'");
+        // btn.setOnAction(new EventHandler<ActionEvent>() {
+        // @Override
+        // public void handle(ActionEvent event) {
+        // System.out.println("Hello World!");
+        // }
+        // });
 
         VBox root = new VBox();
         root.setAlignment(Pos.TOP_CENTER);
         root.getChildren().add(topSearchBox);
-        root.getChildren().add(btn);
+
+        VBox serverChoice = new VBox();
+        serverChoice.setMinWidth(300);
+        serverChoice.setMinHeight(1000);
+        serverChoice.setBackground(new Background(new BackgroundFill(new Color(0.8, 0.8, 0.8, 1), null, null)));
+
+        HBox content = new HBox();
+        content.getChildren().add(serverChoice);
+        root.getChildren().add(content);
+
+        ArrayList<ServerDTO> servers = new ArrayList<>();
+        servers.add(new ServerDTO("1", "1.1.1.1", new File("")));
+        servers.add(new ServerDTO("2", "2.2.2.2", new File("")));
+        servers.add(new ServerDTO("3", "3.3.3.3", new File("")));
+
+        for (ServerDTO server : servers) {
+            Button serverButton = new Button();
+            serverButton.setText(server.getAddress());
+            serverButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    System.out.println(server.getUUID());
+                }
+            });
+
+            serverChoice.getChildren().add(serverButton);
+        }
 
         Scene scene = new Scene(root, 1100, 720);
 

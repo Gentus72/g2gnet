@@ -661,3 +661,19 @@
 [2025-05-09 15:58:58 INFO]: 2 blocks generated!
 [2025-05-09 15:58:58 INFO]: Initiating ressource file!
 [2025-05-09 15:58:58 INFO]: Ressource file initialized!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-12 16:19:15 INFO]: New Server chosen: javafx.event.ActionEvent[source=ChoiceBox@3128a7f1[styleClass=choice-box]]
+[2025-05-12 16:19:24 INFO]: New Server chosen: javafx.event.ActionEvent[source=ChoiceBox@3128a7f1[styleClass=choice-box]]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-12 16:20:01 INFO]: New Server chosen: Server 2
+[2025-05-12 16:20:04 INFO]: New Server chosen: Server 3
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-12 16:30:03 INFO]: New Server chosen: Server 2
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-16 12:24:00 INFO]: Generating Ressource with title: Test
+[2025-05-16 12:24:00 INFO]: UUID of Ressource is: ccdf6b08b147423d90d09338b77b3efe
+[2025-05-16 12:24:00 INFO]: Creating ressource from source with 17136603 bytes!
+[2025-05-16 12:24:00 INFO]: Generating 2 blocks!
+[2025-05-16 12:24:00 INFO]: 2 blocks generated!
+[2025-05-16 12:24:00 INFO]: Initiating ressource file!
+[2025-05-16 12:24:00 INFO]: Ressource file initialized!

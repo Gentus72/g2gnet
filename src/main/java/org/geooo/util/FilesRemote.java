@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class FilesRemote {
+public abstract class FilesRemote {
 
     /*
      * Inspiriert von https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-socket-in-java/

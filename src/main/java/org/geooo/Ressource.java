@@ -65,7 +65,7 @@ public class Ressource extends EmptyRessource {
 
                 newBlock.setData(Arrays.copyOfRange(allDataBytes, i * BLOCK_SIZE, Math.min((i + 1) * BLOCK_SIZE, allDataBytes.length)));
                 newBlock.setHashSum(HashSum.fromBytes(newBlock.getData()));
-                newBlock.writeToFile();
+                saveBlockHelper(newBlock);
 
                 ressourceBlocks.add(newBlock);
             }
@@ -81,6 +81,10 @@ public class Ressource extends EmptyRessource {
 
         // move sourceFile to ressourceDirectory
         this.sourceFile.renameTo(new File(PARENT_DIRECTORY + this.uuid, this.sourceFile.getName()));
+    }
+
+    private void saveBlockHelper(RessourceBlock block) {
+        block.writeToFile();
     }
 
     /*
