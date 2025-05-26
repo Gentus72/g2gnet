@@ -6,8 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -20,10 +19,9 @@ public class Ressource extends RessourceDTO {
     public static final int BLOCK_SIZE = 16 * 1024 * 1024; // 16 MiB
     public static final String PARENT_DIRECTORY = "res/"; // directory for all ressources
 
-    private String uuid;
     private File sourceFile;
-    private RessourceDistributionStrategy distributionStrategy = RessourceDistributionStrategy.EVEN_DISTRIBUTION; // TODO implement
-    private ArrayList<RessourceBlock> ressourceBlocks; // block amount equals ressourceBlocks.length
+    private RessourceDistributionStrategy distributionStrategy; // TODO implement
+    private RessourceBlock[] ressourceBlocks; // block amount equals ressourceBlocks.length
 
     /*
      * Mit diesem Konstruktor wird ein Ordner der Ressource mit Ressource-Blöcken und der Ressource-Datei erstellt.
@@ -46,35 +44,35 @@ public class Ressource extends RessourceDTO {
         new File(PARENT_DIRECTORY + this.uuid).mkdir();
 
         try {
-            // TODO maybe not load everything into memory
-            byte[] allDataBytes = Files.readAllBytes(this.sourceFile.toPath());
-            Logger.info("Creating ressource from source with " + allDataBytes.length + " bytes!");
-            int ressourceBlockAmount = (int) Math.ceil((double) allDataBytes.length / BLOCK_SIZE);
+            long sourceFileBytesAmount = Files.size(Path.of(sourceFile.getPath()));
+            Logger.info("Creating ressource from source with " + sourceFileBytesAmount + " bytes!");
 
             this.totalHashSum = HashSum.fromFile(sourceFile);
-            this.blockAmount = ressourceBlockAmount;
+            this.blockAmount = (int) Math.ceil((double) sourceFileBytesAmount / BLOCK_SIZE);
 
-            this.ressourceBlocks = new ArrayList<>();
+            this.ressourceBlocks = new RessourceBlock[this.blockAmount];
 
             if (blockAmount == 0) {
                 Logger.error("Block amount is zero while creating ressource! This cannot be intended!");
             }
 
             // Blöcke erstellen
-            Logger.info("Generating " + ressourceBlockAmount + " blocks!");
-            for (int i = 0; i < ressourceBlockAmount; i++) {
+            Logger.info("Generating " + this.blockAmount + " blocks!");
+
+            for (int i = 0; i < this.blockAmount; i++) {
                 String blockUUID = UUID.randomUUID().toString().replace("-", "");
 
                 RessourceBlock newBlock = new RessourceBlock(blockUUID, PARENT_DIRECTORY + this.uuid);
 
-                newBlock.setData(Arrays.copyOfRange(allDataBytes, i * BLOCK_SIZE, Math.min((i + 1) * BLOCK_SIZE, allDataBytes.length)));
+
+                
                 newBlock.setHashSum(HashSum.fromBytes(newBlock.getData()));
                 newBlock.writeToFile();
 
-                ressourceBlocks.add(newBlock);
+                ressourceBlocks[i] = newBlock;
             }
 
-            Logger.info(ressourceBlockAmount + " blocks generated!");
+            Logger.info(this.blockAmount + " blocks generated!");
 
             new RessourceFile(this);
             ServerFile.reloadRessources();
@@ -109,9 +107,10 @@ public class Ressource extends RessourceDTO {
             }
 
             this.sourceFile = new File(values.get("sourceFile"));
-            this.ressourceBlocks = new ArrayList<>();
+            this.blockAmount = Integer.parseInt(values.get("total_blocks"));
+            this.ressourceBlocks = new RessourceBlock[this.blockAmount];
 
-            while (true) {
+            for (int i = 0; i < this.blockAmount; i++) {
                 String line = reader.readLine();
 
                 if (line == null) {
@@ -131,12 +130,7 @@ public class Ressource extends RessourceDTO {
                     Logger.error("Ressource block hashsum doesn't match hashsum from ressource file. BlockUUID: " + newBlock.getUUID());
                 }
 
-                ressourceBlocks.add(newBlock);
-            }
-
-            if (this.blockAmount != ressourceBlocks.size()) {
-                Logger.error("Ressource block amount and actual size of block list dont match!");
-                Logger.error("blockAmount = " + this.blockAmount + ", ressourceBlocks.size = " + this.ressourceBlocks.size());
+                ressourceBlocks[i] = newBlock;
             }
         } catch (IOException e) {
             Logger.error("Error while parsing existing G2GFile to Ressource object!");
@@ -161,15 +155,11 @@ public class Ressource extends RessourceDTO {
         }
     }
 
-    public String getUUID() {
-        return this.uuid;
-    }
-
     public File getSourceFile() {
         return sourceFile;
     }
 
-    public ArrayList<RessourceBlock> getRessourceBlocks() {
+    public RessourceBlock[] getRessourceBlocks() {
         return this.ressourceBlocks;
     }
 
