@@ -1,4 +1,4 @@
-package org.geooo;
+package org.geooo.dto;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,37 +7,39 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
+
+import org.geooo.Ressource;
 import org.geooo.util.Logger;
 
-public class EmptyRessource {
+public class RessourceDTO {
 
     public String title;
     public String uuid;
     public String totalHashSum; // hash sum of the whole uploaded file
     public int blockAmount;
 
-    public EmptyRessource() {
+    public RessourceDTO() {
         // do nothing;
     }
 
-    public EmptyRessource(String title) {
+    public RessourceDTO(String title) {
         this.title = title;
     }
 
-    public EmptyRessource(String title, String uuid, String totalHashSum) {
+    public RessourceDTO(String title, String uuid, String totalHashSum) {
         this.title = title;
         this.uuid = uuid;
         this.totalHashSum = totalHashSum;
     }
 
-    public EmptyRessource(String title, String uuid, String totalHashSum, int blockAmount) {
+    public RessourceDTO(String title, String uuid, String totalHashSum, int blockAmount) {
         this.title = title;
         this.uuid = uuid;
         this.totalHashSum = totalHashSum;
         this.blockAmount = blockAmount;
     }
 
-    public EmptyRessource(File G2GFile) {
+    public RessourceDTO(File G2GFile) {
         String g2gFilePath = G2GFile.getPath();
 
         // ist die Ressource-Datei nicht im Ressource-Ordner

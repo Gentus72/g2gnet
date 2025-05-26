@@ -11,28 +11,32 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.geooo.dto.RessourceDTO;
 import org.geooo.util.HashSum;
 import org.geooo.util.Logger;
 
-public class Ressource extends EmptyRessource {
+public class Ressource extends RessourceDTO {
 
     public static final int BLOCK_SIZE = 16 * 1024 * 1024; // 16 MiB
     public static final String PARENT_DIRECTORY = "res/"; // directory for all ressources
 
-    private ArrayList<RessourceBlock> ressourceBlocks; // block amount equals ressourceBlocks.length
+    private String uuid;
     private File sourceFile;
+    private RessourceDistributionStrategy distributionStrategy = RessourceDistributionStrategy.EVEN_DISTRIBUTION; // TODO implement
+    private ArrayList<RessourceBlock> ressourceBlocks; // block amount equals ressourceBlocks.length
 
     /*
      * Mit diesem Konstruktor wird ein Ordner der Ressource mit Ressource-Blöcken und der Ressource-Datei erstellt.
      * Die Blöcke enthalten Teile der Datei.
      * Die Ressource-Datei enthält wichtige Metadaten, die auf Anfrage an den Client übergeben werden.
      */
-    public Ressource(File sourceFile, String title) {
+    public Ressource(File sourceFile, String title, RessourceDistributionStrategy distributionStrategy) {
         super(title);
 
         Logger.info("Generating Ressource with title: " + title);
 
         this.sourceFile = sourceFile;
+        this.distributionStrategy = distributionStrategy;
 
         // UUID generieren
         this.uuid = UUID.randomUUID().toString().replace("-", ""); // dash-less uuid
@@ -65,7 +69,7 @@ public class Ressource extends EmptyRessource {
 
                 newBlock.setData(Arrays.copyOfRange(allDataBytes, i * BLOCK_SIZE, Math.min((i + 1) * BLOCK_SIZE, allDataBytes.length)));
                 newBlock.setHashSum(HashSum.fromBytes(newBlock.getData()));
-                saveBlockHelper(newBlock);
+                newBlock.writeToFile();
 
                 ressourceBlocks.add(newBlock);
             }
@@ -81,10 +85,6 @@ public class Ressource extends EmptyRessource {
 
         // move sourceFile to ressourceDirectory
         this.sourceFile.renameTo(new File(PARENT_DIRECTORY + this.uuid, this.sourceFile.getName()));
-    }
-
-    private void saveBlockHelper(RessourceBlock block) {
-        block.writeToFile();
     }
 
     /*
@@ -161,9 +161,10 @@ public class Ressource extends EmptyRessource {
         }
     }
 
-    /**
-     * @return File return the sourceFile
-     */
+    public String getUUID() {
+        return this.uuid;
+    }
+
     public File getSourceFile() {
         return sourceFile;
     }

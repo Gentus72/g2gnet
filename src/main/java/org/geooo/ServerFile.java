@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import org.geooo.dto.RessourceDTO;
 import org.geooo.util.Logger;
 
 // TODO add address to file
@@ -26,7 +27,7 @@ public class ServerFile {
     private final File file;
     private static String serverUUID;
 
-    private ArrayList<EmptyRessource> ressources;
+    private ArrayList<RessourceDTO> ressources;
 
     public ServerFile(String filePath) {
         this.file = new File(filePath);
@@ -87,7 +88,7 @@ public class ServerFile {
             for (File ressourceDirectory : ressources) {
                 try {
                     File ressourceFile = new File(ressourceDirectory.toPath().toString(), "ressourceFile.g2g");
-                    EmptyRessource ressource = new Ressource(ressourceFile);
+                    RessourceDTO ressource = new Ressource(ressourceFile);
 
                     fileContent.append(ressource.getUUID() + "," + ressource.getTitle() + "," + ressource.getBlockAmount() + "," + ressourceFile.toPath().toString() + "," + ressource.getTotalHashSum() + "\n");
                 } catch (IOException e) {
@@ -116,7 +117,7 @@ public class ServerFile {
             for (File ressourceDirectory : ressourceDirectories) {
                 File ressourceFile = new File(ressourceDirectory.toPath().toString(), "ressourceFile.g2g");
 
-                getInstance().ressources.add(new EmptyRessource(ressourceFile));
+                getInstance().ressources.add(new RessourceDTO(ressourceFile));
             }
         } catch (Exception e) {
             Logger.error("Error while parsing ressources to serverfile instance!");
@@ -129,7 +130,7 @@ public class ServerFile {
     }
 
     public static boolean doesRessourceExist(String uuid) {
-        for (EmptyRessource ressource : getInstance().ressources) {
+        for (RessourceDTO ressource : getInstance().ressources) {
             if (ressource.getUUID().equals(uuid)) {
                 return true;
             }
@@ -138,10 +139,10 @@ public class ServerFile {
         return false;
     }
 
-    public static EmptyRessource getEmptyRessource(String uuid) {
+    public static RessourceDTO getEmptyRessource(String uuid) {
         // assumes doesRessourceExist has been called successfully
 
-        for (EmptyRessource ressource : getInstance().ressources) {
+        for (RessourceDTO ressource : getInstance().ressources) {
             if (ressource.uuid.equals(uuid)) {
                 return ressource;
             }

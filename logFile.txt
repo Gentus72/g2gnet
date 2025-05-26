@@ -677,3 +677,35 @@
 [2025-05-16 12:24:00 INFO]: 2 blocks generated!
 [2025-05-16 12:24:00 INFO]: Initiating ressource file!
 [2025-05-16 12:24:00 INFO]: Ressource file initialized!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-22 15:47:13 INFO]: Generating Ressource with title: Test
+[2025-05-22 15:47:13 INFO]: UUID of Ressource is: e30bab73bcca486b9daf387745aaf7f8
+[2025-05-22 15:47:13 INFO]: Creating ressource from source with 17136603 bytes!
+[2025-05-22 15:47:13 INFO]: Generating 2 blocks!
+[2025-05-22 15:47:13 INFO]: 2 blocks generated!
+[2025-05-22 15:47:13 INFO]: Initiating ressource file!
+[2025-05-22 15:47:13 INFO]: Ressource file initialized!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-22 15:49:34 INFO]: Generating Ressource with title: Test
+[2025-05-22 15:49:34 INFO]: UUID of Ressource is: e5526e34b8b1450bb8667efdbbb2bd75
+[2025-05-22 15:49:34 INFO]: Creating ressource from source with 17136603 bytes!
+[2025-05-22 15:49:34 INFO]: Generating 2 blocks!
+[2025-05-22 15:49:34 INFO]: 2 blocks generated!
+[2025-05-22 15:49:34 INFO]: Initiating ressource file!
+[2025-05-22 15:49:34 INFO]: Ressource file initialized!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-22 15:51:03 INFO]: Generating Ressource with title: Test
+[2025-05-22 15:51:03 INFO]: UUID of Ressource is: 4713e4b5adcd42158803eabe0ba4bae0
+[2025-05-22 15:51:03 INFO]: Creating ressource from source with 17136603 bytes!
+[2025-05-22 15:51:03 INFO]: Generating 2 blocks!
+[2025-05-22 15:51:03 INFO]: 2 blocks generated!
+[2025-05-22 15:51:03 INFO]: Initiating ressource file!
+[2025-05-22 15:51:03 INFO]: Ressource file initialized!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-22 15:57:36 INFO]: Generating Ressource with title: Test
+[2025-05-22 15:57:36 INFO]: UUID of Ressource is: bf348966565d451ea806f116599ff398
+[2025-05-22 15:57:36 INFO]: Creating ressource from source with 17136603 bytes!
+[2025-05-22 15:57:36 INFO]: Generating 2 blocks!
+[2025-05-22 15:57:36 INFO]: 2 blocks generated!
+[2025-05-22 15:57:36 INFO]: Initiating ressource file!
+[2025-05-22 15:57:36 INFO]: Ressource file initialized!

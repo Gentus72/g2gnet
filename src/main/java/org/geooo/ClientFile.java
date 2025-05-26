@@ -11,6 +11,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.geooo.dto.RessourceDTO;
+import org.geooo.dto.ServerDTO;
 import org.geooo.util.Logger;
 
 public class ClientFile {
@@ -20,7 +22,7 @@ public class ClientFile {
     private static ClientFile clientFile;
     private final File file;
 
-    private ArrayList<EmptyRessource> ressources;
+    private ArrayList<RessourceDTO> ressources;
     private ArrayList<ServerDTO> servers;
     // Server: uuid, file, address
 
@@ -95,7 +97,7 @@ public class ClientFile {
 
                         String[] values = line.split(",");
 
-                        getInstance().ressources.add(new EmptyRessource(values[1], values[0], values[4], Integer.parseInt(values[2])));
+                        getInstance().ressources.add(new RessourceDTO(values[1], values[0], values[4], Integer.parseInt(values[2])));
                     }
                 }
             }

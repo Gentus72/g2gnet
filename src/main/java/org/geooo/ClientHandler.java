@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.nio.file.Files;
 
+import org.geooo.dto.RessourceDTO;
 import org.geooo.util.FilesRemote;
 import org.geooo.util.Logger;
 
@@ -55,7 +56,7 @@ public class ClientHandler extends Thread {
                             outputStream.writeUTF("ERROR invalid uuid!");
                         }
 
-                        EmptyRessource ressource = ServerFile.getEmptyRessource(requestedUUID);
+                        RessourceDTO ressource = ServerFile.getEmptyRessource(requestedUUID);
 
                         if (ressource == null) {
                             Logger.error("Received GET command but couldnt find ressource! uuid: " + requestedUUID);

@@ -2,22 +2,11 @@ package org.geooo.gui;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.concurrent.ArrayBlockingQueue;
 
-import javax.swing.text.Position;
-
-import org.geooo.ServerDTO;
-import org.geooo.ServerNetwork;
+import org.geooo.dto.ServerDTO;
 import org.geooo.util.Logger;
 
 import javafx.application.Application;
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -34,7 +23,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FXTest extends Application {
-    public static ServerNetwork connectedNetwork;
 
     @Override
     public void start(Stage primaryStage) {
@@ -60,7 +48,6 @@ public class FXTest extends Application {
             public void handle(ActionEvent arg0) {
                 Logger.info("New Server chosen: " + choiceBox.getValue());
             }
-
         });
 
         TextField searchField = new TextField();

@@ -1,4 +1,4 @@
-package org.geooo;
+package org.geooo.dto;
 
 import java.io.File;
 
