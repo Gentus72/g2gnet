@@ -1,11 +1,10 @@
 package org.geooo;
 
 public enum ServerCommand {
-    INFO,
     PING,
+    INFO,
     GET,
+    GETBLOCK,
     PUT,
-    CLOSE,
-    HELP,
-    ERROR;
+    CLOSE;
 }

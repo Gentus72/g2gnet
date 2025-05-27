@@ -12,27 +12,19 @@ public class Server extends ServerDTO {
 
     public static final int SERVER_PORT = 7000;
 
-    private static Server serverInstance;
     public ArrayList<Client> clients;
+    public CCServer ccServer;
 
     public static void main(String[] args) {
+        new Server();
+    }
+
+    public Server() {
         startServer();
     }
 
-    public static Server getInstance() {
-        if (serverInstance == null) {
-            return new Server();
-        }
-
-        return serverInstance;
-    }
-
-    public static void startServer() {
-        ServerFile.initializeServerFile();
-
-        // Ressource res1 = new Ressource(new File("res/test.jpg"), "test_ressource");
-
-        getInstance().clients = new ArrayList<>();
+    public void startServer() {
+        this.clients = new ArrayList<>();
 
         try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT)) {
             Logger.info("Server running on port " + SERVER_PORT + "!");
@@ -40,8 +32,8 @@ public class Server extends ServerDTO {
             while (true) {
                 Socket newServerSocket = serverSocket.accept();
 
-                ClientHandler newClientHandler = new ClientHandler(newServerSocket, getInstance());
-                newClientHandler.run();
+                ClientHandler newClientHandler = new ClientHandler(newServerSocket, this);
+                newClientHandler.start();
             }
         } catch (IOException e) {
             Logger.error("Error while setting up server socket!");

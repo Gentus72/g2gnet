@@ -110,4 +110,8 @@ public class RessourceDTO {
 
         return new File(ressourceFilePath);
     }
+
+    public int getSizeMiB(){
+        return (int) (this.blockAmount * Ressource.BLOCK_SIZE) / (1024 * 1024);
+    }
 }

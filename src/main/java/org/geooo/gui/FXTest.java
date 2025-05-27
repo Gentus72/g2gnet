@@ -1,6 +1,5 @@
 package org.geooo.gui;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import org.geooo.dto.ServerDTO;
@@ -39,9 +38,9 @@ public class FXTest extends Application {
         currentConnection.getChildren().add(currentConnectionTitle);
 
         ChoiceBox<ServerDTO> choiceBox = new ChoiceBox<ServerDTO>();
-        choiceBox.getItems().add(new ServerDTO("1", "1.1.1.1", new File("")));
-        choiceBox.getItems().add(new ServerDTO("3", "2.2.2.2", new File("")));
-        choiceBox.getItems().add(new ServerDTO("4", "3.3.3.3", new File("")));
+        choiceBox.getItems().add(new ServerDTO("1", "1.1.1.1"));
+        choiceBox.getItems().add(new ServerDTO("3", "2.2.2.2"));
+        choiceBox.getItems().add(new ServerDTO("4", "3.3.3.3"));
 
         choiceBox.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -80,9 +79,9 @@ public class FXTest extends Application {
         root.getChildren().add(content);
 
         ArrayList<ServerDTO> servers = new ArrayList<>();
-        servers.add(new ServerDTO("1", "1.1.1.1", new File("")));
-        servers.add(new ServerDTO("2", "2.2.2.2", new File("")));
-        servers.add(new ServerDTO("3", "3.3.3.3", new File("")));
+        choiceBox.getItems().add(new ServerDTO("1", "1.1.1.1"));
+        choiceBox.getItems().add(new ServerDTO("3", "2.2.2.2"));
+        choiceBox.getItems().add(new ServerDTO("4", "3.3.3.3"));
 
         for (ServerDTO server : servers) {
             Button serverButton = new Button();

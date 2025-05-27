@@ -1,9 +1,7 @@
 package org.geooo;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -67,38 +65,9 @@ public class ClientFile {
                 for (Path path : serverFilePaths) {
                     File serverFile = new File(path.toString());
                     ServerDTO server = new ServerDTO();
-                    server.setFile(serverFile);
-
-                    try (BufferedReader reader = new BufferedReader(new FileReader(server.getFile()))) {
-                        String firstLine = reader.readLine();
-
-                        String[] values = firstLine.split(",");
-
-                        server.setUUID(values[0]);
-                        server.setAddress(values[1]);
-                    }
 
                     getInstance().servers.add(server);
                     writer.append(server.toString());
-                }
-            }
-
-            for (ServerDTO server : getInstance().servers) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(server.getFile()))) {
-                    reader.readLine();
-                    reader.readLine();
-
-                    while (true) {
-                        String line = reader.readLine();
-
-                        if (line == null) {
-                            break;
-                        }
-
-                        String[] values = line.split(",");
-
-                        getInstance().ressources.add(new RessourceDTO(values[1], values[0], values[4], Integer.parseInt(values[2])));
-                    }
                 }
             }
         } catch (IOException | NumberFormatException e) {

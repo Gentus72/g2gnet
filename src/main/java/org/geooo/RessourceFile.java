@@ -4,42 +4,34 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import org.geooo.util.Logger;
 
-public class RessourceFile {
+public abstract class RessourceFile {
+    public static File file;
 
-    /*
-     * Erstellen der Ressource-Datei mit wichtigen Metadaten für den Client
-     */
-    public RessourceFile(Ressource ressource) {
-        Logger.info("Initiating ressource file!");
+    public static void writeToFile(Ressource ressource) {
+        file = new File(ressource.getUUID() + ".g2g");
 
-        String[] content = new String[]{
-            "sourceFile: " + ressource.getSourceFile().getName(),
-            "title: " + ressource.getTitle(),
-            "uuid: " + ressource.getUUID(),
-            "scope: public", // change when signatures are introduced
-            "totalHashSum: " + ressource.getTotalHashSum(),
-            "total_blocks: " + ressource.getBlockAmount(),
-            "blocks (uuid, hash):", // blocks
-        };
-
-        File ressourceFile = new File(Ressource.PARENT_DIRECTORY + ressource.getUUID(), "ressourceFile.g2g");
-
-        try (BufferedWriter fileContent = new BufferedWriter(new FileWriter(ressourceFile, true))) {
-            for (String line : content) {
-                fileContent.append(line + "\n");
-            }
-
-            for (RessourceBlock ressourceBlock : ressource.getRessourceBlocks()) {
-                fileContent.append(ressourceBlock.getUUID() + "," + ressourceBlock.getHashSum() + "\n");
-            }
-        } catch (IOException e) {
-            Logger.error("Error while writing to ressource File: " + ressourceFile.toPath());
-            Logger.exception(e);
-            System.exit(1);
+        if (file.exists()) {
+            Logger.error("Ressource file already exists! Won't overwrite existing file!");
+            return;
         }
 
-        Logger.info("Ressource file initialized!");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write(String.format("UUID: %s\n", ressource.getUUID()));
+            writer.write(String.format("Title: %s\n", ressource.getTitle()));
+            writer.write(String.format("HashSum: %s\n", ressource.getTotalHashSum()));
+            writer.write(String.format("AmountOfBlocks: %d\n", ressource.getBlockAmount()));
+            writer.write(String.format("SourceFileName: %s\n", ressource.getSourceFile().getName()));
+            
+            writer.write("Blocks (uuid, location, hash, sequenceID):\n");
+            for (var entry : ressource.getBlockLocations().entrySet()) {
+                writer.write(String.format("%s,%s,%s,%d\n", entry.getKey().getUUID(), entry.getValue(), entry.getKey().getHashSum(), entry.getKey().getSequenceID()));
+            }
+        } catch (IOException e) {
+            Logger.error("Error while writing to ressourcefile!");
+            Logger.exception(e);
+        }
     }
 }

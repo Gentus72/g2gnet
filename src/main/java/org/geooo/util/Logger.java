@@ -66,6 +66,7 @@ public class Logger {
 
     public static void error(String message) {
         log(LoggingType.ERROR, message);
+        log(LoggingType.ERROR, "originated from: " + Thread.currentThread().getStackTrace()[2].getClassName());
     }
 
     public static void exception(Exception e) {

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.Socket;
@@ -23,7 +22,14 @@ public class Client {
     public static final int HOST_PORT = 7000;
 
     public static void main(String[] args) {
-        Client client = new Client(HOST_ADDRESS, HOST_PORT);
+        // Ressource res = new Ressource(new File("res/test.jpg"), HOST_ADDRESS, RessourceDistributionStrategy.EVEN_DISTRIBUTION);
+
+        Ressource.reassembleSourceFile(new File("f922d9b0e27a41d7b708cf54dfd8e14c.g2g"), new File[] {
+            new File("res/9efac98096e546c6956c462bf3c22f06.g2gblock"),
+            new File("res/0136ba79e6af4fd59697d7b6d65ee99a.g2gblock")
+        }, "res/");
+
+        // new Client();
     }
 
     Socket socket;
@@ -32,14 +38,14 @@ public class Client {
     Scanner userInputScanner;
 
     public Client() {
+        startClient();
+    }  
 
-    }
-
-    public Client(String hostAddress, int hostPort) {
+    public void startClient() {
         ClientFile.reloadRessources();
 
         try {
-            this.socket = new Socket(hostAddress, hostPort);
+            this.socket = new Socket(HOST_ADDRESS, HOST_PORT);
             this.outputStream = new DataOutputStream(this.socket.getOutputStream());
             this.inputStream = new DataInputStream(this.socket.getInputStream());
             this.userInputScanner = new Scanner(System.in);
@@ -52,21 +58,20 @@ public class Client {
             while (true) {
                 String[] clientArguments = getUserCommandInputArgs();
 
-                String serverResponse = this.inputStream.readUTF();
-                Logger.info(serverResponse);
-                ServerCommand responseCommand = ServerCommand.valueOf(clientArguments[0]);
+                String response = this.inputStream.readUTF();
+                Logger.info(response);
+                ServerResponse responseCommand = ServerResponse.valueOf(clientArguments[0]);
 
                 switch (responseCommand) {
                     case INFO -> {
                         Logger.info("Getting serverfile from server...");
 
                         FilesRemote.receiveFile("tempServerfile.g2gsrv", inputStream);
-                        String uuid = renameServerFileWithUUID(new File("tempServerfile.g2gsrv"));
                         ClientFile.reloadRessources();
 
                         Logger.info("Received serverfile!");
                     }
-                    case GET -> {
+                    case DOWNLOAD -> {
                         if (clientArguments.length < 2) {
                             Logger.error("No UUID supplied for GET command - should have been caught by server!");
                             continue;
@@ -75,7 +80,7 @@ public class Client {
                         receiveRessource(clientArguments);
                     }
                     case ERROR -> {
-                        Logger.error("Error response from server: " + serverResponse.substring(6));
+                        Logger.error("Error response from server: " + response.substring(6));
                         Logger.error("Try again!");
                     }
                     case CLOSE -> {
@@ -97,7 +102,6 @@ public class Client {
             Logger.error("Error while setting up client socket!");
             Logger.exception(e);
         }
-
     }
 
     private String[] getUserCommandInputArgs() {
@@ -115,26 +119,6 @@ public class Client {
         }
 
         return arguments;
-    }
-
-    private String renameServerFileWithUUID(File tempServerfile) {
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(tempServerfile.getName()))) {
-            String uuidLine = fileReader.readLine();
-            String serverUUID = uuidLine.split(" ")[1];
-
-            // TODO check for already downloaded serverfiles
-            tempServerfile.renameTo(new File(serverUUID + ".g2gserver"));
-
-            return serverUUID;
-        } catch (FileNotFoundException e) {
-            Logger.error("Temporary serverfile not found!");
-            Logger.exception(e);
-        } catch (IOException e) {
-            Logger.error("Error while renaming temporary serverfile!");
-            Logger.exception(e);
-        }
-
-        return "";
     }
 
     private void readRessourceFile(File ressourceFile, HashMap<String, String> metadata, HashMap<String, String> blocksData) {
