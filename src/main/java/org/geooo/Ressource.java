@@ -1,16 +1,14 @@
 package org.geooo;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.UUID;
 
 import org.geooo.dto.RessourceDTO;
+import org.geooo.dto.ServerDTO;
+import org.geooo.util.ChunkedFileReader;
 import org.geooo.util.HashSum;
 import org.geooo.util.Logger;
 
@@ -59,23 +57,23 @@ public class Ressource extends RessourceDTO {
             // Blöcke erstellen
             Logger.info("Generating " + this.blockAmount + " blocks!");
 
-            for (int i = 0; i < this.blockAmount; i++) {
-                String blockUUID = UUID.randomUUID().toString().replace("-", "");
-
-                RessourceBlock newBlock = new RessourceBlock(blockUUID, PARENT_DIRECTORY + this.uuid);
-
-
-                
-                newBlock.setHashSum(HashSum.fromBytes(newBlock.getData()));
-                newBlock.writeToFile();
-
-                ressourceBlocks[i] = newBlock;
+            try (ChunkedFileReader chunkedReader = new ChunkedFileReader(sourceFile.getPath(), BLOCK_SIZE)) {
+                for (int i = 0; i < this.blockAmount; i++) {
+                    String blockUUID = UUID.randomUUID().toString().replace("-", "");
+    
+                    RessourceBlock newBlock = new RessourceBlock(blockUUID);
+    
+                    // read next 16 MiB and write to Block
+                    newBlock.setData(chunkedReader.readNextChunk());
+                    
+                    newBlock.setHashSum(HashSum.fromBytes(newBlock.getData()));
+                    newBlock.writeToServer(new ServerDTO());
+    
+                    ressourceBlocks[i] = newBlock;
+                }
             }
 
             Logger.info(this.blockAmount + " blocks generated!");
-
-            new RessourceFile(this);
-            ServerFile.reloadRessources();
         } catch (IOException e) {
             Logger.error("Error while getting Data from sourceFile: " + this.sourceFile.toPath().toString());
             Logger.exception(e);
@@ -83,76 +81,6 @@ public class Ressource extends RessourceDTO {
 
         // move sourceFile to ressourceDirectory
         this.sourceFile.renameTo(new File(PARENT_DIRECTORY + this.uuid, this.sourceFile.getName()));
-    }
-
-    /*
-     * Dieser Konstuktor dient dem Erstellen von virtuellen Ressourcen, die bereits im Dateisystem vorhanden sind.
-     */
-    public Ressource(File G2GFile) {
-        super(G2GFile);
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(G2GFile))) {
-            HashMap<String, String> values = new HashMap<>();
-
-            // Ressource-Informationen lesen
-            while (true) {
-                String line = reader.readLine();
-
-                if (line == null || line.equals("blocks (uuid, hash):")) {
-                    break;
-                }
-
-                String[] keyValuePair = line.split(":");
-                values.put(keyValuePair[0], keyValuePair[1].strip());
-            }
-
-            this.sourceFile = new File(values.get("sourceFile"));
-            this.blockAmount = Integer.parseInt(values.get("total_blocks"));
-            this.ressourceBlocks = new RessourceBlock[this.blockAmount];
-
-            for (int i = 0; i < this.blockAmount; i++) {
-                String line = reader.readLine();
-
-                if (line == null) {
-                    break;
-                }
-
-                String[] uuidHashsumPair = line.split(",");
-
-                RessourceBlock newBlock = new RessourceBlock(uuidHashsumPair[0], PARENT_DIRECTORY + this.uuid);
-
-                // TODO maybe not load everything into memory...
-                newBlock.setData(Files.readAllBytes(new File(PARENT_DIRECTORY + this.uuid, newBlock.getUUID() + ".g2gblock").toPath()));
-
-                newBlock.setHashSum(HashSum.fromBytes(newBlock.getData()));
-
-                if (!newBlock.getHashSum().equals(uuidHashsumPair[1])) {
-                    Logger.error("Ressource block hashsum doesn't match hashsum from ressource file. BlockUUID: " + newBlock.getUUID());
-                }
-
-                ressourceBlocks[i] = newBlock;
-            }
-        } catch (IOException e) {
-            Logger.error("Error while parsing existing G2GFile to Ressource object!");
-            Logger.exception(e);
-        }
-
-        ServerFile.reloadRessources();
-    }
-
-    /*
-     * Diese Funktion dient dem Wiederherstellen der Originaldatei anhand der Blöcke
-     * TODO maybe change to from file
-     */
-    public void assembleSourceFile(File destinationFile) {
-        try (FileOutputStream outputStream = new FileOutputStream(destinationFile)) {
-            for (RessourceBlock block : this.ressourceBlocks) {
-                outputStream.write(block.getData());
-            }
-        } catch (IOException e) {
-            Logger.error("Error while assembling blocks to source file!");
-            Logger.exception(e);
-        }
     }
 
     public File getSourceFile() {
