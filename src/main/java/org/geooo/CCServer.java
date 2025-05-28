@@ -14,13 +14,17 @@ public class CCServer extends Server {
     private String networkUUID;
     private ArrayList<ServerDTO> servers;
     private ArrayList<RessourceDTO> ressources;
-    
+
     public static void main(String[] args) {
         new CCServer();
     }
 
     public CCServer() {
         startServer();
+    }
+
+    public CCServer(String address) {
+        super(address);
     }
 
     @Override
@@ -49,26 +53,26 @@ public class CCServer extends Server {
     }
 
     public String getNetworkUUID() {
-		return this.networkUUID;
-	}
+        return this.networkUUID;
+    }
 
-	public void setNetworkUUID(String networkUUID) {
-		this.networkUUID = networkUUID;
-	}
+    public void setNetworkUUID(String networkUUID) {
+        this.networkUUID = networkUUID;
+    }
 
-	public ArrayList<ServerDTO> getServers() {
-		return this.servers;
-	}
+    public ArrayList<ServerDTO> getServers() {
+        return this.servers;
+    }
 
-	public void setServers(ArrayList<ServerDTO> servers) {
-		this.servers = servers;
-	}
+    public void setServers(ArrayList<ServerDTO> servers) {
+        this.servers = servers;
+    }
 
-	public ArrayList<RessourceDTO> getRessources() {
-		return this.ressources;
-	}
+    public ArrayList<RessourceDTO> getRessources() {
+        return this.ressources;
+    }
 
-	public void setRessources(ArrayList<RessourceDTO> ressources) {
-		this.ressources = ressources;
-	}
+    public void setRessources(ArrayList<RessourceDTO> ressources) {
+        this.ressources = ressources;
+    }
 }

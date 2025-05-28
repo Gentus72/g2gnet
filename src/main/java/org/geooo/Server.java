@@ -20,7 +20,13 @@ public class Server extends ServerDTO {
     }
 
     public Server() {
+        this.ccServer = new CCServer("localhost");
+
         startServer();
+    }
+
+    public Server(String address) {
+        super(address);
     }
 
     public void startServer() {

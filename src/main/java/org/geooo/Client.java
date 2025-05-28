@@ -18,15 +18,16 @@ import org.geooo.util.Logger;
 public class Client {
 
     public static final String RESSOURCE_DIRECTORY = "client/res/";
-    public static final String HOST_ADDRESS = "localhost";
+    public static String HOST_ADDRESS = "localhost";
     public static final int HOST_PORT = 7000;
 
     public static void main(String[] args) {
-        // Ressource res = new Ressource(new File("res/test.jpg"), HOST_ADDRESS, RessourceDistributionStrategy.EVEN_DISTRIBUTION);
+        // Ressource res = new Ressource(new File("res/test.jpg"), HOST_ADDRESS,
+        // RessourceDistributionStrategy.EVEN_DISTRIBUTION);
 
         Ressource.reassembleSourceFile(new File("f922d9b0e27a41d7b708cf54dfd8e14c.g2g"), new File[] {
-            new File("res/9efac98096e546c6956c462bf3c22f06.g2gblock"),
-            new File("res/0136ba79e6af4fd59697d7b6d65ee99a.g2gblock")
+                new File("res/9efac98096e546c6956c462bf3c22f06.g2gblock"),
+                new File("res/0136ba79e6af4fd59697d7b6d65ee99a.g2gblock")
         }, "res/");
 
         // new Client();
@@ -39,7 +40,7 @@ public class Client {
 
     public Client() {
         startClient();
-    }  
+    }
 
     public void startClient() {
 
@@ -51,34 +52,75 @@ public class Client {
 
             Logger.info("Client connected and waiting for commands!");
 
-            // Ressource ressource = new Ressource(new File(RESSOURCE_DIRECTORY + "/2266302b65a742d584c37540b2d5e4a2/ressourceFile.g2g"));
-            // ressource.assembleSourceFile(new File(RESSOURCE_DIRECTORY + "/source.png"));
-            // System.exit(0);
+            boolean manualInput = true;
+            String clientInput = "";
+
             while (true) {
-                String[] clientArguments = getUserCommandInputArgs();
+                if (manualInput) {
+                    System.out.print("$> ");
+                    clientInput = this.userInputScanner.nextLine();
+
+                    sendCommand(clientInput);
+                } else {
+                    sendCommand(clientInput);
+                    manualInput = true;
+                }
 
                 String response = this.inputStream.readUTF();
+                String[] responseArgs = response.split(" ");
                 Logger.info(response);
-                ServerResponse responseCommand = ServerResponse.valueOf(clientArguments[0]);
+                ServerResponse responseCommand = ServerResponse.valueOf(responseArgs[0]);
 
                 switch (responseCommand) {
+                    // INFO <NETWORK | RESSOURCE>
                     case INFO -> {
-                        Logger.info("Getting serverfile from server...");
-
-                        FilesRemote.receiveFile("tempServerfile.g2gsrv", inputStream);
-
-                        Logger.info("Received serverfile!");
+                        switch (responseArgs[1]) {
+                            case "NETWORK" -> {
+                                FilesRemote.receiveFile(String.format("%s.g2gnet", responseArgs[2]), inputStream);
+                                Logger.info("Received networkfile!");
+                            }
+                            case "RESSOURCE" -> {
+                                FilesRemote.receiveFile(String.format("%s.g2g", responseArgs[2]), inputStream);
+                                // update clientfile
+                                Logger.info("Received ressourcefile!");
+                            }
+                            default -> {
+                                Logger.error("Wrong argument in server response!");
+                            }
+                        }
                     }
+                    // REDIRECT <destinationAddress>
+                    case REDIRECT -> {
+                        HOST_ADDRESS = responseArgs[1];
+                        Logger.info(String.format("Being redirected to: %s", responseArgs[1]));
+
+                        this.socket.close();
+                        this.outputStream.close();
+                        this.inputStream.close();
+
+                        this.socket = new Socket(HOST_ADDRESS, HOST_PORT);
+                        this.outputStream = new DataOutputStream(this.socket.getOutputStream());
+                        this.inputStream = new DataInputStream(this.socket.getInputStream());
+
+                        manualInput = false;
+                    }
+                    // DOWNLOAD <ressourceUUID> <blockUUID>
                     case DOWNLOAD -> {
-                        if (clientArguments.length < 2) {
-                            Logger.error("No UUID supplied for GET command - should have been caught by server!");
-                            continue;
+                        // create directory
+                        String ressourceDirectoryPath = String.format("%s/%s/", RESSOURCE_DIRECTORY, responseArgs[1]);
+                        File ressourceDirectory = new File(ressourceDirectoryPath);
+
+                        if (!ressourceDirectory.exists()) {
+                            Logger.info("Creating ressource directory! Is this the first block download?");
+                            Files.createDirectory(Path.of(ressourceDirectoryPath));
                         }
 
-                        receiveRessource(clientArguments);
+                        FilesRemote.receiveFile(String.format("%s%s.g2gblock", ressourceDirectoryPath, responseArgs[2]),
+                                inputStream);
                     }
+                    // ERROR <errorMessage>
                     case ERROR -> {
-                        Logger.error("Error response from server: " + response.substring(6));
+                        Logger.error("Error response from server: " + responseArgs[1]);
                         Logger.error("Try again!");
                     }
                     case CLOSE -> {
@@ -102,24 +144,18 @@ public class Client {
         }
     }
 
-    private String[] getUserCommandInputArgs() {
-        System.out.print("$> ");
-        String clientInput = this.userInputScanner.nextLine();
-
-        String[] arguments = clientInput.split(" ");
-
+    private void sendCommand(String command) {
         try {
-            this.outputStream.writeUTF(clientInput);
+            this.outputStream.writeUTF(command);
             this.outputStream.flush();
         } catch (IOException e) {
             Logger.error("Error while sending command to server!");
             Logger.exception(e);
         }
-
-        return arguments;
     }
 
-    private void readRessourceFile(File ressourceFile, HashMap<String, String> metadata, HashMap<String, String> blocksData) {
+    private void readRessourceFile(File ressourceFile, HashMap<String, String> metadata,
+            HashMap<String, String> blocksData) {
         try (BufferedReader reader = new BufferedReader(new FileReader(ressourceFile))) {
             // Ressource-Informationen lesen
             while (true) {

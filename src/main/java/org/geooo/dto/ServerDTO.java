@@ -10,6 +10,10 @@ public class ServerDTO {
         this.address = address;
     }
 
+    public ServerDTO(String address) {
+        this.address = address;
+    }
+
     public ServerDTO() {
 
     }

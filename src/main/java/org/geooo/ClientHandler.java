@@ -29,7 +29,7 @@ public class ClientHandler extends Thread {
             if (command.equals(ServerCommand.GETBLOCK)) {
                 // handle download
             } else {
-                outputStream.writeUTF(String.format("REDIRECT to %s", server.ccServer.getAddress()));
+                outputStream.writeUTF(String.format("REDIRECT %s", server.ccServer.getAddress()));
             }
         } catch (IOException e) {
             Logger.error("Error while handling client request!");
