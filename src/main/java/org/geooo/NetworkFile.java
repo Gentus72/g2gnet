@@ -19,7 +19,7 @@ public abstract class NetworkFile {
     public static File file;
 
     public static void writeToFile(CCServer ccServer) {
-        file = new File(FILENAME);
+        file = new File(CCServer.RESSOURCE_DIRECTORY + FILENAME);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             if (file.createNewFile()) {
@@ -52,7 +52,7 @@ public abstract class NetworkFile {
     }
 
     public static void readFromFile(CCServer ccServer) {
-        file = new File(FILENAME);
+        file = new File(CCServer.RESSOURCE_DIRECTORY + FILENAME);
 
         if (!file.exists()) {
             Logger.error("Networkfile doesn't exist! Can't read from nothing!");
@@ -71,6 +71,7 @@ public abstract class NetworkFile {
 
             ccServer.setNetworkUUID(networkUUID);
             String nextLine = reader.readLine(); // next line will be server headers
+            nextLine = reader.readLine(); // also header ? idk
 
             while (nextLine != null && !nextLine.contains("Ressources")) {
                 String[] components = nextLine.split(",");
@@ -100,10 +101,12 @@ public abstract class NetworkFile {
 
     // get ressource metadata based on available ressourcefiles
     public static void updateRessources(CCServer ccServer) {
-        File currentDir = new File(".");
+        File ressourceDir = new File(CCServer.RESSOURCE_DIRECTORY);
         ArrayList<RessourceDTO> ressources = new ArrayList<>();
 
-        File[] matchingFiles = currentDir.listFiles((dir, name) -> name.endsWith(".g2g"));
+        // check if resource dir exists
+
+        File[] matchingFiles = ressourceDir.listFiles((dir, name) -> name.endsWith(".g2g"));
 
         if (matchingFiles == null || matchingFiles.length == 0) {
             Logger.error(

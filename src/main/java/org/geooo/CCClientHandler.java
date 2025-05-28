@@ -56,8 +56,7 @@ public class CCClientHandler extends Thread {
                             case "RESSOURCE" -> {
                                 // check that ressourcefile exists
                                 String ressourceUUID = clientArgs[2];
-                                File ressourceFile = new File(
-                                        String.format("%s%s.g2g", Server.RESSOURCE_DIRECTORY, ressourceUUID));
+                                File ressourceFile = new File(String.format("%s%s.g2g", CCServer.RESSOURCE_DIRECTORY, ressourceUUID));
 
                                 if (!ressourceFile.exists()) {
                                     outputStream.writeUTF(String.format("ERROR ressource %s doesn't exist!", ressourceUUID));
@@ -66,6 +65,7 @@ public class CCClientHandler extends Thread {
                                     outputStream.writeUTF(String.format("INFO RESSOURCE %s"));
                                     outputStream.flush();
 
+                                    Thread.sleep(500);
                                     FilesRemote.sendFile(ressourceFile, outputStream);
                                 }
                             }
@@ -76,13 +76,37 @@ public class CCClientHandler extends Thread {
                             }
                         }
                     }
-                    case GET -> {
-                        if (clientArgs.length <= 1) {
-                            Logger.error("Received GET command without additional arguments!");
-                            outputStream.writeUTF("ERROR invalid number of arguments!");
+                    case GETBLOCK -> {
+                        if (clientArgs.length < 3) {
+                            outputStream.writeUTF("ERROR insufficient arguments! Format is: GETBLOCK <ressourceUUID> <blockUUID>");
+                            outputStream.flush();
+
+                            inputStream.close();
+                            outputStream.close();
+                            return;
                         }
 
-                        // String requestedUUID = arguments[1];
+                        // check if ressource directory exists
+                        String ressourceUUID = clientArgs[1];
+                        File ressourceDirectory = new File(CCServer.RESSOURCE_DIRECTORY + ressourceUUID);
+
+                        String blockUUID = clientArgs[2];
+                        File blockFile = new File(String.format("%s%s/%s.g2gblock", CCServer.RESSOURCE_DIRECTORY, ressourceUUID, blockUUID));
+
+                        if (!ressourceDirectory.exists() || !blockFile.exists()) {
+                            outputStream.writeUTF("ERROR ressource directory or block file doesn't exist!");
+                            outputStream.flush();
+
+                            inputStream.close();
+                            outputStream.close();
+                            return;
+                        }
+
+                        // handle download
+                        outputStream.writeUTF(String.format("DOWNLOAD %s %s", ressourceUUID, blockUUID));
+                        outputStream.flush();
+
+                        FilesRemote.sendFile(blockFile, outputStream);
                     }
                     case CLOSE -> {
                         Logger.info("A client has closed their connection!");
@@ -102,7 +126,7 @@ public class CCClientHandler extends Thread {
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             Logger.error("Error while setting up client handler!");
             Logger.exception(e);
         }

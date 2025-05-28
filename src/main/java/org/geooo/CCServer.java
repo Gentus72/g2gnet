@@ -10,6 +10,8 @@ import org.geooo.dto.ServerDTO;
 import org.geooo.util.Logger;
 
 public class CCServer extends Server {
+    public static final String RESSOURCE_DIRECTORY = "ccserver/";
+
     // network info
     private String networkUUID;
     private ArrayList<ServerDTO> servers;

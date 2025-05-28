@@ -1,0 +1,8 @@
+UUID: f922d9b0e27a41d7b708cf54dfd8e14c
+Title: localhost
+HashSum: 98e4c860a44c648a4d1cc6f6d33a96b6778d609e6c71f5f6049872da1c493c34
+AmountOfBlocks: 2
+SourceFileName: test2.jpg
+Blocks (uuid, location, hash, sequenceID):
+9efac98096e546c6956c462bf3c22f06,192.168.178.85,afde7e0e4d57d26bbcd4738bd490918dd2199038c9f668ebf2d30a8896368cf3,1
+0136ba79e6af4fd59697d7b6d65ee99a,localhost,869471ec262ac446ba66d7b13a58da2e890f0e1ac4edbc5b1050cfb08aa68f7b,0
