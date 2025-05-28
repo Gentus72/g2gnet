@@ -191,3 +191,22 @@
 --------------------------------NEW APPLICATION START--------------------------------
 [2025-05-28 17:45:20 INFO]: Existing networkfile will be overwritten!
 [2025-05-28 17:45:20 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 19:33:04 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 19:33:19 INFO]: Reassembling 2 blocks!
+[2025-05-28 19:33:19 INFO]: Successfully reassembled sourcefile!
+[2025-05-28 19:33:33 INFO]: Client connected and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 19:33:33 INFO]: Client connected and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 19:34:11 INFO]: Server running on port 7000!
+[2025-05-28 19:34:14 INFO]: Client connected and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 19:34:14 INFO]: Client connected and waiting for commands!
+[2025-05-28 19:35:11 ERROR]: Error while setting up client socket!
+[2025-05-28 19:35:11 ERROR]: originated from: org.geooo.Client
+[2025-05-28 19:35:11 ERROR]: Message / Cause: Connection reset
+[2025-05-28 19:35:11 ERROR]: Exception: java.net.SocketException
+[2025-05-28 19:35:11 ERROR]: ----------------------Full stack trace----------------------
+[2025-05-28 19:35:11 ERROR]: [java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:318), java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346), java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796), java.base/java.net.Socket$SocketInputStream.read(Socket.java:1099), java.base/java.io.DataInputStream.readFully(DataInputStream.java:208), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.Client.startClient(Client.java:69), org.geooo.Client.<init>(Client.java:42), org.geooo.Client.main(Client.java:33)]

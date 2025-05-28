@@ -4,19 +4,21 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.UUID;
 
 import org.geooo.util.Logger;
+import org.geooo.dto.ClientDTO;
 
 public class ClientHandler extends Thread {
     Socket serverSocket;
-    Client client;
+    ClientDTO client;
     Server server;
 
     public ClientHandler(Socket serverSocket, Server server) {
         this.serverSocket = serverSocket;
         this.server = server;
 
-        this.client = new Client();
+        this.client = new ClientDTO(UUID.randomUUID().toString().replace("-", ""));
         this.server.clients.add(this.client);
     }
 

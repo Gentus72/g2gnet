@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import org.geooo.dto.ClientDTO;
 import org.geooo.dto.ServerDTO;
 import org.geooo.util.Logger;
 
@@ -12,7 +13,7 @@ public class Server extends ServerDTO {
 
     public static final int SERVER_PORT = 7000;
 
-    public ArrayList<Client> clients;
+    public ArrayList<ClientDTO> clients;
     public CCServer ccServer;
 
     public static void main(String[] args) {

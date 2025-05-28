@@ -25,12 +25,12 @@ public class Client {
         // Ressource res = new Ressource(new File("res/test.jpg"), HOST_ADDRESS,
         // RessourceDistributionStrategy.EVEN_DISTRIBUTION);
 
-        Ressource.reassembleSourceFile(new File("f922d9b0e27a41d7b708cf54dfd8e14c.g2g"), new File[] {
-                new File("res/9efac98096e546c6956c462bf3c22f06.g2gblock"),
-                new File("res/0136ba79e6af4fd59697d7b6d65ee99a.g2gblock")
-        }, "res/");
+        // Ressource.reassembleSourceFile(new File("f922d9b0e27a41d7b708cf54dfd8e14c.g2g"), new File[] {
+        //         new File("res/9efac98096e546c6956c462bf3c22f06.g2gblock"),
+        //         new File("res/0136ba79e6af4fd59697d7b6d65ee99a.g2gblock")
+        // }, "res/");
 
-        // new Client();
+        new Client();
     }
 
     Socket socket;
