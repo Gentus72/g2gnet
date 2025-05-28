@@ -17,26 +17,30 @@ import org.geooo.util.Logger;
 
 public class Client {
 
-    public static final String RESSOURCE_DIRECTORY = "client/res/";
+    public static String RESSOURCE_DIRECTORY = "client/res/";
     public static String HOST_ADDRESS = "localhost";
-    public static final int HOST_PORT = 7000;
+    public static int HOST_PORT = 7000;
 
     public static void main(String[] args) {
         // Ressource res = new Ressource(new File("res/test.jpg"), HOST_ADDRESS,
         // RessourceDistributionStrategy.EVEN_DISTRIBUTION);
 
-        Ressource.reassembleSourceFile(new File("client/res/f922d9b0e27a41d7b708cf54dfd8e14c.g2g"), new File[] {
-                new File("client/res/f922d9b0e27a41d7b708cf54dfd8e14c/9efac98096e546c6956c462bf3c22f06.g2gblock"),
-                new File("client/res/f922d9b0e27a41d7b708cf54dfd8e14c/0136ba79e6af4fd59697d7b6d65ee99a.g2gblock")
-        }, "client/res/f922d9b0e27a41d7b708cf54dfd8e14c/");
+        // Ressource.reassembleSourceFile(new
+        // File("client/res/f922d9b0e27a41d7b708cf54dfd8e14c.g2g"), new File[] {
+        // new
+        // File("client/res/f922d9b0e27a41d7b708cf54dfd8e14c/9efac98096e546c6956c462bf3c22f06.g2gblock"),
+        // new
+        // File("client/res/f922d9b0e27a41d7b708cf54dfd8e14c/0136ba79e6af4fd59697d7b6d65ee99a.g2gblock")
+        // }, "client/res/f922d9b0e27a41d7b708cf54dfd8e14c/");
 
-        // new Client();
+        new Client();
     }
 
     Socket socket;
     DataOutputStream outputStream;
     DataInputStream inputStream;
     Scanner userInputScanner;
+    boolean connected = false;
 
     public Client() {
         startClient();
@@ -45,12 +49,9 @@ public class Client {
     public void startClient() {
 
         try {
-            this.socket = new Socket(HOST_ADDRESS, HOST_PORT);
-            this.outputStream = new DataOutputStream(this.socket.getOutputStream());
-            this.inputStream = new DataInputStream(this.socket.getInputStream());
             this.userInputScanner = new Scanner(System.in);
 
-            Logger.info("Client connected and waiting for commands!");
+            Logger.info("Client started and waiting for commands!");
 
             boolean manualInput = true;
             String clientInput = "";
@@ -60,7 +61,19 @@ public class Client {
                     System.out.print("$> ");
                     clientInput = this.userInputScanner.nextLine();
 
-                    sendCommand(clientInput);
+                    try {
+                        ClientCommand.valueOf(clientInput.split(" ")[0]);
+
+                        handleClientCommand(clientInput);
+                        continue;
+                    } catch (IllegalArgumentException e) {
+                        if (!connected) {
+                            Logger.warn("Please enter a client command or connect to a network!");
+                            continue;
+                        }
+
+                        sendCommand(clientInput);
+                    }
                 } else {
                     sendCommand(clientInput);
                     manualInput = true;
@@ -72,7 +85,7 @@ public class Client {
                 ServerResponse responseCommand = ServerResponse.valueOf(responseArgs[0]);
 
                 switch (responseCommand) {
-                    // INFO <NETWORK | RESSOURCE>
+                    // INFO <NETWORK | RESSOURCE> <ressourceUUID?>
                     case INFO -> {
                         switch (responseArgs[1]) {
                             case "NETWORK" -> {
@@ -141,6 +154,46 @@ public class Client {
         } catch (IOException e) {
             Logger.error("Error while setting up client socket!");
             Logger.exception(e);
+        }
+    }
+
+    private void handleClientCommand(String clientInput) {
+        String[] args = clientInput.split(" ");
+
+        switch (ClientCommand.valueOf(args[0])) {
+            // DISASSEMBLE <inputFilePath>
+            case DISASSEMBLE -> {
+                Logger.warn("Not implemented yet!");
+            }
+            // REASSEMBLE <ressourceUUID> <outputFilePath>
+            case REASSEMBLE -> {
+                Logger.warn("Not implemented yet!");
+            }
+            // CONNECT <serverAddress> <serverPort | <blank = 7000>>
+            case CONNECT -> {
+                if (args.length < 2) {
+                    Logger.error("");
+                    return;
+                } else if (args.length >= 3) {
+                    HOST_PORT = Integer.valueOf(args[2]);
+                } else {
+                    HOST_PORT = 7000;
+                }
+
+                HOST_ADDRESS = args[1];
+
+                try {
+                    this.socket = new Socket(HOST_ADDRESS, HOST_PORT);
+                    this.outputStream = new DataOutputStream(this.socket.getOutputStream());
+                    this.inputStream = new DataInputStream(this.socket.getInputStream());
+                    Logger.info(String.format("Successfully connected to Server [%s:%d]!", HOST_ADDRESS, HOST_PORT));
+
+                    connected = true;
+                } catch (IOException e) {
+                    Logger.error(String.format("Error while connecting to [%s:%d]!", HOST_ADDRESS, HOST_PORT));
+                    Logger.exception(e);
+                }
+            }
         }
     }
 

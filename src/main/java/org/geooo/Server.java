@@ -21,7 +21,10 @@ public class Server extends ServerDTO {
     }
 
     public Server() {
+        // TODO get from config
         this.ccServer = new CCServer("192.168.178.85");
+
+        // try to connect to ccServer
 
         startServer();
     }

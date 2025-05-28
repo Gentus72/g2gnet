@@ -200,3 +200,41 @@
 --------------------------------NEW APPLICATION START--------------------------------
 [2025-05-28 20:53:56 INFO]: Reassembling 2 blocks!
 [2025-05-28 20:53:56 INFO]: Successfully reassembled sourcefile!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 23:56:42 INFO]: Client connected and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 23:58:42 INFO]: Client started and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 23:58:47 INFO]: Client started and waiting for commands!
+[2025-05-28 23:58:53 WARNING]: Not implemented yet!
+[2025-05-28 23:59:04 INFO]: Sending command: INFO NETWORK
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 23:59:28 INFO]: Client started and waiting for commands!
+[2025-05-28 23:59:30 INFO]: Sending command: INFO
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-29 00:01:11 INFO]: Client started and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-29 00:02:03 INFO]: Client started and waiting for commands!
+[2025-05-29 00:02:04 WARNING]: Please enter a client command or connect to a network!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-29 00:03:42 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-29 00:03:46 INFO]: Client started and waiting for commands!
+[2025-05-29 00:03:52 INFO]: Successfully connected to Server [localhost:7000]!
+[2025-05-29 00:03:52 INFO]: New client connected with UUID: 2e93f5a109b346e881faa45ad69a5dc1
+[2025-05-29 00:03:58 ERROR]: Error while handling client request!
+[2025-05-29 00:03:58 ERROR]: originated from: org.geooo.ClientHandler
+[2025-05-29 00:03:58 ERROR]: Message / Cause: null
+[2025-05-29 00:03:58 ERROR]: Exception: java.io.EOFException
+[2025-05-29 00:03:58 ERROR]: ----------------------Full stack trace----------------------
+[2025-05-29 00:03:58 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.ClientHandler.run(ClientHandler.java:32)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-29 00:04:45 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-29 00:04:49 INFO]: Client started and waiting for commands!
+[2025-05-29 00:04:54 INFO]: Successfully connected to Server [localhost:7000]!
+[2025-05-29 00:04:54 INFO]: New client connected with UUID: 5f579749e7e440b18c77d83b9afbebfd
+[2025-05-29 00:05:09 INFO]: Sending command: INFO NETWORK
+[2025-05-29 00:05:09 INFO]: Redirecting client 5f579749e7e440b18c77d83b9afbebfd to ccServer at: 192.168.178.85
+[2025-05-29 00:05:09 INFO]: Received response from server [localhost]: REDIRECT 192.168.178.85
+[2025-05-29 00:05:09 INFO]: Being redirected to: 192.168.178.85

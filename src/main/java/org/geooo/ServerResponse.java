@@ -1,8 +1,7 @@
 package org.geooo;
 
 public enum ServerResponse {
-    TRUE,
-    FALSE,
+    SUCCESS,
     REDIRECT,
     INFO,
     DOWNLOAD,
