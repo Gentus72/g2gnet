@@ -42,7 +42,6 @@ public class Client {
     }  
 
     public void startClient() {
-        ClientFile.reloadRessources();
 
         try {
             this.socket = new Socket(HOST_ADDRESS, HOST_PORT);
@@ -67,7 +66,6 @@ public class Client {
                         Logger.info("Getting serverfile from server...");
 
                         FilesRemote.receiveFile("tempServerfile.g2gsrv", inputStream);
-                        ClientFile.reloadRessources();
 
                         Logger.info("Received serverfile!");
                     }

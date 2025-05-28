@@ -15,9 +15,23 @@ public class CCServer extends Server {
     private ArrayList<ServerDTO> servers;
     private ArrayList<RessourceDTO> ressources;
     
+    public static void main(String[] args) {
+        new CCServer();
+    }
+
+    public CCServer() {
+        startServer();
+    }
+
     @Override
     public void startServer() {
         this.clients = new ArrayList<>();
+        this.servers = new ArrayList<>();
+        this.ressources = new ArrayList<>();
+
+        NetworkFile.readFromFile(this); // if it doesn't exist, it will do nothing and just show an error in the console
+        NetworkFile.updateRessources(this);
+        NetworkFile.writeToFile(this);
 
         try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT)) {
             Logger.info("Server running on port " + SERVER_PORT + "!");

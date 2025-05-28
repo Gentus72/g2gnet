@@ -22,14 +22,20 @@ public class RessourceDTO {
         // do nothing;
     }
 
-    public RessourceDTO(String title) {
-        this.title = title;
+    public RessourceDTO(String uuid) {
+        this.uuid = uuid;
     }
 
     public RessourceDTO(String title, String uuid, String totalHashSum) {
         this.title = title;
         this.uuid = uuid;
         this.totalHashSum = totalHashSum;
+    }
+
+    public RessourceDTO(String uuid, String title, int blockAmount) {
+        this.title = title;
+        this.uuid = uuid;
+        this.blockAmount = blockAmount;
     }
 
     public RessourceDTO(String title, String uuid, String totalHashSum, int blockAmount) {
@@ -90,6 +96,10 @@ public class RessourceDTO {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     /**
      * @return String return the uuid
      */
@@ -99,6 +109,10 @@ public class RessourceDTO {
 
     public int getBlockAmount() {
         return this.blockAmount;
+    }
+
+    public void setBlockAmount(int blockAmount) {
+        this.blockAmount = blockAmount;
     }
 
     public File getRessourceFile() {

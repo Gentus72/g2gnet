@@ -14,9 +14,8 @@ public abstract class FilesRemote {
      * Letzter Zugriff: 28.03.2025, 12:21 Uhr
      */
     public static void sendFile(File file, DataOutputStream outputStream) {
-        try {
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
             int bytes = 0;
-            FileInputStream fileInputStream = new FileInputStream(file);
 
             outputStream.writeLong(file.length());
             byte[] buffer = new byte[4 * 1024];

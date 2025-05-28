@@ -110,3 +110,84 @@
 [2025-05-27 16:37:57 INFO]: 9efac98096e546c6956c462bf3c22f06
 --------------------------------NEW APPLICATION START--------------------------------
 [2025-05-27 16:38:58 INFO]: Reassembling 2 blocks!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 01:42:30 INFO]: New Server chosen: org.geooo.dto.ServerDTO@972671b
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:03:51 INFO]: Existing networkfile will be overwritten!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:04:20 INFO]: Existing networkfile will be overwritten!
+[2025-05-28 17:04:20 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:05:53 INFO]: Existing networkfile will be overwritten!
+[2025-05-28 17:05:53 WARNING]: NetworkUUID was unset! Creating new one...
+[2025-05-28 17:05:53 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:18:32 INFO]: 1
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:19:23 ERROR]: UUID mismatch between ressourcefile name and first line!
+[2025-05-28 17:19:23 ERROR]: originated from: org.geooo.NetworkFile
+[2025-05-28 17:19:23 INFO]: Existing networkfile will be overwritten!
+[2025-05-28 17:19:23 WARNING]: NetworkUUID was unset! Creating new one...
+[2025-05-28 17:19:23 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:19:54 INFO]: f922d9b0e27a41d7b708cf54dfd8e14c.g2g
+[2025-05-28 17:19:54 ERROR]: UUID mismatch between ressourcefile name and first line!
+[2025-05-28 17:19:54 ERROR]: originated from: org.geooo.NetworkFile
+[2025-05-28 17:19:54 INFO]: Existing networkfile will be overwritten!
+[2025-05-28 17:19:54 WARNING]: NetworkUUID was unset! Creating new one...
+[2025-05-28 17:19:54 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:21:13 ERROR]: UUID mismatch between ressourcefile name and first line!
+[2025-05-28 17:21:13 ERROR]: originated from: org.geooo.NetworkFile
+[2025-05-28 17:21:13 INFO]: Existing networkfile will be overwritten!
+[2025-05-28 17:21:13 WARNING]: NetworkUUID was unset! Creating new one...
+[2025-05-28 17:21:13 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:21:50 INFO]: f922d9b0e27a41d7b708cf54dfd8e14c
+[2025-05-28 17:21:50 INFO]: f922d9b0e27a41d7b708cf54dfd8e14c
+[2025-05-28 17:21:50 ERROR]: UUID mismatch between ressourcefile name and first line!
+[2025-05-28 17:21:50 ERROR]: originated from: org.geooo.NetworkFile
+[2025-05-28 17:21:50 INFO]: Existing networkfile will be overwritten!
+[2025-05-28 17:21:50 WARNING]: NetworkUUID was unset! Creating new one...
+[2025-05-28 17:21:50 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:22:12 INFO]: Existing networkfile will be overwritten!
+[2025-05-28 17:22:12 WARNING]: NetworkUUID was unset! Creating new one...
+[2025-05-28 17:22:12 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:22:48 INFO]: Existing networkfile will be overwritten!
+[2025-05-28 17:22:48 WARNING]: NetworkUUID was unset! Creating new one...
+[2025-05-28 17:22:48 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:37:30 ERROR]: Networkfile doesn't exist! Can't read from nothing!
+[2025-05-28 17:37:30 ERROR]: originated from: org.geooo.NetworkFile
+[2025-05-28 17:37:30 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:38:00 WARNING]: NetworkUUID was unset! Creating new one...
+[2025-05-28 17:38:00 ERROR]: UUID mismatch between networkfile and ccServer's networkUUID!
+[2025-05-28 17:38:00 ERROR]: originated from: org.geooo.NetworkFile
+[2025-05-28 17:38:00 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:39:20 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:40:05 INFO]:  title
+[2025-05-28 17:40:05 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:41:32 INFO]: Existing networkfile will be overwritten!
+[2025-05-28 17:41:32 WARNING]: NetworkUUID was unset! Creating new one...
+[2025-05-28 17:41:32 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:41:41 INFO]: f922d9b0e27a41d7b708cf54dfd8e14c,localhost,32
+[2025-05-28 17:41:41 INFO]:  title
+[2025-05-28 17:41:41 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:43:10 WARNING]: Ressources (uuid, title, size):
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:43:23 WARNING]: Ressources (uuid, title, size):
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:43:50 WARNING]: f922d9b0e27a41d7b708cf54dfd8e14c,localhost,32
+[2025-05-28 17:43:50 INFO]: f922d9b0e27a41d7b708cf54dfd8e14c
+[2025-05-28 17:43:50 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 17:45:20 INFO]: Existing networkfile will be overwritten!
+[2025-05-28 17:45:20 INFO]: Server running on port 7000!
