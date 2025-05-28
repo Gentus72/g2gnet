@@ -10,7 +10,7 @@ import org.geooo.dto.ServerDTO;
 import org.geooo.util.Logger;
 
 public class Server extends ServerDTO {
-
+    public static final String RESSOURCE_DIRECTORY = "res/";
     public static final int SERVER_PORT = 7000;
 
     public ArrayList<ClientDTO> clients;
@@ -21,7 +21,7 @@ public class Server extends ServerDTO {
     }
 
     public Server() {
-        this.ccServer = new CCServer("localhost");
+        this.ccServer = new CCServer("192.168.178.85");
 
         startServer();
     }

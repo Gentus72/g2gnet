@@ -68,7 +68,7 @@ public class Client {
 
                 String response = this.inputStream.readUTF();
                 String[] responseArgs = response.split(" ");
-                Logger.info(response);
+                Logger.info(String.format("Received response from server [%s]: %s", HOST_ADDRESS, response));
                 ServerResponse responseCommand = ServerResponse.valueOf(responseArgs[0]);
 
                 switch (responseCommand) {
@@ -145,6 +145,8 @@ public class Client {
     }
 
     private void sendCommand(String command) {
+        Logger.info(String.format("Sending command: %s", command));
+
         try {
             this.outputStream.writeUTF(command);
             this.outputStream.flush();

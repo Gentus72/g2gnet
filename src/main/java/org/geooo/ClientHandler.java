@@ -19,6 +19,7 @@ public class ClientHandler extends Thread {
         this.server = server;
 
         this.client = new ClientDTO(UUID.randomUUID().toString().replace("-", ""));
+        Logger.info(String.format("New client connected with UUID: %s", client.getUUID()));
         this.server.clients.add(this.client);
     }
 
@@ -31,6 +32,7 @@ public class ClientHandler extends Thread {
             if (command.equals(ServerCommand.GETBLOCK)) {
                 // handle download
             } else {
+                Logger.info(String.format("Redirecting client %s to ccServer at: %s", this.client.getUUID(), this.server.ccServer.getAddress()));
                 outputStream.writeUTF(String.format("REDIRECT %s", server.ccServer.getAddress()));
             }
         } catch (IOException e) {
