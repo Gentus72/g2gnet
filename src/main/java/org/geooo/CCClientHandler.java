@@ -57,7 +57,7 @@ public class CCClientHandler extends Thread {
                                 // check that ressourcefile exists
                                 String ressourceUUID = clientArgs[2];
                                 File ressourceFile = new File(
-                                        String.format("%s%s.g2g", this.server.RESSOURCE_DIRECTORY, ressourceUUID));
+                                        String.format("%s%s.g2g", Server.RESSOURCE_DIRECTORY, ressourceUUID));
 
                                 if (!ressourceFile.exists()) {
                                     outputStream.writeUTF(String.format("ERROR ressource %s doesn't exist!", ressourceUUID));

@@ -120,7 +120,7 @@ public class Client {
                     }
                     // ERROR <errorMessage>
                     case ERROR -> {
-                        Logger.error("Error response from server: " + responseArgs[1]);
+                        Logger.error("Error response from server: " + response);
                         Logger.error("Try again!");
                     }
                     case CLOSE -> {

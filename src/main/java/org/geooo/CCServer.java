@@ -37,7 +37,7 @@ public class CCServer extends Server {
         NetworkFile.updateRessources(this);
         NetworkFile.writeToFile(this);
 
-        try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT)) {
+        try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT, 50, null)) {
             Logger.info("Server running on port " + SERVER_PORT + "!");
 
             while (true) {

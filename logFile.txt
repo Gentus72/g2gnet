@@ -3,3 +3,44 @@
 [2025-05-28 19:58:55 INFO]: New client connected with UUID: 76aaa8601feb4f93a5029fa8f99a851f
 --------------------------------NEW APPLICATION START--------------------------------
 [2025-05-28 19:58:55 INFO]: Client connected and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 19:59:59 INFO]: Server running on port 7000!
+[2025-05-28 20:00:02 INFO]: New client connected with UUID: 216b7716a0d142709758aca45290b76a
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 20:00:02 INFO]: Client connected and waiting for commands!
+[2025-05-28 20:00:09 INFO]: Sending command: INFO NETWORK
+[2025-05-28 20:00:09 INFO]: Redirecting client 216b7716a0d142709758aca45290b76a to ccServer at: 192.168.178.85
+[2025-05-28 20:00:09 INFO]: Received response from server [localhost]: REDIRECT 192.168.178.85
+[2025-05-28 20:00:09 INFO]: Being redirected to: 192.168.178.85
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 20:06:03 INFO]: Client connected and waiting for commands!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 20:06:18 INFO]: Server running on port 7000!
+[2025-05-28 20:06:27 INFO]: New client connected with UUID: 8f50297ae1af4ee7a9a644e45498c56f
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 20:06:27 INFO]: Client connected and waiting for commands!
+[2025-05-28 20:06:34 INFO]: Sending command: INFO NETWORK
+[2025-05-28 20:06:34 INFO]: Redirecting client 8f50297ae1af4ee7a9a644e45498c56f to ccServer at: 192.168.178.85
+[2025-05-28 20:06:34 INFO]: Received response from server [localhost]: REDIRECT 192.168.178.85
+[2025-05-28 20:06:34 INFO]: Being redirected to: 192.168.178.85
+[2025-05-28 20:06:34 INFO]: Sending command: INFO NETWORK
+[2025-05-28 20:06:34 INFO]: Received response from server [192.168.178.85]: INFO NETWORK c04da38df9c749879bdda0d41695693c
+[2025-05-28 20:06:34 INFO]: Received networkfile!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 20:19:10 INFO]: Server running on port 7000!
+[2025-05-28 20:19:13 INFO]: New client connected with UUID: 818994cd02f9427b9a59e25a4b49e7be
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-28 20:19:13 INFO]: Client connected and waiting for commands!
+[2025-05-28 20:19:35 INFO]: Sending command: INFO NETWORK
+[2025-05-28 20:19:35 INFO]: Redirecting client 818994cd02f9427b9a59e25a4b49e7be to ccServer at: 192.168.178.85
+[2025-05-28 20:19:35 INFO]: Received response from server [localhost]: REDIRECT 192.168.178.85
+[2025-05-28 20:19:35 INFO]: Being redirected to: 192.168.178.85
+[2025-05-28 20:19:35 INFO]: Sending command: INFO NETWORK
+[2025-05-28 20:19:35 INFO]: Received response from server [192.168.178.85]: INFO NETWORK c04da38df9c749879bdda0d41695693c
+[2025-05-28 20:19:35 INFO]: Received networkfile!
+[2025-05-28 20:20:12 INFO]: Sending command: INFO RESSOURCE f922d9b0e27a41d7b708cf54dfd8e14c
+[2025-05-28 20:20:12 INFO]: Received response from server [192.168.178.85]: ERROR ressource f922d9b0e27a41d7b708cf54dfd8e14c doesn't exist!
+[2025-05-28 20:20:12 ERROR]: Error response from server: ressource
+[2025-05-28 20:20:12 ERROR]: originated from: org.geooo.Client
+[2025-05-28 20:20:12 ERROR]: Try again!
+[2025-05-28 20:20:12 ERROR]: originated from: org.geooo.Client
