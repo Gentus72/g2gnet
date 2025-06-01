@@ -238,3 +238,34 @@
 [2025-05-29 00:05:09 INFO]: Redirecting client 5f579749e7e440b18c77d83b9afbebfd to ccServer at: 192.168.178.85
 [2025-05-29 00:05:09 INFO]: Received response from server [localhost]: REDIRECT 192.168.178.85
 [2025-05-29 00:05:09 INFO]: Being redirected to: 192.168.178.85
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-29 00:11:46 INFO]: Existing networkfile will be overwritten!
+[2025-05-29 00:11:46 INFO]: Server running on port 7000!
+[2025-05-29 00:13:02 INFO]: New client connected with UUID: 58ced8983566499c932e2d1abe7574fc
+[2025-05-29 00:13:02 INFO]: Now handling 1 clients!
+[2025-05-29 00:13:02 INFO]: Received client command: INFO NETWORK
+[2025-05-29 00:13:02 ERROR]: Error while sending file!
+[2025-05-29 00:13:02 ERROR]: originated from: org.geooo.util.FilesRemote
+[2025-05-29 00:13:02 ERROR]: Message / Cause: networkFile.g2gnet (No such file or directory)
+[2025-05-29 00:13:02 ERROR]: Exception: java.io.FileNotFoundException
+[2025-05-29 00:13:02 ERROR]: ----------------------Full stack trace----------------------
+[2025-05-29 00:13:02 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:213), java.base/java.io.FileInputStream.<init>(FileInputStream.java:152), org.geooo.util.FilesRemote.sendFile(FilesRemote.java:17), org.geooo.CCClientHandler.run(CCClientHandler.java:54)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-29 00:14:53 INFO]: Existing networkfile will be overwritten!
+[2025-05-29 00:14:53 INFO]: Server running on port 7000!
+[2025-05-29 00:15:14 INFO]: New client connected with UUID: 940913204a34413599df149025dc6cf4
+[2025-05-29 00:15:14 INFO]: Now handling 1 clients!
+[2025-05-29 00:15:14 INFO]: Received client command: INFO NETWORK
+[2025-05-29 00:16:00 INFO]: Received client command: INFO RESSOURCE f922d9b0e27a41d7b708cf54dfd8e14c
+[2025-05-29 00:16:34 INFO]: Received client command: GETBLOCK f922d9b0e27a41d7b708cf54dfd8e14c 9efac98096e546c6956c462bf3c22f06
+[2025-05-29 00:16:53 ERROR]: Error while setting up client handler!
+[2025-05-29 00:16:53 ERROR]: originated from: org.geooo.CCClientHandler
+[2025-05-29 00:16:53 ERROR]: Message / Cause: null
+[2025-05-29 00:16:53 ERROR]: Exception: java.io.EOFException
+[2025-05-29 00:16:53 ERROR]: ----------------------Full stack trace----------------------
+[2025-05-29 00:16:53 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.CCClientHandler.run(CCClientHandler.java:35)]
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-29 17:34:35 ERROR]: New clientfile instanciating! Is this the first time being run?
+[2025-05-29 17:34:35 ERROR]: originated from: org.geooo.metadata.ClientFile
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-05-29 17:35:38 WARNING]: New clientfile instanciating! Is this the first time being run?

@@ -7,9 +7,10 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.UUID;
 
+import org.geooo.dto.ClientDTO;
 import org.geooo.util.FilesRemote;
 import org.geooo.util.Logger;
-import org.geooo.dto.ClientDTO;
+import org.geooo.util.ServerCommand;
 
 public class ClientHandler extends Thread {
     Socket serverSocket;

@@ -13,8 +13,10 @@ import java.util.UUID;
 import org.geooo.dto.RessourceDTO;
 import org.geooo.dto.ServerDTO;
 import org.geooo.util.ChunkedFileReader;
+import org.geooo.util.G2GUUID;
 import org.geooo.util.HashSum;
 import org.geooo.util.Logger;
+import org.geooo.util.RessourceDistributionStrategy;
 
 public class Ressource extends RessourceDTO {
 
@@ -56,7 +58,7 @@ public class Ressource extends RessourceDTO {
             // chunked reader to not load everything into memory
             try (ChunkedFileReader chunkedReader = new ChunkedFileReader(sourceFile.getPath(), BLOCK_SIZE)) {
                 for (int i = 0; i < this.blockAmount; i++) {
-                    String blockUUID = UUID.randomUUID().toString().replace("-", "");
+                    String blockUUID = G2GUUID.getRandomUUID();
     
                     RessourceBlock newBlock = new RessourceBlock(blockUUID);
     
@@ -73,7 +75,6 @@ public class Ressource extends RessourceDTO {
             }
 
             Logger.info(this.blockAmount + " blocks generated!");
-            RessourceFile.writeToFile(this); // TODO change to: write to ccserver
         } catch (IOException e) {
             Logger.error("Error while getting Data from sourceFile: " + this.sourceFile.toPath().toString());
             Logger.exception(e);

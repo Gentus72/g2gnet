@@ -1,4 +1,4 @@
-package org.geooo;
+package org.geooo.metadata;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,25 +9,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import org.geooo.CCServer;
 import org.geooo.dto.RessourceDTO;
 import org.geooo.dto.ServerDTO;
 import org.geooo.util.Logger;
 
-public abstract class NetworkFile {
+public abstract class NetworkFile extends ConfigFile {
     public static final String FILENAME = "networkFile.g2gnet";
 
-    public static File file;
+    public static File file = new File(CCServer.RESSOURCE_DIRECTORY + FILENAME);
 
     public static void writeToFile(CCServer ccServer) {
-        file = new File(CCServer.RESSOURCE_DIRECTORY + FILENAME);
+        ensureConfigFile();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            if (file.createNewFile()) {
-                Logger.warn("New networkfile created! Is the network new?");
-            } else {
-                Logger.info("Existing networkfile will be overwritten!");
-            }
-
             if (ccServer.getNetworkUUID() == null) {
                 Logger.warn("NetworkUUID was unset! Creating new one...");
                 ccServer.setNetworkUUID(UUID.randomUUID().toString().replace("-", ""));
@@ -39,6 +34,8 @@ public abstract class NetworkFile {
             for (ServerDTO server : ccServer.getServers()) {
                 writer.write(String.format("%s, %s\n", server.getUUID(), server.getAddress()));
             }
+
+            // addSection(writer, ccServer.getServers(), "Servers (uuid, address):", ServerDTO::getUUID, ServerDTO::getAddress);
 
             writer.write("Ressources (uuid, title, size):\n");
             for (RessourceDTO ressource : ccServer.getRessources()) {
@@ -52,12 +49,7 @@ public abstract class NetworkFile {
     }
 
     public static void readFromFile(CCServer ccServer) {
-        file = new File(CCServer.RESSOURCE_DIRECTORY + FILENAME);
-
-        if (!file.exists()) {
-            Logger.error("Networkfile doesn't exist! Can't read from nothing!");
-            return;
-        }
+        ensureConfigFile();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String networkUUID = reader.readLine().split(" ")[1];

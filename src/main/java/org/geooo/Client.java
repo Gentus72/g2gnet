@@ -12,10 +12,15 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import org.geooo.dto.ClientDTO;
+import org.geooo.metadata.ClientFile;
+import org.geooo.util.ClientCommand;
 import org.geooo.util.FilesRemote;
+import org.geooo.util.G2GUUID;
 import org.geooo.util.Logger;
+import org.geooo.util.ServerResponse;
 
-public class Client {
+public class Client extends ClientDTO {
 
     public static String RESSOURCE_DIRECTORY = "client/res/";
     public static String HOST_ADDRESS = "localhost";
@@ -24,6 +29,7 @@ public class Client {
     public static void main(String[] args) {
         // Ressource res = new Ressource(new File("res/test.jpg"), HOST_ADDRESS,
         // RessourceDistributionStrategy.EVEN_DISTRIBUTION);
+        // TemporaryRessourceFile.writeToFile(res, RESSOURCE_DIRECTORY);
 
         // Ressource.reassembleSourceFile(new
         // File("client/res/f922d9b0e27a41d7b708cf54dfd8e14c.g2g"), new File[] {
@@ -43,7 +49,10 @@ public class Client {
     boolean connected = false;
 
     public Client() {
-        startClient();
+        this.setUUID(G2GUUID.getRandomUUID());
+        ClientFile.writeToFile(this);
+
+        // startClient();
     }
 
     public void startClient() {

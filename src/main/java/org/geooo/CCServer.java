@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.geooo.dto.RessourceDTO;
 import org.geooo.dto.ServerDTO;
+import org.geooo.metadata.NetworkFile;
 import org.geooo.util.Logger;
 
 public class CCServer extends Server {

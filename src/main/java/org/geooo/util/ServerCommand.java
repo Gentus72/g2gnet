@@ -1,4 +1,4 @@
-package org.geooo;
+package org.geooo.util;
 
 public enum ServerCommand {
     PING,

@@ -3,13 +3,13 @@ package org.geooo;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.net.Socket;
 import java.util.UUID;
 
 import org.geooo.dto.ClientDTO;
 import org.geooo.util.FilesRemote;
 import org.geooo.util.Logger;
+import org.geooo.util.ServerCommand;
 
 // TODO temporary, inheritance should be fixed!
 public class CCClientHandler extends Thread {
@@ -51,7 +51,7 @@ public class CCClientHandler extends Thread {
                                 outputStream.writeUTF(String.format("INFO NETWORK %s", this.server.getNetworkUUID()));
                                 outputStream.flush();
 
-                                FilesRemote.sendFile(new File("networkFile.g2gnet"), outputStream);
+                                FilesRemote.sendFile(new File(CCServer.RESSOURCE_DIRECTORY + "networkFile.g2gnet"), outputStream);
                             }
                             case "RESSOURCE" -> {
                                 // check that ressourcefile exists
@@ -62,7 +62,7 @@ public class CCClientHandler extends Thread {
                                     outputStream.writeUTF(String.format("ERROR ressource %s doesn't exist!", ressourceUUID));
                                     outputStream.flush();
                                 } else {
-                                    outputStream.writeUTF(String.format("INFO RESSOURCE %s"));
+                                    outputStream.writeUTF(String.format("INFO RESSOURCE %s", ressourceUUID));
                                     outputStream.flush();
 
                                     Thread.sleep(500);

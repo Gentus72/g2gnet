@@ -1,17 +1,19 @@
-package org.geooo;
+package org.geooo.metadata;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.PublicKey;
 
+import org.geooo.Ressource;
 import org.geooo.util.Logger;
 
 public abstract class RessourceFile {
     public static File file;
 
-    public static void writeToFile(Ressource ressource) {
-        file = new File(ressource.getUUID() + ".g2g");
+    public static void writeToFile(Ressource ressource, String ressourceDirectory, PublicKey clientPublicKey) {
+        file = new File(ressourceDirectory + ressource.getUUID() + ".g2g");
 
         if (file.exists()) {
             Logger.error("Ressource file already exists! Won't overwrite existing file!");
@@ -22,6 +24,7 @@ public abstract class RessourceFile {
             writer.write(String.format("UUID: %s\n", ressource.getUUID()));
             writer.write(String.format("Title: %s\n", ressource.getTitle()));
             writer.write(String.format("HashSum: %s\n", ressource.getTotalHashSum()));
+            writer.write(String.format("Uploader: %s\n", clientPublicKey.toString()));
             writer.write(String.format("AmountOfBlocks: %d\n", ressource.getBlockAmount()));
             writer.write(String.format("SourceFileName: %s\n", ressource.getSourceFile().getName()));
             
