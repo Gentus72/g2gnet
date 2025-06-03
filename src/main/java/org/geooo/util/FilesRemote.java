@@ -15,7 +15,7 @@ public abstract class FilesRemote {
      */
     public static void sendFile(File file, DataOutputStream outputStream) {
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
-            int bytes = 0;
+            int bytes;
 
             outputStream.writeLong(file.length());
             byte[] buffer = new byte[4 * 1024];

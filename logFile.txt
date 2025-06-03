@@ -273,3 +273,40 @@
 [2025-06-03 12:43:20 INFO]: MEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCANothZidOUPG/No/P0jJOvMDVvgjn/bAxobmq2+nVw7w==
 --------------------------------NEW APPLICATION START--------------------------------
 [2025-06-03 12:43:30 INFO]: MEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCANothZidOUPG/No/P0jJOvMDVvgjn/bAxobmq2+nVw7w==
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-06-03 14:18:04 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-06-03 14:18:13 INFO]: Successfully connected to Server [localhost:7000]!
+[2025-06-03 14:18:13 INFO]: New client connected with UUID: 7a1878f564734eeda45b5baec2f54568
+[2025-06-03 14:18:13 INFO]: Now handling 1 clients!
+[2025-06-03 14:18:16 INFO]: Sending command: CLOSE
+[2025-06-03 14:18:16 INFO]: Received client command: CLOSE
+[2025-06-03 14:18:16 INFO]: A client has closed their connection!
+[2025-06-03 14:18:16 INFO]: Received response from [localhost]: CLOSE closing connection!
+[2025-06-03 14:18:16 INFO]: Closing connection!
+[2025-06-03 14:18:20 INFO]: Successfully connected to Server [localhost:7000]!
+[2025-06-03 14:18:20 INFO]: New client connected with UUID: 0f964e57463e4f9ea7e04f95ef42a20e
+[2025-06-03 14:18:20 INFO]: Now handling 1 clients!
+[2025-06-03 14:18:27 ERROR]: Wrong number of arguments supplied for INFO! Should be 1
+[2025-06-03 14:18:27 ERROR]: originated from: org.geooo.util.ServerCommand
+[2025-06-03 14:18:34 ERROR]: Error while setting up client handler!
+[2025-06-03 14:18:34 ERROR]: originated from: org.geooo.CCClientHandler
+[2025-06-03 14:18:34 ERROR]: Message / Cause: null
+[2025-06-03 14:18:34 ERROR]: Exception: java.io.EOFException
+[2025-06-03 14:18:34 ERROR]: ----------------------Full stack trace----------------------
+[2025-06-03 14:18:34 ERROR]: [java.base/java.io.DataInputStream.readFully(DataInputStream.java:210), java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:341), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:575), java.base/java.io.DataInputStream.readUTF(DataInputStream.java:550), org.geooo.CCClientHandler.run(CCClientHandler.java:36)]
+[2025-06-03 14:19:07 INFO]: New client connected with UUID: 837034cd3ff347688fb7ba4f71efbd64
+[2025-06-03 14:19:07 INFO]: Now handling 1 clients!
+--------------------------------NEW APPLICATION START--------------------------------
+[2025-06-03 14:19:07 INFO]: Successfully connected to Server [localhost:7000]!
+[2025-06-03 14:19:11 INFO]: Sending command: INFO NETWORK
+[2025-06-03 14:19:11 INFO]: Received client command: INFO NETWORK
+[2025-06-03 14:19:11 INFO]: Received response from [localhost]: INFO NETWORK 137f1c666f1b49a887a19bd3a5b45991
+[2025-06-03 14:19:11 INFO]: Received networkfile!
+[2025-06-03 14:19:25 INFO]: Sending command: CLOSE
+[2025-06-03 14:19:25 INFO]: Received client command: CLOSE
+[2025-06-03 14:19:25 INFO]: A client has closed their connection!
+[2025-06-03 14:19:25 INFO]: Received response from [localhost]: CLOSE closing connection!
+[2025-06-03 14:19:25 INFO]: Closing connection!
+[2025-06-03 14:19:27 ERROR]: Unknown command! Try again...
+[2025-06-03 14:19:27 ERROR]: originated from: org.geooo.Client

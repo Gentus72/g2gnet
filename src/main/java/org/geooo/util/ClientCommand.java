@@ -4,7 +4,8 @@ public enum ClientCommand {
     DISASSEMBLE(2),
     REASSEMBLE(2),
     CONNECT(2),
-    HELP(1);
+    HELP(1),
+    EXIT(1);
 
     int argsAmount; // amount with command itself
 
