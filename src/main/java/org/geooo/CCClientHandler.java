@@ -91,11 +91,13 @@ public class CCClientHandler extends Thread {
                             FilesRemote.receiveFile("tmpRessourceFile.g2gtmp", inputStream);
                             Logger.info("Received temporary ressourcefile!");
 
+                            TemporaryRessourceFile tmpFile = new TemporaryRessourceFile("tmpRessourceFile.g2gtmp");
+
                             HashMap<Integer, String> blockLocations = new HashMap<>();
-                            String clientPublicKey = TemporaryRessourceFile.configContent.get("PublicKey");
+                            String clientPublicKey = tmpFile.getConfigContentFromFile(tmpFile.file).get("PublicKey");
 
                             // send allow to all servers
-                            for (RessourceBlockDTO block : TemporaryRessourceFile.getBlocks()) {
+                            for (RessourceBlockDTO block : tmpFile.getBlocks()) {
                                 // while send ALLOW wasn't successfull, try another one
                                 while (!sendAllow(servers.get(currentIndex).getAddress(), clientPublicKey, clientInput)) {
                                     servers.remove(currentIndex);
@@ -110,7 +112,8 @@ public class CCClientHandler extends Thread {
                                 if (currentIndex >= servers.size()) currentIndex = 0;
                             }
 
-                            File ressourceFile = TemporaryRessourceFile.convertToRessourceFile(CCServer.RESSOURCE_DIRECTORY, "tmpRessourceFile.g2gtmp", blockLocations);
+                            // assemble full ressource file
+                            File ressourceFile = tmpFile.convertToRessourceFile(CCServer.RESSOURCE_DIRECTORY, "tmpRessourceFile.g2gtmp", blockLocations);
 
                             if (ressourceFile == null || clientPublicKey == null) {
                                 Logger.error("Error while processing tmpfile!");

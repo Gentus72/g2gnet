@@ -8,21 +8,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.geooo.Ressource;
+import org.geooo.dto.ClientDTO;
 import org.geooo.dto.RessourceBlockDTO;
 import org.geooo.util.Logger;
 
 // TODO make non-static
-public abstract class TemporaryRessourceFile extends ConfigFile {
-    public static File file;
+public class TemporaryRessourceFile extends ConfigFile {
+    public File file;
 
-    public static void writeToFile(Ressource ressource, String ressourceDirectory) {
-        file = new File(ressourceDirectory + ressource.getUUID() + ".g2gtmp");
-        file = ensureConfigFile(file, false);
+    public TemporaryRessourceFile(String filePath) {
+        this.file = new File(filePath);
+    }
+
+    public void writeToFile(Ressource ressource, String ressourceDirectory, ClientDTO client) {
+        this.file = ensureConfigFile(file, false);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write("TEMPORARY RESSOURCE FILE");
             writer.write(String.format("UUID: %s\n", ressource.getUUID()));
             writer.write(String.format("Title: %s\n", ressource.getTitle()));
+            writer.write(String.format("PublicKey: %s\n", client.getPublicKeyBase64()));
             writer.write(String.format("HashSum: %s\n", ressource.getTotalHashSum()));
             writer.write(String.format("AmountOfBlocks: %d\n", ressource.getBlockAmount()));
             writer.write(String.format("SourceFileName: %s\n", ressource.getSourceFile().getName()));
@@ -37,7 +42,7 @@ public abstract class TemporaryRessourceFile extends ConfigFile {
         }
     }
 
-    public static File convertToRessourceFile(String destinationDirectory, String tmpFile, HashMap<Integer, String> blockLocations) {
+    public File convertToRessourceFile(String destinationDirectory, String tmpFile, HashMap<Integer, String> blockLocations) {
         File ressourceFile = new File(destinationDirectory + "ressourceFile.g2g");
 
         if (blockLocations.size() != getBlocks().size()) {
@@ -50,7 +55,7 @@ public abstract class TemporaryRessourceFile extends ConfigFile {
         return ressourceFile;
     }
 
-    public static ArrayList<RessourceBlockDTO> getBlocks() {
+    public ArrayList<RessourceBlockDTO> getBlocks() {
         return null;
     }
 }

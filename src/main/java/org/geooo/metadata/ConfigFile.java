@@ -14,10 +14,6 @@ import org.geooo.util.Logger;
 public abstract class ConfigFile {
     public static HashMap<String, String> configContent;
 
-    public abstract void writeToFile();
-
-    public abstract void readFromFile();
-
     public static <T, K> void addSection(BufferedWriter writer, ArrayList<T> list, String header, Function<T, K>... extractors) {
         try {
             writer.write(header);
@@ -38,6 +34,32 @@ public abstract class ConfigFile {
         }
     }
     
+    public HashMap<String, String> getConfigContentFromFile(File configFile) {
+        File file = ensureConfigFile(configFile, true);
+        HashMap<String, String> newContent = new HashMap<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line = reader.readLine();
+
+            while (line != null) {
+                if (line.contains(":")) {
+                    String[] components = line.split(" ");
+
+                    configContent.put(components[0].replace(":", ""), components[1]);
+                }
+
+                line = reader.readLine();
+            }
+
+            return newContent;
+        } catch (IOException e) {
+            Logger.error("Error while reading config file (values)!");
+            Logger.exception(e);
+        }
+
+        return null;
+    }
+
     public static void setConfigContentFromFile(File configFile) {
         File file = ensureConfigFile(configFile, true);
         configContent = new HashMap<>();
