@@ -4,15 +4,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.geooo.dto.RessourceBlockDTO;
 import org.geooo.dto.ServerDTO;
 import org.geooo.util.Logger;
 
-public class RessourceBlock {
+public class RessourceBlock extends RessourceBlockDTO {
 
-    private final String uuid;
     private final String parentDirectoryPath = "res/";
-    private String hashSum;
-    private int sequenceID;
 
     private byte[] data;
 
@@ -48,18 +46,6 @@ public class RessourceBlock {
         }
     }
 
-    public String getUUID() {
-        return this.uuid;
-    }
-
-    public String getHashSum() {
-        return this.hashSum;
-    }
-
-    public void setHashSum(String hashSum) {
-        this.hashSum = hashSum;
-    }
-
     public void setData(byte[] data) {
         this.data = data;
     }
@@ -67,12 +53,4 @@ public class RessourceBlock {
     public byte[] getData() {
         return this.data;
     }
-
-    public int getSequenceID() {
-		return this.sequenceID;
-	}
-
-	public void setSequenceID(int sequenceID) {
-		this.sequenceID = sequenceID;
-	}
 }

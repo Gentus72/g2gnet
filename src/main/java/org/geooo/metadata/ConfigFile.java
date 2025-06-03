@@ -12,16 +12,11 @@ import java.util.function.Function;
 import org.geooo.util.Logger;
 
 public abstract class ConfigFile {
-    public static File file;
-    private static HashMap<String, String> configContent;
+    public static HashMap<String, String> configContent;
 
-    public static void writeToFile() {
+    public abstract void writeToFile();
 
-    }
-
-    public static void readFromFile() {
-
-    }
+    public abstract void readFromFile();
 
     public static <T, K> void addSection(BufferedWriter writer, ArrayList<T> list, String header, Function<T, K>... extractors) {
         try {
@@ -42,9 +37,9 @@ public abstract class ConfigFile {
             Logger.exception(e);
         }
     }
-
-    public static void setConfigContentFromFile() {
-        ensureConfigFile();
+    
+    public static void setConfigContentFromFile(File configFile) {
+        File file = ensureConfigFile(configFile, true);
         configContent = new HashMap<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -65,16 +60,29 @@ public abstract class ConfigFile {
         }
     }
 
-    public static void ensureConfigFile() {
+    public static File ensureConfigFile(File file, boolean isNeeded) {
+        if (file == null) {
+            Logger.error("Configfile object is null!");
+            return null;
+        }
+
         if (!file.exists()) {
-            Logger.warn("Config file doesn't exist! Creating new one...");
+            if (isNeeded) {
+                Logger.error("Configfile is required but not present! ");
+                return null;
+            }
+
+            Logger.warn("Config file doesn't exist! May crash now...");
             
             try {
                 file.createNewFile();
+                return file;
             } catch (IOException e) {
                 Logger.error("Error while creating configfile!");
                 Logger.exception(e);
             }
         }
+
+        return file;
     }
 }

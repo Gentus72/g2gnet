@@ -16,11 +16,10 @@ import org.geooo.util.Logger;
 
 public abstract class NetworkFile extends ConfigFile {
     public static final String FILENAME = "networkFile.g2gnet";
-
     public static File file = new File(CCServer.RESSOURCE_DIRECTORY + FILENAME);
 
     public static void writeToFile(CCServer ccServer) {
-        ensureConfigFile();
+        file = ensureConfigFile(file, false);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             if (ccServer.getNetworkUUID() == null) {
@@ -49,45 +48,45 @@ public abstract class NetworkFile extends ConfigFile {
     }
 
     public static void readFromFile(CCServer ccServer) {
-        ensureConfigFile();
+        if (ensureConfigFile(file, true) != null) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String networkUUID = reader.readLine().split(" ")[1];
+                ArrayList<ServerDTO> servers = new ArrayList<>();
+                ArrayList<RessourceDTO> ressources = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String networkUUID = reader.readLine().split(" ")[1];
-            ArrayList<ServerDTO> servers = new ArrayList<>();
-            ArrayList<RessourceDTO> ressources = new ArrayList<>();
+                if (ccServer.getNetworkUUID() != null && !ccServer.getNetworkUUID().equals(networkUUID)) {
+                    Logger.error("UUID mismatch between networkfile and ccServer's networkUUID!");
+                    return;
+                }
 
-            if (ccServer.getNetworkUUID() != null && !ccServer.getNetworkUUID().equals(networkUUID)) {
-                Logger.error("UUID mismatch between networkfile and ccServer's networkUUID!");
-                return;
+                ccServer.setNetworkUUID(networkUUID);
+                reader.readLine(); // line will be server headers
+                String nextLine = reader.readLine(); // also header ? idk
+
+                while (nextLine != null && !nextLine.contains("Ressources")) {
+                    String[] components = nextLine.split(",");
+
+                    servers.add(new ServerDTO(components[0], components[1])); // uuid & address
+
+                    nextLine = reader.readLine();
+                }
+                nextLine = reader.readLine(); // next line will be ressource header
+
+                while (nextLine != null) {
+                    String[] components = nextLine.split(",");
+
+                    ressources.add(new RessourceDTO(components[0], components[1], Integer.parseInt(components[2]))); // uuid, title,
+                                                                                                // blockAmount
+
+                    nextLine = reader.readLine();
+                }
+
+                ccServer.setServers(servers);
+                ccServer.setRessources(ressources);
+            } catch (IOException e) {
+                Logger.error("Error while reading networkfile!");
+                Logger.exception(e);
             }
-
-            ccServer.setNetworkUUID(networkUUID);
-            String nextLine = reader.readLine(); // next line will be server headers
-            nextLine = reader.readLine(); // also header ? idk
-
-            while (nextLine != null && !nextLine.contains("Ressources")) {
-                String[] components = nextLine.split(",");
-
-                servers.add(new ServerDTO(components[0], components[1])); // uuid & address
-
-                nextLine = reader.readLine();
-            }
-            nextLine = reader.readLine(); // next line will be ressource header
-
-            while (nextLine != null) {
-                String[] components = nextLine.split(",");
-
-                ressources.add(new RessourceDTO(components[0], components[1], Integer.valueOf(components[2]))); // uuid, title,
-                                                                                               // blockAmount
-
-                nextLine = reader.readLine();
-            }
-
-            ccServer.setServers(servers);
-            ccServer.setRessources(ressources);
-        } catch (IOException e) {
-            Logger.error("Error while reading networkfile!");
-            Logger.exception(e);
         }
     }
 
@@ -117,7 +116,7 @@ public abstract class NetworkFile extends ConfigFile {
                 ressource.setTitle(reader.readLine().split(" ")[1]);
                 reader.readLine(); // next line is hashSum, which we don't need
 
-                ressource.setBlockAmount(Integer.valueOf(reader.readLine().split(" ")[1]));
+                ressource.setBlockAmount(Integer.parseInt(reader.readLine().split(" ")[1]));
             } catch (IOException e) {
                 Logger.error("Error while reading ressourcefiles!");
                 Logger.exception(e);

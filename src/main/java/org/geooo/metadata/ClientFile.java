@@ -12,17 +12,7 @@ public abstract class ClientFile extends ConfigFile {
     public static File file = new File(Client.RESSOURCE_DIRECTORY + "clientfile.g2gclient");
 
     public static void writeToFile(Client client) {
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                Logger.error("Error while creating clientfile!");
-                Logger.exception(e);
-            }
-
-            Logger.warn("New clientfile instanciating! Is this the first time being run?");
-            return;
-        }
+        file = ensureConfigFile(file, false);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(String.format("UUID: %s\n", client.getUUID()));
@@ -35,6 +25,12 @@ public abstract class ClientFile extends ConfigFile {
     }
 
     public static void readFromFile(Client client) {
+        if (ensureConfigFile(file, true) != null) {
+            setConfigContentFromFile(file);
 
+            client.setUUID(configContent.get("UUID"));
+            client.setPublicKey(configContent.get("PublicKey"));
+            client.setPrivateKey(configContent.get("PrivateKey"));
+        }
     }
 }

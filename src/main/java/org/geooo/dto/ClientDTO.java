@@ -10,6 +10,8 @@ import org.geooo.util.Logger;
 public class ClientDTO {
     String uuid;
     KeyPair keyPair;
+    String publicKey;
+    String privateKey;
 
     public ClientDTO() {
 
@@ -56,4 +58,20 @@ public class ClientDTO {
 
         return keyPairGenerator.generateKeyPair();
     }
+
+    public String getPublicKey() {
+		return this.publicKey;
+	}
+
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
+	}
+
+	public String getPrivateKey() {
+		return this.privateKey;
+	}
+
+	public void setPrivateKey(String privateKey) {
+		this.privateKey = privateKey;
+	}
 }

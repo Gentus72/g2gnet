@@ -1,26 +1,27 @@
 package org.geooo;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import org.geooo.dto.ClientDTO;
+import org.geooo.dto.RessourceBlockDTO;
 import org.geooo.metadata.ClientFile;
+import org.geooo.metadata.RessourceFile;
 import org.geooo.util.ClientCommand;
 import org.geooo.util.FilesRemote;
 import org.geooo.util.G2GUUID;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerResponse;
 
-public class Client extends ClientDTO {
+public final class Client extends ClientDTO {
 
     public static String RESSOURCE_DIRECTORY = "client/res/";
     public static String HOST_ADDRESS = "localhost";
@@ -46,16 +47,77 @@ public class Client extends ClientDTO {
     DataOutputStream outputStream;
     DataInputStream inputStream;
     Scanner userInputScanner;
-    boolean connected = false;
+    boolean isConnected = false;
 
     public Client() {
-        this.setUUID(G2GUUID.getRandomUUID());
-        ClientFile.writeToFile(this);
+        ClientFile.readFromFile(this);
 
-        // startClient();
+        if (this.getUUID() == null) {
+            this.setUUID(G2GUUID.getRandomUUID());
+            ClientFile.writeToFile(this);
+        }
+
+        startClient();
     }
 
     public void startClient() {
+        this.userInputScanner = new Scanner(System.in);
+        
+        while (true) { 
+            System.out.print("$> ");
+            String[] inputArgs = this.userInputScanner.nextLine().split(" ");
+
+            if (this.isConnected) {
+                handleServerCommand(inputArgs);
+            } else {
+                handleClientCommand(inputArgs);
+            }
+        }
+    }
+
+    public void handleClientCommand(String[] args) {
+        try {
+            ClientCommand command = ClientCommand.valueOf(args[0]);
+            if (!command.hasCorrectArgsAmount(args.length)) return;
+
+            switch (command) {
+                case CONNECT -> {
+                    connectToServer(args);
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            Logger.error("Unknown command! Try again...");
+            return;
+        }
+    }
+
+    public void handleServerCommand(String[] args) {
+
+    }
+
+    public void connectToServer(String[] args) {
+        if (args.length >= 3) {
+            HOST_PORT = Integer.parseInt(args[2]);
+        } else {
+            HOST_PORT = 7000;
+        }
+
+        HOST_ADDRESS = args[1];
+
+        try {
+            this.socket = new Socket(HOST_ADDRESS, HOST_PORT);
+            this.outputStream = new DataOutputStream(this.socket.getOutputStream());
+            this.inputStream = new DataInputStream(this.socket.getInputStream());
+            Logger.info(String.format("Successfully connected to Server [%s:%d]!", HOST_ADDRESS, HOST_PORT));
+
+            this.isConnected = true;
+        } catch (IOException e) {
+            Logger.error(String.format("Error while connecting to [%s:%d]!", HOST_ADDRESS, HOST_PORT));
+            Logger.exception(e);
+        }
+    }
+
+    public void oldStartClient() {
 
         try {
             this.userInputScanner = new Scanner(System.in);
@@ -73,10 +135,10 @@ public class Client extends ClientDTO {
                     try {
                         ClientCommand.valueOf(clientInput.split(" ")[0]);
 
-                        handleClientCommand(clientInput);
+                        // handleClientCommand(clientInput);
                         continue;
                     } catch (IllegalArgumentException e) {
-                        if (!connected) {
+                        if (!this.isConnected) {
                             Logger.warn("Please enter a client command or connect to a network!");
                             continue;
                         }
@@ -166,7 +228,7 @@ public class Client extends ClientDTO {
         }
     }
 
-    private void handleClientCommand(String clientInput) {
+    private void oldhandleClientCommand(String clientInput) {
         String[] args = clientInput.split(" ");
 
         switch (ClientCommand.valueOf(args[0])) {
@@ -180,28 +242,7 @@ public class Client extends ClientDTO {
             }
             // CONNECT <serverAddress> <serverPort | <blank = 7000>>
             case CONNECT -> {
-                if (args.length < 2) {
-                    Logger.error("");
-                    return;
-                } else if (args.length >= 3) {
-                    HOST_PORT = Integer.valueOf(args[2]);
-                } else {
-                    HOST_PORT = 7000;
-                }
 
-                HOST_ADDRESS = args[1];
-
-                try {
-                    this.socket = new Socket(HOST_ADDRESS, HOST_PORT);
-                    this.outputStream = new DataOutputStream(this.socket.getOutputStream());
-                    this.inputStream = new DataInputStream(this.socket.getInputStream());
-                    Logger.info(String.format("Successfully connected to Server [%s:%d]!", HOST_ADDRESS, HOST_PORT));
-
-                    connected = true;
-                } catch (IOException e) {
-                    Logger.error(String.format("Error while connecting to [%s:%d]!", HOST_ADDRESS, HOST_PORT));
-                    Logger.exception(e);
-                }
             }
         }
     }
@@ -218,38 +259,6 @@ public class Client extends ClientDTO {
         }
     }
 
-    private void readRessourceFile(File ressourceFile, HashMap<String, String> metadata,
-            HashMap<String, String> blocksData) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(ressourceFile))) {
-            // Ressource-Informationen lesen
-            while (true) {
-                String line = reader.readLine();
-
-                if (line == null || line.equals("blocks (uuid, hash):")) {
-                    break;
-                }
-
-                String[] keyValuePair = line.split(":");
-                metadata.put(keyValuePair[0], keyValuePair[1].strip());
-            }
-
-            while (true) {
-                String line = reader.readLine();
-
-                if (line == null) {
-                    break;
-                }
-
-                String[] uuidHashsumPair = line.split(",");
-
-                blocksData.put(uuidHashsumPair[0], uuidHashsumPair[1]);
-            }
-        } catch (Exception e) {
-            Logger.error("Error while reading client ressource file");
-            Logger.exception(e);
-        }
-    }
-
     private void receiveRessource(String[] clientArguments) {
         try {
             Path ressourceDirectory = Files.createDirectory(Path.of(RESSOURCE_DIRECTORY + clientArguments[1]));
@@ -260,21 +269,21 @@ public class Client extends ClientDTO {
             FilesRemote.receiveFile(ressourceFile, inputStream);
 
             // 2. read and act on metadata
-            HashMap<String, String> metadata = new HashMap<>();
-            HashMap<String, String> blocksData = new HashMap<>();
-            readRessourceFile(ressourceFile, metadata, blocksData);
+            RessourceFile.setConfigContentFromFile(ressourceFile);
+            HashMap<String, String> metadata = RessourceFile.configContent;
+            ArrayList<RessourceBlockDTO> blocks = RessourceFile.getBlocks(ressourceFile);
 
             Logger.info("Receving block amount: " + metadata.get("total_blocks"));
 
-            if (Integer.parseInt(metadata.get("total_blocks")) != blocksData.size()) {
+            if (Integer.parseInt(metadata.get("total_blocks")) != blocks.size()) {
                 Logger.error("Block amount mismatch for ressource: " + clientArguments[1]);
             }
 
             // 3. receive blocks according to metadata
-            for (String blockUUID : blocksData.keySet()) {
-                File blockFile = new File(ressourceDirectory.toString() + "/" + blockUUID + ".g2gblock");
+            for (RessourceBlockDTO block : blocks) {
+                File blockFile = new File(ressourceDirectory.toString() + "/" + block.getUUID() + ".g2gblock");
 
-                outputStream.writeUTF("GET block " + blockUUID);
+                outputStream.writeUTF("GET block " + block.getUUID());
 
                 FilesRemote.receiveFile(blockFile, inputStream);
             }
