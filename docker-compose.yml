@@ -1,0 +1,77 @@
+version: "3.8"
+
+services:
+   ccserver:
+      # image: stickw7/g2gnet:latest
+      # pull_policy: always
+      build:
+         context: .
+         dockerfile: Dockerfile
+      command: ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.CCServer"]
+      networks:
+         custom_net:
+            ipv4_address: 172.20.0.10
+
+   server1:
+      # image: stickw7/g2gnet:latest
+      # pull_policy: always
+      build:
+         context: .
+         dockerfile: Dockerfile
+      command: ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.Server"]
+      networks:
+         custom_net:
+            ipv4_address: 172.20.0.11
+      depends_on:
+         - ccserver
+
+   server2:
+      # image: stickw7/g2gnet:latest
+      # pull_policy: always
+      build:
+         context: .
+         dockerfile: Dockerfile
+      command:
+         ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.Server"]
+      networks:
+         custom_net:
+            ipv4_address: 172.20.0.12
+      depends_on:
+         - server1
+
+   server3:
+      # image: stickw7/g2gnet:latest
+      # pull_policy: always
+      build:
+         context: .
+         dockerfile: Dockerfile
+      command:
+         ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.Server"]
+      networks:
+         custom_net:
+            ipv4_address: 172.20.0.13
+      depends_on:
+         - server2
+
+   client:
+      # image: stickw7/g2gnet:latest
+      # pull_policy: always
+      build:
+         context: .
+         dockerfile: Dockerfile
+      command:
+         ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.Client"]
+      networks:
+         custom_net:
+            ipv4_address: 172.20.0.20
+      depends_on:
+         - server3
+      stdin_open: true
+      tty: true
+
+networks:
+   custom_net:
+      driver: bridge
+      ipam:
+         config:
+            - subnet: 172.20.0.0/16

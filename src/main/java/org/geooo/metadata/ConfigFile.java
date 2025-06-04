@@ -39,35 +39,17 @@ public abstract class ConfigFile {
         }
     }
     
-    public HashMap<String, String> getConfigContentFromFile(File configFile) {
-        ensureConfigFile(true);
-        HashMap<String, String> newContent = new HashMap<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line = reader.readLine();
-
-            while (line != null) {
-                if (line.contains(":")) {
-                    String[] components = line.split(" ");
-
-                    configContent.put(components[0].replace(":", ""), components[1]);
-                }
-
-                line = reader.readLine();
-            }
-
-            return newContent;
-        } catch (IOException e) {
-            Logger.error("Error while reading config file (values)!");
-            Logger.exception(e);
+    public HashMap<String, String> getConfigContent() {
+        if (this.configContent == null) {
+            setConfigContentFromFile();
         }
 
-        return null;
+        return this.configContent;
     }
 
     public void setConfigContentFromFile() {
         ensureConfigFile(true);
-        configContent = new HashMap<>();
+        this.configContent = new HashMap<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line = reader.readLine();
@@ -76,7 +58,7 @@ public abstract class ConfigFile {
                 if (line.contains(":")) {
                     String[] components = line.split(" ");
 
-                    configContent.put(components[0].replace(":", ""), components[1]);
+                    this.configContent.put(components[0].replace(":", ""), components[1]);
                 }
 
                 line = reader.readLine();

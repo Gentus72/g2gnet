@@ -15,20 +15,21 @@ import org.geooo.util.FilesRemote;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerCommand;
 
-public class ClientHandlerDTO implements Runnable {
+public class ClientHandlerDTO<T extends Server> implements Runnable {
     public Socket serverSocket;
     public ClientDTO client;
-    public Server server;
+    protected T server;
     public DataInputStream inputStream;
     public DataOutputStream outputStream;
     public HashMap<ServerCommand, Consumer<String[]>> registeredCommands;
     public Consumer<String[]> fallbackFunction;
     public boolean running;
 
-    public ClientHandlerDTO(Server server, Socket serverSocket) {
+    public ClientHandlerDTO(T server, Socket serverSocket) {
         this.server = server;
         this.serverSocket = serverSocket;
         this.running = true;
+        this.registeredCommands = new HashMap<>();
 
         this.client = new ClientDTO(UUID.randomUUID().toString().replace("-", ""));
         Logger.info(String.format("New client connected with UUID: %s", client.getUUID()));
@@ -65,10 +66,10 @@ public class ClientHandlerDTO implements Runnable {
     public void handleCommandGETBLOCK(String[] args) {
         // check if ressource directory exists
         String ressourceUUID = args[1];
-        File ressourceDirectory = new File(CCServer.RESSOURCE_DIRECTORY + ressourceUUID);
+        File ressourceDirectory = new File(CCServer.CCSERVER_DIRECTORY + ressourceUUID);
 
         String blockUUID = args[2];
-        File blockFile = new File(String.format("%s%s/%s.g2gblock", CCServer.RESSOURCE_DIRECTORY, ressourceUUID, blockUUID));
+        File blockFile = new File(String.format("%s%s/%s.g2gblock", CCServer.CCSERVER_DIRECTORY, ressourceUUID, blockUUID));
 
         if (!ressourceDirectory.exists() || !blockFile.exists()) {
             sendResponse("ERROR ressource directory or block file doesn't exist!");
@@ -128,16 +129,19 @@ public class ClientHandlerDTO implements Runnable {
                     continue;
                 }
 
+                boolean validCommand = false;
+
                 for (var entry : registeredCommands.entrySet()){
                     if (command.equals(entry.getKey())) {
                         // call according function
+                        validCommand = true;
                         entry.getValue().accept(clientArgs);
                     }
                 }
 
                 // if ServerCommand.valueOf(); didn't throw an exception, the client still sent a valid command
                 // call fallback function
-                this.fallbackFunction.accept(clientArgs);
+                if (!validCommand) this.fallbackFunction.accept(clientArgs);
             } catch (IOException e) {
                 Logger.error("Error while handling client!");
                 Logger.exception(e);

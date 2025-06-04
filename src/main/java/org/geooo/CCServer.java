@@ -1,6 +1,7 @@
 package org.geooo;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import org.geooo.metadata.NetworkFile;
 import org.geooo.util.Logger;
 
 public class CCServer extends Server {
-    public static final String RESSOURCE_DIRECTORY = "ccserver/";
+    public static final String CCSERVER_DIRECTORY = "ccserver/";
 
     // network info
     private String networkUUID;
@@ -31,18 +32,17 @@ public class CCServer extends Server {
         super(address);
     }
 
-    @Override
     public void startServer() {
         this.clients = new ArrayList<>();
         this.servers = new ArrayList<>();
         this.ressources = new ArrayList<>();
-        this.networkFile = new NetworkFile(RESSOURCE_DIRECTORY + "networkFile.g2gnet");
+        this.networkFile = new NetworkFile(CCSERVER_DIRECTORY + "networkFile.g2gnet");
 
         this.networkFile.readFromFile(this); // if it doesn't exist, it will do nothing and just show an error in the console
         this.networkFile.updateRessources(this);
         this.networkFile.writeToFile(this);
 
-        try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT, 50, null)) {
+        try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT, 50, InetAddress.getByName("0.0.0.0"))) {
             Logger.info("Server running on port " + SERVER_PORT + "!");
 
             while (true) {
@@ -71,6 +71,11 @@ public class CCServer extends Server {
 
     public void setServers(ArrayList<ServerDTO> servers) {
         this.servers = servers;
+    }
+
+    public void addServer(ServerDTO server) {
+        this.servers.add(server);
+        this.networkFile.writeToFile(this);
     }
 
     public ArrayList<RessourceDTO> getRessources() {

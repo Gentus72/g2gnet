@@ -7,11 +7,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import org.geooo.CCServer;
 import org.geooo.dto.RessourceDTO;
 import org.geooo.dto.ServerDTO;
+import org.geooo.util.G2GUUID;
 import org.geooo.util.Logger;
 
 public class NetworkFile extends ConfigFile {
@@ -28,7 +28,7 @@ public class NetworkFile extends ConfigFile {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             if (ccServer.getNetworkUUID() == null) {
                 Logger.warn("NetworkUUID was unset! Creating new one...");
-                ccServer.setNetworkUUID(UUID.randomUUID().toString().replace("-", ""));
+                ccServer.setNetworkUUID(G2GUUID.getRandomUUID());
             }
 
             writer.write(String.format("UUID: %s\n", ccServer.getNetworkUUID()));
@@ -96,7 +96,7 @@ public class NetworkFile extends ConfigFile {
 
     // get ressource metadata based on available ressourcefiles
     public void updateRessources(CCServer ccServer) {
-        File ressourceDir = new File(CCServer.RESSOURCE_DIRECTORY);
+        File ressourceDir = new File(CCServer.CCSERVER_DIRECTORY);
         ArrayList<RessourceDTO> ressources = new ArrayList<>();
 
         // check if resource dir exists

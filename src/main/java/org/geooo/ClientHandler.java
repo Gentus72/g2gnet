@@ -5,7 +5,7 @@ import java.net.Socket;
 import org.geooo.dto.ClientHandlerDTO;
 import org.geooo.util.Logger;
 
-public class ClientHandler extends ClientHandlerDTO {
+public class ClientHandler extends ClientHandlerDTO<Server> {
 
     public ClientHandler(Server server, Socket serverSocket) {
         super(server, serverSocket);

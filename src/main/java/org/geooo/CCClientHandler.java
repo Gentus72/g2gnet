@@ -16,14 +16,14 @@ import org.geooo.util.FilesRemote;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerCommand;
 
-public class CCClientHandler extends ClientHandlerDTO {
-    CCServer server;
+public class CCClientHandler extends ClientHandlerDTO<CCServer> {
 
     public CCClientHandler(CCServer server, Socket serverSocket) {
         super(server, serverSocket);
 
         registerCommand(ServerCommand.INFO, this::handleCommandINFO);
         registerCommand(ServerCommand.AUTH, this::handleCommandAUTH);
+        registerCommand(ServerCommand.REGISTER, this::handleCommandREGISTER);
     }
 
     public void handleCommandINFO(String[] args) {
@@ -35,7 +35,7 @@ public class CCClientHandler extends ClientHandlerDTO {
             case "RESSOURCE" -> {
                 // check that ressourcefile exists
                 String ressourceUUID = args[2];
-                File ressourceFile = new File(String.format("%s%s.g2g", CCServer.RESSOURCE_DIRECTORY, ressourceUUID));
+                File ressourceFile = new File(String.format("%s%s.g2g", CCServer.CCSERVER_DIRECTORY, ressourceUUID));
 
                 if (!ressourceFile.exists()) {
                     sendResponse(String.format("ERROR ressource %s doesn't exist!", ressourceUUID));
@@ -72,7 +72,7 @@ public class CCClientHandler extends ClientHandlerDTO {
         TemporaryRessourceFile tmpFile = new TemporaryRessourceFile("tmpRessourceFile.g2gtmp");
 
         HashMap<Integer, String> blockLocations = new HashMap<>();
-        String clientPublicKey = tmpFile.getConfigContentFromFile(tmpFile.file).get("PublicKey");
+        String clientPublicKey = tmpFile.getConfigContent().get("PublicKey");
 
         // send allow to all servers
         for (RessourceBlockDTO block : tmpFile.getBlocks()) {
@@ -91,7 +91,7 @@ public class CCClientHandler extends ClientHandlerDTO {
         }
 
         // assemble full ressource file
-        File ressourceFile = tmpFile.convertToRessourceFile(CCServer.RESSOURCE_DIRECTORY, "tmpRessourceFile.g2gtmp", blockLocations);
+        File ressourceFile = tmpFile.convertToRessourceFile(CCServer.CCSERVER_DIRECTORY, "tmpRessourceFile.g2gtmp", blockLocations);
 
         if (ressourceFile == null || clientPublicKey == null) {
             Logger.error("Error while processing tmpfile!");
@@ -100,6 +100,22 @@ public class CCClientHandler extends ClientHandlerDTO {
 
         sendResponse("SUCCESS");
         FilesRemote.sendFile(ressourceFile, outputStream);
+    }
+
+    public void handleCommandREGISTER(String[] args) {
+        boolean alreadyInList = false;
+
+        for (ServerDTO s : this.server.getServers()) {
+            if (s != null && s.getUUID().equals(args[1])) {
+                // server already in list
+                alreadyInList = true;
+                break;
+            }
+        }
+
+        if (!alreadyInList) this.server.addServer(new ServerDTO(args[1], args[2]));
+
+        sendResponse(String.format("SUCCESS %s %s", this.server.getNetworkUUID(), "172.20.0.10"));
     }
 
     public boolean sendAllow(String address, String clientPublicKey, String blockUUID) {

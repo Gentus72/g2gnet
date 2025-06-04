@@ -21,10 +21,9 @@ public class RessourceFile extends ConfigFile {
         super(filePath);
     }
 
-    public void writeToFile(Ressource ressource, String ressourceDirectory, PublicKey clientPublicKey) {
-        // file = new File(ressourceDirectory + ressource.getUUID() + ".g2g");
-        
+    public void writeToFile(Ressource ressource, PublicKey clientPublicKey) {        
         ensureConfigFile(true);
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(String.format("UUID: %s\n", ressource.getUUID()));
             writer.write(String.format("Title: %s\n", ressource.getTitle()));
