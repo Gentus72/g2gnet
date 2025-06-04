@@ -1,6 +1,6 @@
 package org.geooo.util;
 
-public enum ServerResponse {
+public enum ServerResponse{
     SUCCESS,
     REDIRECT,
     INFO,

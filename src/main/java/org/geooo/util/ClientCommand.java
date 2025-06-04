@@ -1,9 +1,10 @@
 package org.geooo.util;
 
-public enum ClientCommand {
+public enum ClientCommand implements Command {
     DISASSEMBLE(2),
     REASSEMBLE(2),
     CONNECT(2),
+    INFO(3),
     HELP(1),
     EXIT(1);
 
@@ -13,6 +14,7 @@ public enum ClientCommand {
         this.argsAmount = argsAmount;
     }
 
+    @Override
     public boolean hasCorrectArgsAmount(int currentArgsAmount) {
         boolean tof = currentArgsAmount == argsAmount;
         if (!tof) Logger.error(String.format("Wrong number of arguments supplied for %s! Should be %d", this, argsAmount));

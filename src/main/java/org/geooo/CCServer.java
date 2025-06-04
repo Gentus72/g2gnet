@@ -21,11 +21,13 @@ public class CCServer extends Server {
     private NetworkFile networkFile;
 
     public static void main(String[] args) {
-        new CCServer();
+        CCServer server = new CCServer();
+
+        server.startServer();
     }
 
     public CCServer() {
-        startServer();
+        super();
     }
 
     public CCServer(String address) {

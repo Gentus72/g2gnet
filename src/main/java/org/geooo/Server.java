@@ -24,11 +24,13 @@ public class Server extends ServerDTO {
     public ServerFile serverFile;
 
     public static void main(String[] args) {
-        new Server();
+        Server server = new Server();
+
+        server.startServer();
     }
 
     public Server() {
-        startServer();
+        super();
     }
 
     public Server(String address) {
@@ -50,21 +52,17 @@ public class Server extends ServerDTO {
             String[] responseArgs = response.split(" ");
 
             if (ServerResponse.valueOf(responseArgs[0]).equals(ServerResponse.SUCCESS)) {
-                if (responseArgs.length < 3 || !responseArgs[1].equals(networkUUID)) {
-                    Logger.warn(String.format("NetworkUUID mismatch! %s != %s -> Updating...", responseArgs[1], networkUUID));
+                if (responseArgs.length < 3 || !responseArgs[1].equals(networkUUID)) Logger.warn(String.format("NetworkUUID mismatch! %s != %s -> Updating...", responseArgs[1], networkUUID));
 
-                    this.ccServer = new CCServer(responseArgs[2]);
-                    this.ccServer.setNetworkUUID(responseArgs[1]);
-                    this.serverFile.writeToFile(this);
-                }
-
+                Logger.info("Successfully connected to CCServer at: " + ccAddress);
+                this.ccServer = new CCServer(responseArgs[2]);
+                this.ccServer.setNetworkUUID(responseArgs[1]);
+                this.serverFile.writeToFile(this);
             } else {
                 Logger.error("Error while connecting to CCServer! Didn't receive SUCCESS, received: " + response);
             }
 
-            Logger.info("Successfully connected to CCServer at: " + ccAddress);
-
-            outputStream.writeUTF("CLOSE");
+            outputStream.writeUTF("DISCONNECT");
             outputStream.flush();
 
             inputStream.close();

@@ -11,8 +11,9 @@ public class ClientHandler extends ClientHandlerDTO<Server> {
         super(server, serverSocket);
 
         this.fallbackFunction = (String[] args) -> {
-            Logger.info(String.format("Redirecting client %s to ccServer at: %s", this.client.getUUID(), this.server.ccServer.getAddress()));
+            Logger.info(String.format("Redirecting client %s to ccServer at: %s", this.client.getUUID(), server.ccServer.getAddress()));
             sendResponse(String.format("REDIRECT %s", server.ccServer.getAddress()));
+            running = false;
         };
     }
 }

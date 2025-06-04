@@ -11,9 +11,9 @@
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/Ressource.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/RessourceBlock.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/dto/ClientHandlerDTO.java
-/home/gentus72/code/g2gnet/src/main/java/org/geooo/ServerDTO.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/util/ClientCommand.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/metadata/ConfigFile.java
+/home/gentus72/code/g2gnet/src/main/java/org/geooo/util/Command.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/metadata/NetworkFile.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/dto/ServerDTO.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/CCServer.java

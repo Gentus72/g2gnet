@@ -1,7 +1,10 @@
 #!/bin/bash
 
+docker compose down
+
 mvn package
 
 docker compose up -d --build --force-recreate
-sleep 2
-docker attach g2gnet-client-1
+sleep 1
+docker compose logs -f &
+kitty docker attach g2gnet-client-1

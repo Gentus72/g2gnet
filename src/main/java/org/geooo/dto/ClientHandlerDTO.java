@@ -35,7 +35,7 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         Logger.info(String.format("New client connected with UUID: %s", client.getUUID()));
         this.server.clients.add(this.client);
 
-        registerCommand(ServerCommand.CLOSE, this::handleCommandCLOSE);
+        registerCommand(ServerCommand.DISCONNECT, this::handleCommandCLOSE);
         registerCommand(ServerCommand.GETBLOCK, this::handleCommandGETBLOCK);
 
         this.fallbackFunction = (String[] args) -> {

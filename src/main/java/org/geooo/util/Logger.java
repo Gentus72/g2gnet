@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class Logger {
 
     /*
-     * Statisch kodierte Farben für die Befehlszeilenausgabe
+     * Statisch kodierte Farben für farbige Befehlszeilenausgabe
      */
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_WHITE = "\u001B[37m";
@@ -38,7 +38,7 @@ public class Logger {
     }
 
     /*
-     * Die getInstance-Methode fungiert als Referenz für die Singleton-Instanz des Loggers
+     * Die getInstance-Methode als Referenz für die Singleton-Instanz des Loggers
      */
     public static Logger getInstance() {
         if (logger == null) {
@@ -54,7 +54,7 @@ public class Logger {
      * Einzelne Methoden für einfacherere / angenehmere Benutzung
      * 
      * Jede einzelne der folgenden vier Methoden ändert nur die Farbe der ausgegebenen Zeile im Terminal.
-     * Die exception-Methode reduziert zudem den Schreibaufwand beim Ausgeben von Fehlermeldungen .
+     * Die exception-Methode und die error-Methode machen Errorhandling einfacher und übersichtlicher.
      */
     public static void info(String message) {
         log(LoggingType.INFO, message);
