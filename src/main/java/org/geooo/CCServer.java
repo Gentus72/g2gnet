@@ -48,8 +48,8 @@ public class CCServer extends Server {
             while (true) {
                 Socket newServerSocket = serverSocket.accept();
 
-                CCClientHandler newClientHandler = new CCClientHandler(newServerSocket, this);
-                newClientHandler.start();
+                CCClientHandler newClientHandler = new CCClientHandler(this, newServerSocket);
+                newClientHandler.run();
             }
         } catch (IOException e) {
             Logger.error("Error while setting up server socket!");
@@ -80,4 +80,8 @@ public class CCServer extends Server {
     public void setRessources(ArrayList<RessourceDTO> ressources) {
         this.ressources = ressources;
     }
+
+    public NetworkFile getNetworkFile() {
+		return this.networkFile;
+	}
 }

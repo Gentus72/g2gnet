@@ -109,4 +109,8 @@ public abstract class ConfigFile {
             }
         }
     }
+
+    public File getFile() {
+        return this.file;
+    }
 }

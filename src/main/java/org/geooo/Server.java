@@ -42,8 +42,8 @@ public class Server extends ServerDTO {
             while (true) {
                 Socket newServerSocket = serverSocket.accept();
 
-                ClientHandler newClientHandler = new ClientHandler(newServerSocket, this);
-                newClientHandler.start();
+                ClientHandler newClientHandler = new ClientHandler(this, newServerSocket);
+                newClientHandler.run();
             }
         } catch (IOException e) {
             Logger.error("Error while setting up server socket!");
