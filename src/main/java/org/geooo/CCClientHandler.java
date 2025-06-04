@@ -83,10 +83,10 @@ public class CCClientHandler extends Thread {
                             }
                         }
                         case AUTH -> {
-                            sendResponse(outputStream, "SUCCESS");
-
                             ArrayList<ServerDTO> servers = server.getServers();
                             int currentIndex = 0;
+
+                            sendResponse(outputStream, "SUCCESS");
 
                             FilesRemote.receiveFile("tmpRessourceFile.g2gtmp", inputStream);
                             Logger.info("Received temporary ressourcefile!");

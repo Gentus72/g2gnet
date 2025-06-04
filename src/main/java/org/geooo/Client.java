@@ -45,13 +45,15 @@ public final class Client extends ClientDTO {
     DataInputStream inputStream;
     Scanner userInputScanner;
     boolean isConnected = false;
+    ClientFile clientFile;
 
     public Client() {
-        ClientFile.readFromFile(this);
+        this.clientFile = new ClientFile(RESSOURCE_DIRECTORY + "clientFile.g2gclient");
+        this.clientFile.readFromFile(this);
 
         if (this.getUUID() == null) {
             this.setUUID(G2GUUID.getRandomUUID());
-            ClientFile.writeToFile(this);
+            this.clientFile.writeToFile(this);
         }
 
         startClient();

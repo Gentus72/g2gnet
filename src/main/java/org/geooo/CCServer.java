@@ -17,6 +17,7 @@ public class CCServer extends Server {
     private String networkUUID;
     private ArrayList<ServerDTO> servers;
     private ArrayList<RessourceDTO> ressources;
+    private NetworkFile networkFile;
 
     public static void main(String[] args) {
         new CCServer();
@@ -35,10 +36,11 @@ public class CCServer extends Server {
         this.clients = new ArrayList<>();
         this.servers = new ArrayList<>();
         this.ressources = new ArrayList<>();
+        this.networkFile = new NetworkFile(RESSOURCE_DIRECTORY + "networkFile.g2gnet");
 
-        NetworkFile.readFromFile(this); // if it doesn't exist, it will do nothing and just show an error in the console
-        NetworkFile.updateRessources(this);
-        NetworkFile.writeToFile(this);
+        this.networkFile.readFromFile(this); // if it doesn't exist, it will do nothing and just show an error in the console
+        this.networkFile.updateRessources(this);
+        this.networkFile.writeToFile(this);
 
         try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT, 50, null)) {
             Logger.info("Server running on port " + SERVER_PORT + "!");

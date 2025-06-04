@@ -12,9 +12,14 @@ import java.util.function.Function;
 import org.geooo.util.Logger;
 
 public abstract class ConfigFile {
-    public static HashMap<String, String> configContent;
+    public File file;
+    public HashMap<String, String> configContent;
 
-    public static <T, K> void addSection(BufferedWriter writer, ArrayList<T> list, String header, Function<T, K>... extractors) {
+    public ConfigFile(String filePath) {
+        this.file = new File(filePath);
+    }
+
+    public <T, K> void addSection(BufferedWriter writer, ArrayList<T> list, String header, Function<T, K>... extractors) {
         try {
             writer.write(header);
 
@@ -35,7 +40,7 @@ public abstract class ConfigFile {
     }
     
     public HashMap<String, String> getConfigContentFromFile(File configFile) {
-        File file = ensureConfigFile(configFile, true);
+        ensureConfigFile(true);
         HashMap<String, String> newContent = new HashMap<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -60,8 +65,8 @@ public abstract class ConfigFile {
         return null;
     }
 
-    public static void setConfigContentFromFile(File configFile) {
-        File file = ensureConfigFile(configFile, true);
+    public void setConfigContentFromFile() {
+        ensureConfigFile(true);
         configContent = new HashMap<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -82,29 +87,26 @@ public abstract class ConfigFile {
         }
     }
 
-    public static File ensureConfigFile(File file, boolean isNeeded) {
-        if (file == null) {
-            Logger.error("Configfile object is null!");
-            return null;
+    public void ensureConfigFile(boolean isNeeded) {
+        if (this.file == null) {
+            Logger.error("Configfile object is null! Should have been initialized on creation...");
+            System.exit(1);
         }
 
-        if (!file.exists()) {
+        if (!this.file.exists()) {
             if (isNeeded) {
                 Logger.error("Configfile is required but not present! ");
-                return null;
+                System.exit(1);
             }
 
             Logger.warn("Config file doesn't exist! May crash now...");
             
             try {
-                file.createNewFile();
-                return file;
+                this.file.createNewFile();
             } catch (IOException e) {
                 Logger.error("Error while creating configfile!");
                 Logger.exception(e);
             }
         }
-
-        return file;
     }
 }

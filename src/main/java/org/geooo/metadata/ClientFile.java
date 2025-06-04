@@ -1,18 +1,21 @@
 package org.geooo.metadata;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import org.geooo.Client;
 import org.geooo.util.Logger;
 
-public abstract class ClientFile extends ConfigFile {
-    public static File file = new File(Client.RESSOURCE_DIRECTORY + "clientfile.g2gclient");
+public class ClientFile extends ConfigFile {
+    // public static File file = new File(Client.RESSOURCE_DIRECTORY + "clientfile.g2gclient");
 
-    public static void writeToFile(Client client) {
-        file = ensureConfigFile(file, false);
+    public ClientFile(String filePath) {
+        super(filePath);
+    }
+
+    public void writeToFile(Client client) {
+        ensureConfigFile(false);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(String.format("UUID: %s\n", client.getUUID()));
@@ -24,13 +27,12 @@ public abstract class ClientFile extends ConfigFile {
         }
     }
 
-    public static void readFromFile(Client client) {
-        if (ensureConfigFile(file, true) != null) {
-            setConfigContentFromFile(file);
+    public void readFromFile(Client client) {
+        ensureConfigFile(true);
+        setConfigContentFromFile();
 
-            client.setUUID(configContent.get("UUID"));
-            client.setPublicKey(configContent.get("PublicKey"));
-            client.setPrivateKey(configContent.get("PrivateKey"));
-        }
+        client.setUUID(configContent.get("UUID"));
+        client.setPublicKey(configContent.get("PublicKey"));
+        client.setPrivateKey(configContent.get("PrivateKey"));
     }
 }

@@ -14,14 +14,13 @@ import org.geooo.util.Logger;
 
 // TODO make non-static
 public class TemporaryRessourceFile extends ConfigFile {
-    public File file;
 
     public TemporaryRessourceFile(String filePath) {
-        this.file = new File(filePath);
+        super(filePath);
     }
 
     public void writeToFile(Ressource ressource, String ressourceDirectory, ClientDTO client) {
-        this.file = ensureConfigFile(file, false);
+        ensureConfigFile(false);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write("TEMPORARY RESSOURCE FILE");
