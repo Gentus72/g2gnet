@@ -13,7 +13,7 @@ import java.util.UUID;
 import org.geooo.dto.RessourceDTO;
 import org.geooo.dto.ServerDTO;
 import org.geooo.util.ChunkedFileReader;
-import org.geooo.util.G2GUUID;
+import org.geooo.util.G2GUtil;
 import org.geooo.util.HashSum;
 import org.geooo.util.Logger;
 import org.geooo.util.RessourceDistributionStrategy;
@@ -58,7 +58,7 @@ public class Ressource extends RessourceDTO {
             // chunked reader to not load everything into memory
             try (ChunkedFileReader chunkedReader = new ChunkedFileReader(sourceFile.getPath(), BLOCK_SIZE)) {
                 for (int i = 0; i < this.blockAmount; i++) {
-                    String blockUUID = G2GUUID.getRandomUUID();
+                    String blockUUID = G2GUtil.getRandomUUID();
 
                     RessourceBlock newBlock = new RessourceBlock(blockUUID);
 

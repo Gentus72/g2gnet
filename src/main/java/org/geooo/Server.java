@@ -12,7 +12,7 @@ import java.util.HashMap;
 import org.geooo.dto.ClientDTO;
 import org.geooo.dto.ServerDTO;
 import org.geooo.metadata.ServerFile;
-import org.geooo.util.G2GUUID;
+import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerResponse;
 
@@ -82,9 +82,9 @@ public class Server extends ServerDTO {
 
         if (!this.serverFile.getFile().exists()) {
             Logger.warn("No config file detected! Generating blank one - please fill it out!");
-            this.setUUID(G2GUUID.getRandomUUID());
+            this.setUUID(G2GUtil.getRandomUUID());
             this.serverFile.generateBlankConfig(this);
-            System.exit(0);
+            // System.exit(0);
         }
 
         HashMap<String, String> configContent = this.serverFile.getConfigContent();

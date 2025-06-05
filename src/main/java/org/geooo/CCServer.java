@@ -22,12 +22,16 @@ public class CCServer extends Server {
 
     public static void main(String[] args) {
         CCServer server = new CCServer();
-
         server.startServer();
     }
 
     public CCServer() {
         super();
+
+        this.clients = new ArrayList<>();
+        this.servers = new ArrayList<>();
+        this.ressources = new ArrayList<>();
+        this.networkFile = new NetworkFile(CCSERVER_DIRECTORY + "networkFile.g2gnet");
     }
 
     public CCServer(String address) {
@@ -35,12 +39,7 @@ public class CCServer extends Server {
     }
 
     public void startServer() {
-        this.clients = new ArrayList<>();
-        this.servers = new ArrayList<>();
-        this.ressources = new ArrayList<>();
-        this.networkFile = new NetworkFile(CCSERVER_DIRECTORY + "networkFile.g2gnet");
-
-        this.networkFile.readFromFile(this); // if it doesn't exist, it will do nothing and just show an error in the console
+        if (this.networkFile.getFile().exists()) this.networkFile.readFromFile(this);
         this.networkFile.updateRessources(this);
         this.networkFile.writeToFile(this);
 

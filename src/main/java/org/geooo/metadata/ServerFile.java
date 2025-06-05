@@ -22,8 +22,8 @@ public class ServerFile extends ConfigFile {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file))) {
             writer.write(String.format("UUID: %s\n", server.getUUID()));
-            writer.write("CCServerAddress: <FILL OUT HERE>\n");
-            writer.write("NetworkUUID: <FILL OUT HERE>\n");
+            writer.write("CCServerAddress: 172.20.0.10\n");
+            writer.write("NetworkUUID: 137f1c666f1b49a887a19bd3a5b45991\n");
 
             writer.write("Client-Publickeys (base64):\n");
             for (String publicKey : server.getClientPublicKeysBase64()) {

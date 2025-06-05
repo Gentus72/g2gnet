@@ -18,7 +18,7 @@ import org.geooo.metadata.ClientFile;
 import org.geooo.metadata.NetworkFile;
 import org.geooo.util.ClientCommand;
 import org.geooo.util.FilesRemote;
-import org.geooo.util.G2GUUID;
+import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerCommand;
 import org.geooo.util.ServerResponse;
@@ -30,7 +30,8 @@ public final class Client extends ClientDTO {
     public static int HOST_PORT = 7000;
 
     public static void main(String[] args) {
-        new Client();
+        Client client = new Client();
+        client.startClient();
     }
 
     Socket socket;
@@ -49,7 +50,7 @@ public final class Client extends ClientDTO {
         this.clientFile.readFromFile(this);
 
         if (this.getUUID() == null) {
-            this.setUUID(G2GUUID.getRandomUUID());
+            this.setUUID(G2GUtil.getRandomUUID());
             this.clientFile.writeToFile(this);
         }
 
@@ -61,16 +62,16 @@ public final class Client extends ClientDTO {
         registeredServerResponses.put(ServerResponse.DOWNLOAD, this::handleServerResponseDOWNLOAD);
         registeredServerResponses.put(ServerResponse.ERROR, (String[] args) -> Logger.error("Error response from server: " + String.join(" ", args)));
         registeredServerResponses.put(ServerResponse.CLOSE, (String[] args) -> disconnect());
-
-        startClient();
     }
 
     public void startClient() {
         this.userInputScanner = new Scanner(System.in);
 
         while (true) {
-            System.out.print("$> ");
+            String consolePrefix = this.isConnected ? String.format("%s[%s] $> ", Logger.ANSI_GREEN, this.socket.getInetAddress().getHostAddress()) : Logger.ANSI_RESET + "[CLIENT] $> ";
+            System.out.print(consolePrefix);
             currentClientInput = this.userInputScanner.nextLine().split(" ");
+
             if (this.isConnected) {
                 handleServerInteraction(currentClientInput);
             } else {
@@ -78,7 +79,7 @@ public final class Client extends ClientDTO {
                     ClientCommand command = ClientCommand.valueOf(currentClientInput[0]);
                     if (!command.hasCorrectArgsAmount(currentClientInput.length)) {
                         Logger.error("Wrong number of arguments!");
-                        return;
+                        continue;
                     }
 
                     for (var entry : registeredClientCommands.entrySet()) {
@@ -173,7 +174,7 @@ public final class Client extends ClientDTO {
 
             this.isConnected = true;
         } catch (IOException e) {
-            Logger.error(String.format("Error while connecting to [%s:%d]!", HOST_ADDRESS, HOST_PORT));
+            Logger.error("Error while connecting to server!");
             Logger.exception(e);
         }
     }
@@ -229,6 +230,7 @@ public final class Client extends ClientDTO {
             this.socket.close();
             this.outputStream.close();
             this.inputStream.close();
+
             this.isConnected = false;
         } catch (IOException e) {
             Logger.error("Error while closing connection!");

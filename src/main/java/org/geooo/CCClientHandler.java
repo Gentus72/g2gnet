@@ -4,7 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -115,7 +117,13 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
 
         if (!alreadyInList) this.server.addServer(new ServerDTO(args[1], args[2]));
 
-        sendResponse(String.format("SUCCESS %s %s", this.server.getNetworkUUID(), "172.20.0.10"));
+        try {
+            sendResponse(String.format("SUCCESS %s %s", this.server.getNetworkUUID(), InetAddress.getLocalHost().getHostAddress()));
+        } catch (UnknownHostException e) {
+            Logger.error("Error while geting local ipv4address!");
+            Logger.exception(e);
+            sendResponse("ERROR Internal server error!");
+        }
     }
 
     public boolean sendAllow(String address, String clientPublicKey, String blockUUID) {

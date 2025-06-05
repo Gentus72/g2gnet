@@ -6,9 +6,9 @@ COPY target/*.jar /app
 
 EXPOSE 7000
 
-COPY ccserver/* /app/ccserver
+COPY ccserver/ /app/ccserver
 
-COPY server/* /app/server
+COPY server/ /app/server
 
 COPY client/res/ /app/client/res
 

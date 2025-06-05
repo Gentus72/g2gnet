@@ -1,5 +1,4 @@
 /home/stickw/code/g2gnet/src/main/java/org/geooo/CCServer.java
-/home/stickw/code/g2gnet/src/main/java/org/geooo/util/G2GUUID.java
 /home/stickw/code/g2gnet/src/main/java/org/geooo/metadata/ServerFile.java
 /home/stickw/code/g2gnet/src/main/java/org/geooo/util/Logger.java
 /home/stickw/code/g2gnet/src/main/java/org/geooo/util/ChunkedFileReader.java
@@ -16,6 +15,7 @@
 /home/stickw/code/g2gnet/src/main/java/org/geooo/metadata/ClientFile.java
 /home/stickw/code/g2gnet/src/main/java/org/geooo/metadata/TemporaryRessourceFile.java
 /home/stickw/code/g2gnet/src/main/java/org/geooo/util/RessourceDistributionStrategy.java
+/home/stickw/code/g2gnet/src/main/java/org/geooo/util/G2GUtil.java
 /home/stickw/code/g2gnet/src/main/java/org/geooo/util/LoggingType.java
 /home/stickw/code/g2gnet/src/main/java/org/geooo/gui/FXTest.java
 /home/stickw/code/g2gnet/src/main/java/org/geooo/Server.java

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import org.geooo.CCServer;
 import org.geooo.dto.RessourceDTO;
 import org.geooo.dto.ServerDTO;
-import org.geooo.util.G2GUUID;
+import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 
 public class NetworkFile extends ConfigFile {
@@ -28,13 +28,14 @@ public class NetworkFile extends ConfigFile {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             if (ccServer.getNetworkUUID() == null) {
                 Logger.warn("NetworkUUID was unset! Creating new one...");
-                ccServer.setNetworkUUID(G2GUUID.getRandomUUID());
+                ccServer.setNetworkUUID(G2GUtil.getRandomUUID());
             }
 
             writer.write(String.format("UUID: %s\n", ccServer.getNetworkUUID()));
 
             writer.write("Servers (uuid, address):\n");
             for (ServerDTO server : ccServer.getServers()) {
+                Logger.info("Writing server to file!");
                 writer.write(String.format("%s, %s\n", server.getUUID(), server.getAddress()));
             }
 
@@ -43,8 +44,7 @@ public class NetworkFile extends ConfigFile {
 
             writer.write("Ressources (uuid, title, size):\n");
             for (RessourceDTO ressource : ccServer.getRessources()) {
-                writer.write(
-                        String.format("%s,%s,%d", ressource.getUUID(), ressource.getTitle(), ressource.getSizeMiB()));
+                writer.write(String.format("%s,%s,%d", ressource.getUUID(), ressource.getTitle(), ressource.getBlockAmount()));
             }
         } catch (IOException e) {
             Logger.error("Error while writing to networkfile!");

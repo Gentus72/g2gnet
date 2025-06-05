@@ -5,10 +5,12 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 
 public class ClientDTO {
     String uuid;
+    String address;
     KeyPair keyPair;
     String publicKey;
     String privateKey;
@@ -73,5 +75,15 @@ public class ClientDTO {
 
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
+    }
+
+    public String getAddress() {
+        if (this.address == null) this.address = G2GUtil.getLocalIPv4Address();
+
+        return this.address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

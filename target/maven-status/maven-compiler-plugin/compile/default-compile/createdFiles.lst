@@ -22,7 +22,6 @@ org/geooo/util/HashSum.class
 org/geooo/metadata/ServerFile.class
 org/geooo/CCClientHandler.class
 org/geooo/util/FilesRemote.class
-org/geooo/util/G2GUUID.class
 org/geooo/util/ServerCommand.class
 org/geooo/Server.class
 org/geooo/gui/FXTest$2.class

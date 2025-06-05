@@ -32,11 +32,14 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         this.registeredCommands = new HashMap<>();
 
         this.client = new ClientDTO(UUID.randomUUID().toString().replace("-", ""));
-        Logger.info(String.format("New client connected with UUID: %s", client.getUUID()));
+        this.client.setAddress(this.serverSocket.getInetAddress().getHostAddress());
+
+        Logger.info(String.format("New client [%s] connected!", client.getAddress()));
         this.server.clients.add(this.client);
 
         registerCommand(ServerCommand.DISCONNECT, this::handleCommandCLOSE);
         registerCommand(ServerCommand.GETBLOCK, this::handleCommandGETBLOCK);
+        registerCommand(ServerCommand.STATUS, this::handleCommandSTATUS);
 
         this.fallbackFunction = (String[] args) -> {
             Logger.error("Fallback function not defined but called!");
@@ -63,13 +66,36 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         }
     }
 
+    public void handleCommandSTATUS(String[] args) {
+        String response = "SUCCESS \nStatus: ";
+
+        if (!(this.server instanceof CCServer)) { // if its not a ccServer
+            if (this.server.ccServer == null) {
+                response += "DISCONNECTED";
+            } else  {
+                response += "CONNECTED\n";
+                response += String.format(" - NetworkUUID: %s\n - CCServerIP: %s\n", this.server.ccServer.getNetworkUUID(), this.server.ccServer.getAddress());
+            }
+        } else { // if its a ccServer
+            CCServer s = (CCServer) this.server;
+
+            response += "CCSERVER\n";
+            response += String.format(" - NetworkUUID: %s\n - Connected Servers: %d\n - Stored Ressources: %d\n --- for more Information, request the networkfile --- ", s.getNetworkUUID(), s.getServers().size(), s.getRessources().size());
+        }
+
+        sendResponse(response);
+    }
+
     public void handleCommandGETBLOCK(String[] args) {
         // check if ressource directory exists
         String ressourceUUID = args[1];
-        File ressourceDirectory = new File(CCServer.CCSERVER_DIRECTORY + ressourceUUID);
+        String defaultDirectory = (this.server instanceof CCServer) ? CCServer.CCSERVER_DIRECTORY : Server.SERVER_DIRECTORY;
+        File ressourceDirectory = new File(defaultDirectory + ressourceUUID + "/");
+        Logger.warn(ressourceDirectory.getAbsolutePath());
 
         String blockUUID = args[2];
-        File blockFile = new File(String.format("%s%s/%s.g2gblock", CCServer.CCSERVER_DIRECTORY, ressourceUUID, blockUUID));
+        File blockFile = new File(String.format("%s%s/%s.g2gblock", defaultDirectory, ressourceUUID, blockUUID));
+        Logger.warn(blockFile.getAbsolutePath());
 
         if (!ressourceDirectory.exists() || !blockFile.exists()) {
             sendResponse("ERROR ressource directory or block file doesn't exist!");
