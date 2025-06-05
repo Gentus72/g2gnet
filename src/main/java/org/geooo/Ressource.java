@@ -59,13 +59,13 @@ public class Ressource extends RessourceDTO {
             try (ChunkedFileReader chunkedReader = new ChunkedFileReader(sourceFile.getPath(), BLOCK_SIZE)) {
                 for (int i = 0; i < this.blockAmount; i++) {
                     String blockUUID = G2GUUID.getRandomUUID();
-    
+
                     RessourceBlock newBlock = new RessourceBlock(blockUUID);
-    
+
                     // read next 16 MiB and write to Block
                     newBlock.setData(chunkedReader.readNextChunk());
                     newBlock.setSequenceID(i);
-                    
+
                     newBlock.setHashSum(HashSum.fromBytes(newBlock.getData()));
 
                     ServerDTO destinationServer = new ServerDTO("123", "localhost");
@@ -168,6 +168,6 @@ public class Ressource extends RessourceDTO {
     }
 
     public HashMap<RessourceBlock, String> getBlockLocations() {
-		return this.blockLocations;
-	}
+        return this.blockLocations;
+    }
 }

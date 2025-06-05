@@ -14,17 +14,17 @@ public class ServerFile extends ConfigFile {
     }
 
     public void writeToFile(Server server) {
-        
+
     }
 
     public void generateBlankConfig(Server server) {
         ensureConfigFile(false);
-        
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file))) {
             writer.write(String.format("UUID: %s\n", server.getUUID()));
             writer.write("CCServerAddress: <FILL OUT HERE>\n");
             writer.write("NetworkUUID: <FILL OUT HERE>\n");
-            
+
             writer.write("Client-Publickeys (base64):\n");
             for (String publicKey : server.getClientPublicKeysBase64()) {
                 writer.write(publicKey + "\n");

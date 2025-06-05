@@ -39,9 +39,9 @@ public class ServerDTO {
         this.address = address;
     }
 
-	public PublicKey[] getClientPublicKeys() {
-		return this.clientPublicKeys;
-	}
+    public PublicKey[] getClientPublicKeys() {
+        return this.clientPublicKeys;
+    }
 
     public String[] getClientPublicKeysBase64() {
         if (this.clientPublicKeys == null) {
@@ -57,7 +57,7 @@ public class ServerDTO {
         return keysBase64;
     }
 
-	public void setClientPublicKeys(PublicKey[] clientPublicKeys) {
-		this.clientPublicKeys = clientPublicKeys;
-	}
+    public void setClientPublicKeys(PublicKey[] clientPublicKeys) {
+        this.clientPublicKeys = clientPublicKeys;
+    }
 }

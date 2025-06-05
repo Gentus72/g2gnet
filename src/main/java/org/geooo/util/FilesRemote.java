@@ -10,7 +10,9 @@ import java.io.IOException;
 public abstract class FilesRemote {
 
     /*
-     * Inspiriert von https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-socket-in-java/
+     * Inspiriert von
+     * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-
+     * socket-in-java/
      * Letzter Zugriff: 28.03.2025, 12:21 Uhr
      */
     public static void sendFile(File file, DataOutputStream outputStream) {
@@ -31,7 +33,9 @@ public abstract class FilesRemote {
     }
 
     /*
-     * Inspiriert von https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-socket-in-java/
+     * Inspiriert von
+     * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-
+     * socket-in-java/
      * Letzter Zugriff: 28.03.2025, 12:21 Uhr
      */
     public static void receiveFile(String fileName, DataInputStream inputStream) {
@@ -54,7 +58,9 @@ public abstract class FilesRemote {
     }
 
     /*
-     * Inspiriert von https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-socket-in-java/
+     * Inspiriert von
+     * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-
+     * socket-in-java/
      * Letzter Zugriff: 28.03.2025, 12:21 Uhr
      */
     public static void receiveFile(File file, DataInputStream inputStream) {

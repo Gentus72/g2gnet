@@ -67,8 +67,8 @@ public final class Client extends ClientDTO {
 
     public void startClient() {
         this.userInputScanner = new Scanner(System.in);
-        
-        while (true) { 
+
+        while (true) {
             System.out.print("$> ");
             currentClientInput = this.userInputScanner.nextLine().split(" ");
             if (this.isConnected) {
@@ -80,7 +80,7 @@ public final class Client extends ClientDTO {
                         Logger.error("Wrong number of arguments!");
                         return;
                     }
-        
+
                     for (var entry : registeredClientCommands.entrySet()) {
                         if (command.equals(entry.getKey())) entry.getValue().accept(currentClientInput);
                     }

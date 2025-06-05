@@ -8,7 +8,8 @@ import org.geooo.Client;
 import org.geooo.util.Logger;
 
 public class ClientFile extends ConfigFile {
-    // public static File file = new File(Client.RESSOURCE_DIRECTORY + "clientfile.g2gclient");
+    // public static File file = new File(Client.RESSOURCE_DIRECTORY +
+    // "clientfile.g2gclient");
 
     public ClientFile(String filePath) {
         super(filePath);

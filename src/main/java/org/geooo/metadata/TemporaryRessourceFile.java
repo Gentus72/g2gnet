@@ -30,7 +30,7 @@ public class TemporaryRessourceFile extends ConfigFile {
             writer.write(String.format("HashSum: %s\n", ressource.getTotalHashSum()));
             writer.write(String.format("AmountOfBlocks: %d\n", ressource.getBlockAmount()));
             writer.write(String.format("SourceFileName: %s\n", ressource.getSourceFile().getName()));
-            
+
             writer.write("Blocks (uuid, hash, sequenceID):\n");
             for (var entry : ressource.getBlockLocations().entrySet()) {
                 writer.write(String.format("%s,%s,%d\n", entry.getKey().getUUID(), entry.getKey().getHashSum(), entry.getKey().getSequenceID()));

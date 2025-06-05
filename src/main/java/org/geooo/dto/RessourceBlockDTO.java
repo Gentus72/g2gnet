@@ -6,36 +6,36 @@ public class RessourceBlockDTO {
     public String hashSum;
     public int sequenceID;
 
-	public String getUUID() {
-		return this.uuid;
-	}
+    public String getUUID() {
+        return this.uuid;
+    }
 
-	public void setUUID(String uuid) {
-		this.uuid = uuid;
-	}
+    public void setUUID(String uuid) {
+        this.uuid = uuid;
+    }
 
-	public String getLocation() {
-		return this.location;
-	}
+    public String getLocation() {
+        return this.location;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public String getHashSum() {
-		return this.hashSum;
-	}
+    public String getHashSum() {
+        return this.hashSum;
+    }
 
-	public void setHashSum(String hashSum) {
-		this.hashSum = hashSum;
-	}
+    public void setHashSum(String hashSum) {
+        this.hashSum = hashSum;
+    }
 
-	public int getSequenceID() {
-		return this.sequenceID;
-	}
+    public int getSequenceID() {
+        return this.sequenceID;
+    }
 
-	public void setSequenceID(int sequenceID) {
-		this.sequenceID = sequenceID;
-	}
+    public void setSequenceID(int sequenceID) {
+        this.sequenceID = sequenceID;
+    }
 
 }

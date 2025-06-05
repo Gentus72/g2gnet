@@ -120,8 +120,8 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
 
     public boolean sendAllow(String address, String clientPublicKey, String blockUUID) {
         try (Socket tmpSocket = new Socket(address, 7000);
-            DataOutputStream tmpOutputStream = new DataOutputStream(tmpSocket.getOutputStream());
-            DataInputStream tmpInputStream = new DataInputStream(tmpSocket.getInputStream());) {
+                DataOutputStream tmpOutputStream = new DataOutputStream(tmpSocket.getOutputStream());
+                DataInputStream tmpInputStream = new DataInputStream(tmpSocket.getInputStream());) {
 
             tmpOutputStream.writeUTF(String.format("ALLOW %s %s", clientPublicKey, blockUUID));
 

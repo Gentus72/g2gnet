@@ -38,7 +38,8 @@ public class NetworkFile extends ConfigFile {
                 writer.write(String.format("%s, %s\n", server.getUUID(), server.getAddress()));
             }
 
-            // addSection(writer, ccServer.getServers(), "Servers (uuid, address):", ServerDTO::getUUID, ServerDTO::getAddress);
+            // addSection(writer, ccServer.getServers(), "Servers (uuid, address):",
+            // ServerDTO::getUUID, ServerDTO::getAddress);
 
             writer.write("Ressources (uuid, title, size):\n");
             for (RessourceDTO ressource : ccServer.getRessources()) {
@@ -81,7 +82,7 @@ public class NetworkFile extends ConfigFile {
                 String[] components = nextLine.split(",");
 
                 ressources.add(new RessourceDTO(components[0], components[1], Integer.parseInt(components[2]))); // uuid, title,
-                                                                                            // blockAmount
+                // blockAmount
 
                 nextLine = reader.readLine();
             }

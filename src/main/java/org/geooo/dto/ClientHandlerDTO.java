@@ -83,7 +83,7 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
 
         FilesRemote.sendFile(blockFile, outputStream);
     }
-    
+
     public void handleCommandCLOSE(String[] args) {
         try {
             Logger.info("Client has closed their connection!");
@@ -131,7 +131,7 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
 
                 boolean validCommand = false;
 
-                for (var entry : registeredCommands.entrySet()){
+                for (var entry : registeredCommands.entrySet()) {
                     if (command.equals(entry.getKey())) {
                         // call according function
                         validCommand = true;
@@ -139,7 +139,8 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
                     }
                 }
 
-                // if ServerCommand.valueOf(); didn't throw an exception, the client still sent a valid command
+                // if ServerCommand.valueOf(); didn't throw an exception, the client still sent
+                // a valid command
                 // call fallback function
                 if (!validCommand) this.fallbackFunction.accept(clientArgs);
             } catch (IOException e) {

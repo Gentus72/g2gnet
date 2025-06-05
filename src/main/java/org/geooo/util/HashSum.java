@@ -35,7 +35,7 @@ public abstract class HashSum {
 
         try {
             byte[] allDataBytes = Files.readAllBytes(source.toPath());
-            
+
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
             byte[] hashSumBytes = digest.digest(allDataBytes);

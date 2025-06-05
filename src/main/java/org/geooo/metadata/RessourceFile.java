@@ -21,7 +21,7 @@ public class RessourceFile extends ConfigFile {
         super(filePath);
     }
 
-    public void writeToFile(Ressource ressource, PublicKey clientPublicKey) {        
+    public void writeToFile(Ressource ressource, PublicKey clientPublicKey) {
         ensureConfigFile(true);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
@@ -31,7 +31,7 @@ public class RessourceFile extends ConfigFile {
             writer.write(String.format("Uploader: %s\n", clientPublicKey.toString()));
             writer.write(String.format("AmountOfBlocks: %d\n", ressource.getBlockAmount()));
             writer.write(String.format("SourceFileName: %s\n", ressource.getSourceFile().getName()));
-            
+
             writer.write(blockHeader);
             for (var entry : ressource.getBlockLocations().entrySet()) {
                 writer.write(String.format("%s,%s,%s,%d\n", entry.getKey().getUUID(), entry.getValue(), entry.getKey().getHashSum(), entry.getKey().getSequenceID()));

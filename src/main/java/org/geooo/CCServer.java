@@ -89,6 +89,6 @@ public class CCServer extends Server {
     }
 
     public NetworkFile getNetworkFile() {
-		return this.networkFile;
-	}
+        return this.networkFile;
+    }
 }

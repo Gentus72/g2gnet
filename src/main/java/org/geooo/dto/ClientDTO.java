@@ -21,7 +21,7 @@ public class ClientDTO {
         this.uuid = uuid;
     }
 
-        public String getUUID() {
+    public String getUUID() {
         return this.uuid;
     }
 
@@ -60,18 +60,18 @@ public class ClientDTO {
     }
 
     public String getPublicKey() {
-		return this.publicKey;
-	}
+        return this.publicKey;
+    }
 
-	public void setPublicKey(String publicKey) {
-		this.publicKey = publicKey;
-	}
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
 
-	public String getPrivateKey() {
-		return this.privateKey;
-	}
+    public String getPrivateKey() {
+        return this.privateKey;
+    }
 
-	public void setPrivateKey(String privateKey) {
-		this.privateKey = privateKey;
-	}
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
 }

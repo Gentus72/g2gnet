@@ -53,8 +53,10 @@ public class Logger {
     /*
      * Einzelne Methoden für einfacherere / angenehmere Benutzung
      * 
-     * Jede einzelne der folgenden vier Methoden ändert nur die Farbe der ausgegebenen Zeile im Terminal.
-     * Die exception-Methode und die error-Methode machen Errorhandling einfacher und übersichtlicher.
+     * Jede einzelne der folgenden vier Methoden ändert nur die Farbe der
+     * ausgegebenen Zeile im Terminal.
+     * Die exception-Methode und die error-Methode machen Errorhandling einfacher
+     * und übersichtlicher.
      */
     public static void info(String message) {
         log(LoggingType.INFO, message);
@@ -77,7 +79,9 @@ public class Logger {
     }
 
     /*
-     * Die wichtigste Methode dieses Objekts. Sie gibt Nachrichten auf der Befehlszeile und in der Logdatei mit Zeitstempel und Nachrichtenklassifizierung aus.
+     * Die wichtigste Methode dieses Objekts. Sie gibt Nachrichten auf der
+     * Befehlszeile und in der Logdatei mit Zeitstempel und
+     * Nachrichtenklassifizierung aus.
      */
     private static void log(LoggingType loggingType, String message) {
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -86,23 +90,22 @@ public class Logger {
 
         // Die Nachricht wird entsprechend schön formattiert.
         switch (loggingType) {
-            case LoggingType.INFO ->
-                output = ANSI_WHITE + "[" + currentDateTimeFormatted + " INFO]: " + message;
-            case LoggingType.WARNING ->
-                output = ANSI_YELLOW + "[" + currentDateTimeFormatted + " WARNING]: " + message;
-            case LoggingType.ERROR ->
-                output = ANSI_RED + "[" + currentDateTimeFormatted + " ERROR]: " + message;
+            case LoggingType.INFO -> output = ANSI_WHITE + "[" + currentDateTimeFormatted + " INFO]: " + message;
+            case LoggingType.WARNING -> output = ANSI_YELLOW + "[" + currentDateTimeFormatted + " WARNING]: " + message;
+            case LoggingType.ERROR -> output = ANSI_RED + "[" + currentDateTimeFormatted + " ERROR]: " + message;
         }
 
         // Die Nachricht wird auf der Befehlszeile ausgegeben.
         System.out.println(output + ANSI_RESET);
 
-        // Die Nachricht wird in die Logdatei geschrieben. Dabei wird der Farbcode wieder herausgeschnitten.
+        // Die Nachricht wird in die Logdatei geschrieben. Dabei wird der Farbcode
+        // wieder herausgeschnitten.
         logToFile(output.substring(5));
     }
 
     /*
-     * Eine Methode um nur in die Logdatei und nicht auf die Befehlszeile zu schreiben.
+     * Eine Methode um nur in die Logdatei und nicht auf die Befehlszeile zu
+     * schreiben.
      */
     public static void logToFile(String message) {
         try (BufferedWriter fileContent = new BufferedWriter(new FileWriter(getInstance().logFile.getName(), true))) {

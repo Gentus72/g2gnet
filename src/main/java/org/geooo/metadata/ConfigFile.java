@@ -38,7 +38,7 @@ public abstract class ConfigFile {
             Logger.exception(e);
         }
     }
-    
+
     public HashMap<String, String> getConfigContent() {
         if (this.configContent == null) {
             setConfigContentFromFile();
@@ -82,7 +82,7 @@ public abstract class ConfigFile {
             }
 
             Logger.warn("Config file doesn't exist! May crash now...");
-            
+
             try {
                 this.file.createNewFile();
             } catch (IOException e) {
