@@ -5,7 +5,8 @@ public enum ServerCommand implements Command {
     STATUS(1),
     REGISTER(3), // REGISTER <serverUUID> <serverAddress> // server sends this to the ccServer
     ALLOW(4), // ALLOW <publicKey> <blockUUID> // command from ccserver to allow a client to upload a block
-    AUTH(3), // AUTH <encryptedBlockUUID> // command from client to check whether he can upload
+    AUTH(1), // AUTH <encryptedBlockUUID> // command from client to check whether he can upload
+    // AUTH // command from client to ccServer to authorize ressource
     GETBLOCK(3), // GETBLOCK <ressourceUUID> <blockUUID>
     PUT(2), // PUT <blockUUID>
     DISCONNECT(1); // CLOSE

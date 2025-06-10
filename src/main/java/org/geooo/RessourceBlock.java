@@ -5,13 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.geooo.dto.RessourceBlockDTO;
-import org.geooo.dto.ServerDTO;
 import org.geooo.util.Logger;
 
 public class RessourceBlock extends RessourceBlockDTO {
 
-    private final String parentDirectoryPath = "res/";
-
+    private String parentDirectory;
     private byte[] data;
 
     /*
@@ -21,21 +19,21 @@ public class RessourceBlock extends RessourceBlockDTO {
         this.uuid = uuid;
     }
 
-    public void writeToServer(ServerDTO server) {
-        // write block to remote server
-
+    public void writeToFile() {
         if (data == null) {
             Logger.error("Error while writing RessourceBlock to file: No data supplied!");
             System.exit(1); // maybe change to more advanced error handling, but for now I dont want thousands of error messages if this fails!
         }
 
         try {
-            File blockFile = new File(this.parentDirectoryPath, getUUID() + ".g2gblock");
+            File blockFile = new File(this.parentDirectory, getUUID() + ".g2gblock");
 
-            if (!blockFile.createNewFile()) {
+            if (blockFile.exists()) {
                 Logger.error("Blockfile already exists!");
                 System.exit(1);
             }
+
+            blockFile.createNewFile();
 
             try (FileOutputStream outputStream = new FileOutputStream(blockFile)) {
                 outputStream.write(this.data);
@@ -52,5 +50,9 @@ public class RessourceBlock extends RessourceBlockDTO {
 
     public byte[] getData() {
         return this.data;
+    }
+
+    public void setParentDirectory(String parentDirectory) {
+        this.parentDirectory = parentDirectory;
     }
 }

@@ -3,6 +3,7 @@ package org.geooo.util;
 public enum ClientCommand implements Command {
     DISASSEMBLE(2),
     REASSEMBLE(2),
+    AUTOGET(2),
     CONNECT(2),
     INFO(3),
     HELP(1),

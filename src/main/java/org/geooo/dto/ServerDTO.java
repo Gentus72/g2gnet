@@ -1,12 +1,9 @@
 package org.geooo.dto;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.security.PublicKey;
 import java.util.Base64;
 
 import org.geooo.util.G2GUtil;
-import org.geooo.util.Logger;
 
 public class ServerDTO {
     public static final int SERVER_PORT = 7000;

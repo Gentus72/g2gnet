@@ -2,6 +2,7 @@ package org.geooo.dto;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
@@ -74,7 +75,11 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
                 response += "DISCONNECTED";
             } else  {
                 response += "CONNECTED\n";
-                response += String.format(" - NetworkUUID: %s\n - CCServerIP: %s\n", this.server.ccServer.getNetworkUUID(), this.server.ccServer.getAddress());
+                response += String.format(" - NetworkUUID: %s\n - CCServerIP: %s\n - AuthorizedKeys:\n", this.server.ccServer.getNetworkUUID(), this.server.ccServer.getAddress());
+
+                for (String publicKey : this.server.getClientPublicKeysBase64()) {
+                    response += String.format("   - %s\n", publicKey);
+                }
             }
         } else { // if its a ccServer
             CCServer s = (CCServer) this.server;
@@ -91,11 +96,9 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         String ressourceUUID = args[1];
         String defaultDirectory = (this.server instanceof CCServer) ? CCServer.CCSERVER_DIRECTORY : Server.SERVER_DIRECTORY;
         File ressourceDirectory = new File(defaultDirectory + ressourceUUID + "/");
-        Logger.warn(ressourceDirectory.getAbsolutePath());
 
         String blockUUID = args[2];
         File blockFile = new File(String.format("%s%s/%s.g2gblock", defaultDirectory, ressourceUUID, blockUUID));
-        Logger.warn(blockFile.getAbsolutePath());
 
         if (!ressourceDirectory.exists() || !blockFile.exists()) {
             sendResponse("ERROR ressource directory or block file doesn't exist!");
@@ -170,6 +173,11 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
                 // call fallback function
                 if (!validCommand) this.fallbackFunction.accept(clientArgs);
             } catch (IOException e) {
+                if (e instanceof EOFException) {
+                    Logger.error("Client disconnected unexpectedly!");
+                    return;
+                }
+
                 Logger.error("Error while handling client!");
                 Logger.exception(e);
                 return;

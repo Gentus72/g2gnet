@@ -2,12 +2,11 @@ package org.geooo.metadata;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.geooo.Ressource;
 import org.geooo.dto.RessourceBlockDTO;
@@ -15,24 +14,25 @@ import org.geooo.util.Logger;
 
 // TODO make non-static, since there can be multiple ressourcefiles
 public class RessourceFile extends ConfigFile {
-    private final String blockHeader = "Blocks (uuid, location, hash, sequenceID):\n";
+
+    private final String blockHeader = "Blocks (uuid, location, hash, sequenceID):";
 
     public RessourceFile(String filePath) {
         super(filePath);
     }
 
-    public void writeToFile(Ressource ressource, PublicKey clientPublicKey) {
-        ensureConfigFile(true);
+    public void writeToFile(Ressource ressource, String clientPublicKey) {
+        ensureConfigFile(false);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(String.format("UUID: %s\n", ressource.getUUID()));
             writer.write(String.format("Title: %s\n", ressource.getTitle()));
             writer.write(String.format("HashSum: %s\n", ressource.getTotalHashSum()));
-            writer.write(String.format("Uploader: %s\n", clientPublicKey.toString()));
+            writer.write(String.format("Uploader: %s\n", clientPublicKey));
             writer.write(String.format("AmountOfBlocks: %d\n", ressource.getBlockAmount()));
             writer.write(String.format("SourceFileName: %s\n", ressource.getSourceFile().getName()));
 
-            writer.write(blockHeader);
+            writer.write(blockHeader + "\n");
             for (var entry : ressource.getBlockLocations().entrySet()) {
                 writer.write(String.format("%s,%s,%s,%d\n", entry.getKey().getUUID(), entry.getValue(), entry.getKey().getHashSum(), entry.getKey().getSequenceID()));
             }
@@ -42,25 +42,25 @@ public class RessourceFile extends ConfigFile {
         }
     }
 
-    public ArrayList<RessourceBlockDTO> getBlocks(File file) {
+    public ArrayList<RessourceBlockDTO> getBlocks() {
         ensureConfigFile(true);
         ArrayList<RessourceBlockDTO> blocks = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
             String line = reader.readLine();
 
-            while (!line.equals(blockHeader)) {
+            while (!line.equals(blockHeader) && !line.equals("Blocks (uuid, hash, sequenceID):")) {
                 line = reader.readLine();
             }
             line = reader.readLine(); // skip header
-            String[] components = line.split(",");
-
-            if (components.length != 4) {
-                Logger.error("Malformed ressourcefile! Component entry doesn't have 4 components!");
-                return null;
-            }
-
             while (line != null) {
+                String[] components = line.split(",");
+
+                if (components.length != 4) {
+                    Logger.error("Malformed ressourcefile! Component entry doesn't have 4 components!");
+                    return null;
+                }
+
                 RessourceBlockDTO newBlock = new RessourceBlockDTO();
                 newBlock.setUUID(components[0]);
                 newBlock.setLocation(components[1]);
@@ -78,5 +78,19 @@ public class RessourceFile extends ConfigFile {
         }
 
         return null;
+    }
+
+    public HashMap<String[], String> getGETBLOCKCommands() {
+        HashMap<String[], String> commands = new HashMap<>();
+        ArrayList<RessourceBlockDTO> ressourceBlocks = getBlocks();
+
+        for (RessourceBlockDTO block : ressourceBlocks) {
+            String address = block.getLocation();
+            String[] command = new String[]{"GETBLOCK", this.getConfigContent().get("UUID"), block.getUUID()};
+
+            commands.put(command, address);
+        }
+
+        return commands;
     }
 }

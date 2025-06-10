@@ -111,12 +111,11 @@ public class NetworkFile extends ConfigFile {
         }
 
         for (File ressourceFile : matchingFiles) {
-            RessourceDTO ressource = new RessourceDTO(ressourceFile.getName().split("\\.")[0]); // uuid in the filename
+            RessourceDTO ressource = new RessourceDTO();
 
             try (BufferedReader reader = new BufferedReader(new FileReader(ressourceFile))) {
                 String uuid = reader.readLine().split(" ")[1];
-                if (!uuid.equals(ressource.getUUID()))
-                    Logger.error("UUID mismatch between ressourcefile name and first line!");
+                if (!uuid.equals(ressource.getUUID())) Logger.error("UUID mismatch between ressourcefile name and first line!");
 
                 ressource.setTitle(reader.readLine().split(" ")[1]);
                 reader.readLine(); // next line is hashSum, which we don't need

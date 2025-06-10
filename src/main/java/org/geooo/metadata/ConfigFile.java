@@ -12,6 +12,7 @@ import java.util.function.Function;
 import org.geooo.util.Logger;
 
 public abstract class ConfigFile {
+
     public File file;
     public HashMap<String, String> configContent;
 
@@ -51,7 +52,7 @@ public abstract class ConfigFile {
         ensureConfigFile(true);
         this.configContent = new HashMap<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
             String line = reader.readLine();
 
             while (line != null) {

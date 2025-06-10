@@ -13,7 +13,7 @@ import java.util.HashMap;
 import org.geooo.dto.ClientHandlerDTO;
 import org.geooo.dto.RessourceBlockDTO;
 import org.geooo.dto.ServerDTO;
-import org.geooo.metadata.TemporaryRessourceFile;
+import org.geooo.metadata.RessourceFile;
 import org.geooo.util.FilesRemote;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerCommand;
@@ -68,10 +68,10 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
 
         sendResponse("SUCCESS");
 
-        FilesRemote.receiveFile("tmpRessourceFile.g2gtmp", inputStream);
+        FilesRemote.receiveFile("tmpRessourceFile.g2g", inputStream);
         Logger.info("Received temporary ressourcefile!");
 
-        TemporaryRessourceFile tmpFile = new TemporaryRessourceFile("tmpRessourceFile.g2gtmp");
+        RessourceFile tmpFile = new RessourceFile("tmpRessourceFile.g2gtmp");
 
         HashMap<Integer, String> blockLocations = new HashMap<>();
         String clientPublicKey = tmpFile.getConfigContent().get("PublicKey");
@@ -83,25 +83,27 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
                 servers.remove(currentIndex);
 
                 currentIndex++;
-                if (currentIndex >= servers.size()) currentIndex = 0;
+                if (currentIndex >= servers.size()) {
+                    currentIndex = 0;
+                }
             }
 
             blockLocations.put(block.getSequenceID(), servers.get(currentIndex).getAddress());
 
             currentIndex++;
-            if (currentIndex >= servers.size()) currentIndex = 0;
+            if (currentIndex >= servers.size()) {
+                currentIndex = 0;
+            }
         }
 
         // assemble full ressource file
-        File ressourceFile = tmpFile.convertToRessourceFile(CCServer.CCSERVER_DIRECTORY, "tmpRessourceFile.g2gtmp", blockLocations);
-
-        if (ressourceFile == null || clientPublicKey == null) {
-            Logger.error("Error while processing tmpfile!");
-            sendResponse("ERROR Internal server error!");
-        }
-
-        sendResponse("SUCCESS");
-        FilesRemote.sendFile(ressourceFile, outputStream);
+        // File ressourceFile = tmpFile.convertToRessourceFile(CCServer.CCSERVER_DIRECTORY, "tmpRessourceFile.g2gtmp", blockLocations);
+        // if (ressourceFile == null || clientPublicKey == null) {
+        //     Logger.error("Error while processing tmpfile!");
+        //     sendResponse("ERROR Internal server error!");
+        // }
+        // sendResponse("SUCCESS");
+        // FilesRemote.sendFile(ressourceFile, outputStream);
     }
 
     public void handleCommandREGISTER(String[] args) {
@@ -115,7 +117,9 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
             }
         }
 
-        if (!alreadyInList) this.server.addServer(new ServerDTO(args[1], args[2]));
+        if (!alreadyInList) {
+            this.server.addServer(new ServerDTO(args[1], args[2]));
+        }
 
         try {
             sendResponse(String.format("SUCCESS %s %s", this.server.getNetworkUUID(), InetAddress.getLocalHost().getHostAddress()));
@@ -127,9 +131,7 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
     }
 
     public boolean sendAllow(String address, String clientPublicKey, String blockUUID) {
-        try (Socket tmpSocket = new Socket(address, 7000);
-                DataOutputStream tmpOutputStream = new DataOutputStream(tmpSocket.getOutputStream());
-                DataInputStream tmpInputStream = new DataInputStream(tmpSocket.getInputStream());) {
+        try (Socket tmpSocket = new Socket(address, 7000); DataOutputStream tmpOutputStream = new DataOutputStream(tmpSocket.getOutputStream()); DataInputStream tmpInputStream = new DataInputStream(tmpSocket.getInputStream());) {
 
             tmpOutputStream.writeUTF(String.format("ALLOW %s %s", clientPublicKey, blockUUID));
 

@@ -5,3 +5,321 @@
 [2025-06-04 17:09:40 ERROR]: Unknown command! Try again...
 [2025-06-04 17:09:40 ERROR]: originated from: org.geooo.Client
 [2025-06-04 17:09:41 INFO]: Shutting down...
+--------------------------------NEW APPLICATION START--------------------------------
+[18:00:45 ERROR]: Some files supplied for reassembly didn't exist!
+[18:00:45 ERROR]: originated from: org.geooo.Ressource
+--------------------------------NEW APPLICATION START--------------------------------
+[18:01:51 ERROR]: Error while reading G2GFile!
+[18:01:51 ERROR]: originated from: org.geooo.Ressource
+[18:01:51 ERROR]: Message / Cause: client/res/f922d9b0e27a41d7b708cf54dfd8e14cf922d9b0e27a41d7b708cf54dfd8e14c.g2g (No such file or directory)
+[18:01:51 ERROR]: Exception: java.io.FileNotFoundException
+[18:01:51 ERROR]: ----------------------Full stack trace----------------------
+[18:01:51 ERROR]: [java.base/java.io.FileInputStream.open0(Native Method), java.base/java.io.FileInputStream.open(FileInputStream.java:213), java.base/java.io.FileInputStream.<init>(FileInputStream.java:152), java.base/java.io.FileReader.<init>(FileReader.java:75), org.geooo.Ressource.reassembleSourceFile(Ressource.java:97), org.geooo.Client.main(Client.java:36)]
+[18:01:51 ERROR]: Some variables couldn't be extracted from the ressourcefile!
+[18:01:51 ERROR]: originated from: org.geooo.Ressource
+--------------------------------NEW APPLICATION START--------------------------------
+[18:14:50 ERROR]: Configfile is required but not present! 
+[18:14:51 ERROR]: originated from: org.geooo.metadata.ConfigFile
+--------------------------------NEW APPLICATION START--------------------------------
+[18:16:06 INFO]: Reassembling 2 blocks!
+[18:16:06 ERROR]: Error while writing blocks to destinationfile
+[18:16:06 ERROR]: originated from: org.geooo.Ressource
+[18:16:06 ERROR]: Message / Cause: client/res/0136ba79e6af4fd59697d7b6d65ee99a.g2gblock
+[18:16:06 ERROR]: Exception: java.nio.file.NoSuchFileException
+[18:16:06 ERROR]: ----------------------Full stack trace----------------------
+[18:16:06 ERROR]: [java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111), java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:261), java.base/java.nio.file.Files.newByteChannel(Files.java:379), java.base/java.nio.file.Files.newByteChannel(Files.java:431), java.base/java.nio.file.Files.readAllBytes(Files.java:3268), org.geooo.Ressource.reassembleSourceFile(Ressource.java:107), org.geooo.Client.main(Client.java:36)]
+[18:16:06 ERROR]: HashSum mismatch between ressourcefile and reassembled file!
+[18:16:06 ERROR]: originated from: org.geooo.Ressource
+[18:16:06 INFO]: Successfully reassembled sourcefile!
+--------------------------------NEW APPLICATION START--------------------------------
+[18:17:04 INFO]: Reassembling 2 blocks!
+--------------------------------NEW APPLICATION START--------------------------------
+[18:18:17 INFO]: Reassembling 2 blocks!
+--------------------------------NEW APPLICATION START--------------------------------
+[18:20:00 INFO]: Reassembling 2 blocks!
+[18:20:00 ERROR]: HashSum mismatch between ressourcefile and reassembled file!
+[18:20:00 ERROR]: originated from: org.geooo.Ressource
+[18:20:00 INFO]: Successfully reassembled sourcefile!
+--------------------------------NEW APPLICATION START--------------------------------
+[18:22:05 INFO]: Reassembling 2 blocks!
+[18:22:05 WARNING]: Config: 98e4c860a44c648a4d1cc6f6d33a96b6778d609e6c71f5f6049872da1c493c34
+[18:22:05 WARNING]: File: 869471ec262ac446ba66d7b13a58da2e890f0e1ac4edbc5b1050cfb08aa68f7b
+[18:22:05 ERROR]: HashSum mismatch between ressourcefile and reassembled file!
+[18:22:05 ERROR]: originated from: org.geooo.Ressource
+2m[18:22:05 SUCCESS]: Hashsums match!
+2m[18:22:05 SUCCESS]: Successfully reassembled sourcefile!
+--------------------------------NEW APPLICATION START--------------------------------
+[18:26:37 INFO]: Generating Ressource with title: myTitle
+[18:26:37 INFO]: UUID of Ressource is: a0d27ff33a5d46a5863d5c158cac6b2a
+[18:26:37 INFO]: Generating 1 blocks!
+[18:26:37 ERROR]: Error while handling blockfile!
+[18:26:37 ERROR]: originated from: org.geooo.RessourceBlock
+[18:26:37 ERROR]: Message / Cause: No such file or directory
+[18:26:37 ERROR]: Exception: java.io.IOException
+[18:26:37 ERROR]: ----------------------Full stack trace----------------------
+[18:26:37 ERROR]: [java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method), java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258), java.base/java.io.File.createNewFile(File.java:1045), org.geooo.RessourceBlock.writeToFile(RessourceBlock.java:32), org.geooo.Ressource.<init>(Ressource.java:68), org.geooo.Client.main(Client.java:35)]
+[18:26:37 INFO]: 1 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[12:52:35 ERROR]: Configfile is required but not present! 
+[12:52:35 ERROR]: originated from: org.geooo.metadata.ConfigFile
+--------------------------------NEW APPLICATION START--------------------------------
+[12:54:52 INFO]: [client/res/test2.jpg, client/res/clientFile.g2gclient]
+[12:54:52 ERROR]: Configfile is required but not present! 
+[12:54:52 ERROR]: originated from: org.geooo.metadata.ConfigFile
+--------------------------------NEW APPLICATION START--------------------------------
+[12:57:28 ERROR]: Ressource hashsum has been found locally!
+[12:57:28 ERROR]: originated from: org.geooo.Ressource
+[12:57:28 INFO]: Generating Ressource with title: myTitle
+[12:57:28 INFO]: UUID of Ressource is: c0cbb1b6c2344e5d9342a159896ed2a9
+[12:57:28 INFO]: Generating 1 blocks!
+[12:57:28 ERROR]: Error while handling blockfile!
+[12:57:28 ERROR]: originated from: org.geooo.RessourceBlock
+[12:57:28 ERROR]: Message / Cause: No such file or directory
+[12:57:28 ERROR]: Exception: java.io.IOException
+[12:57:28 ERROR]: ----------------------Full stack trace----------------------
+[12:57:28 ERROR]: [java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method), java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258), java.base/java.io.File.createNewFile(File.java:1045), org.geooo.RessourceBlock.writeToFile(RessourceBlock.java:32), org.geooo.Ressource.disassemble(Ressource.java:78), org.geooo.Client.main(Client.java:36)]
+[12:57:28 INFO]: 1 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[12:59:13 INFO]: []
+[12:59:13 ERROR]: Ressource hashsum has been found locally!
+[12:59:13 ERROR]: originated from: org.geooo.Ressource
+--------------------------------NEW APPLICATION START--------------------------------
+[12:59:40 INFO]: []
+[12:59:40 INFO]: Generating Ressource with title: myTitle
+[12:59:40 INFO]: UUID of Ressource is: 197c12f732fa405b81c5512eee81aa61
+[12:59:40 INFO]: Generating 1 blocks!
+[12:59:40 ERROR]: Error while handling blockfile!
+[12:59:40 ERROR]: originated from: org.geooo.RessourceBlock
+[12:59:40 ERROR]: Message / Cause: No such file or directory
+[12:59:40 ERROR]: Exception: java.io.IOException
+[12:59:40 ERROR]: ----------------------Full stack trace----------------------
+[12:59:40 ERROR]: [java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method), java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258), java.base/java.io.File.createNewFile(File.java:1045), org.geooo.RessourceBlock.writeToFile(RessourceBlock.java:32), org.geooo.Ressource.disassemble(Ressource.java:79), org.geooo.Client.main(Client.java:36)]
+[12:59:40 INFO]: 1 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[13:02:56 INFO]: []
+[13:02:56 INFO]: Generating Ressource with title: myTitle
+[13:02:56 INFO]: UUID of Ressource is: 4595883faf924df383e05edbb04d7406
+[13:02:56 INFO]: Generating 1 blocks!
+[13:02:56 ERROR]: Error while handling blockfile!
+[13:02:56 ERROR]: originated from: org.geooo.RessourceBlock
+[13:02:56 ERROR]: Message / Cause: No such file or directory
+[13:02:56 ERROR]: Exception: java.io.IOException
+[13:02:56 ERROR]: ----------------------Full stack trace----------------------
+[13:02:56 ERROR]: [java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method), java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258), java.base/java.io.File.createNewFile(File.java:1045), org.geooo.RessourceBlock.writeToFile(RessourceBlock.java:32), org.geooo.Ressource.disassemble(Ressource.java:82), org.geooo.Client.main(Client.java:36)]
+[13:02:56 INFO]: 1 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[13:10:48 INFO]: []
+[13:10:48 INFO]: Generating Ressource with title: myTitle
+[13:10:48 INFO]: UUID of Ressource is: 4b8be29ec5dc422e8a6b6901c6e7830d
+[13:10:48 INFO]: Generating 1 blocks!
+[13:10:48 ERROR]: Error while handling blockfile!
+[13:10:48 ERROR]: originated from: org.geooo.RessourceBlock
+[13:10:48 ERROR]: Message / Cause: No such file or directory
+[13:10:48 ERROR]: Exception: java.io.IOException
+[13:10:48 ERROR]: ----------------------Full stack trace----------------------
+[13:10:48 ERROR]: [java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method), java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258), java.base/java.io.File.createNewFile(File.java:1045), org.geooo.RessourceBlock.writeToFile(RessourceBlock.java:32), org.geooo.Ressource.disassemble(Ressource.java:87), org.geooo.Client.main(Client.java:36)]
+[13:10:48 INFO]: 1 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[13:12:08 INFO]: []
+[13:12:08 INFO]: Generating Ressource with title: myTitle
+[13:12:08 INFO]: UUID of Ressource is: b59cf31c35024e5ba7544208a7285d63
+[13:12:08 INFO]: bytes: 16777216
+[13:12:08 INFO]: div result: 1.0
+[13:12:08 INFO]: Generating 1 blocks!
+[13:12:08 ERROR]: Error while handling blockfile!
+[13:12:08 ERROR]: originated from: org.geooo.RessourceBlock
+[13:12:08 ERROR]: Message / Cause: No such file or directory
+[13:12:08 ERROR]: Exception: java.io.IOException
+[13:12:08 ERROR]: ----------------------Full stack trace----------------------
+[13:12:08 ERROR]: [java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method), java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258), java.base/java.io.File.createNewFile(File.java:1045), org.geooo.RessourceBlock.writeToFile(RessourceBlock.java:32), org.geooo.Ressource.disassemble(Ressource.java:89), org.geooo.Client.main(Client.java:36)]
+[13:12:08 INFO]: 1 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[13:12:52 INFO]: [client/res/b59cf31c35024e5ba7544208a7285d63]
+[13:12:52 INFO]: [client/res/b59cf31c35024e5ba7544208a7285d63]
+[13:12:52 ERROR]: Configfile is required but not present! 
+[13:12:52 ERROR]: originated from: org.geooo.metadata.ConfigFile
+--------------------------------NEW APPLICATION START--------------------------------
+[13:13:06 INFO]: []
+[13:13:06 INFO]: Generating Ressource with title: myTitle
+[13:13:06 INFO]: UUID of Ressource is: c5656ad604464f2ca45ba0c0ab892600
+[13:13:06 INFO]: bytes: 16777216
+[13:13:06 INFO]: div result: 1.0
+[13:13:06 INFO]: Generating 1 blocks!
+[13:13:06 ERROR]: Error while handling blockfile!
+[13:13:06 ERROR]: originated from: org.geooo.RessourceBlock
+[13:13:06 ERROR]: Message / Cause: No such file or directory
+[13:13:06 ERROR]: Exception: java.io.IOException
+[13:13:06 ERROR]: ----------------------Full stack trace----------------------
+[13:13:06 ERROR]: [java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method), java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258), java.base/java.io.File.createNewFile(File.java:1045), org.geooo.RessourceBlock.writeToFile(RessourceBlock.java:32), org.geooo.Ressource.disassemble(Ressource.java:89), org.geooo.Client.main(Client.java:36)]
+[13:13:06 INFO]: 1 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[13:14:41 INFO]: []
+[13:14:41 INFO]: Generating Ressource with title: myTitle
+[13:14:41 INFO]: UUID of Ressource is: 943d4a9df0e64857aab32ff3d9b32281
+[13:14:41 INFO]: bytes: 1.6777216E7
+[13:14:41 INFO]: div result: 1.0
+[13:14:41 INFO]: Generating 1 blocks!
+[13:14:41 ERROR]: Error while handling blockfile!
+[13:14:41 ERROR]: originated from: org.geooo.RessourceBlock
+[13:14:41 ERROR]: Message / Cause: No such file or directory
+[13:14:41 ERROR]: Exception: java.io.IOException
+[13:14:41 ERROR]: ----------------------Full stack trace----------------------
+[13:14:41 ERROR]: [java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method), java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258), java.base/java.io.File.createNewFile(File.java:1045), org.geooo.RessourceBlock.writeToFile(RessourceBlock.java:32), org.geooo.Ressource.disassemble(Ressource.java:89), org.geooo.Client.main(Client.java:36)]
+[13:14:41 INFO]: 1 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[13:17:31 INFO]: []
+[13:17:31 INFO]: Generating Ressource with title: myTitle
+[13:17:31 INFO]: UUID of Ressource is: 02a52465af854be488a6fec5fd571d53
+[13:17:31 INFO]: bytes: 1.6777216E7
+[13:17:31 INFO]: sourcefilesize: 16.0
+[13:17:31 INFO]: div result: 1.0
+[13:17:31 INFO]: Generating 1 blocks!
+[13:17:31 ERROR]: Error while handling blockfile!
+[13:17:31 ERROR]: originated from: org.geooo.RessourceBlock
+[13:17:31 ERROR]: Message / Cause: No such file or directory
+[13:17:31 ERROR]: Exception: java.io.IOException
+[13:17:31 ERROR]: ----------------------Full stack trace----------------------
+[13:17:31 ERROR]: [java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method), java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258), java.base/java.io.File.createNewFile(File.java:1045), org.geooo.RessourceBlock.writeToFile(RessourceBlock.java:32), org.geooo.Ressource.disassemble(Ressource.java:90), org.geooo.Client.main(Client.java:36)]
+[13:17:31 INFO]: 1 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[13:45:46 WARNING]: client/res/hello.txt
+--------------------------------NEW APPLICATION START--------------------------------
+[13:46:21 INFO]: []
+[13:46:21 INFO]: Generating Ressource with title: myTitle
+[13:46:21 INFO]: UUID of Ressource is: 798d46784b3d4d09886de5e1f50ddf3e
+[13:46:21 INFO]: bytes: 3.1087766E7
+[13:46:21 INFO]: div result: 1.8529752492904663
+[13:46:21 INFO]: Generating 2 blocks!
+[13:46:21 ERROR]: Error while handling blockfile!
+[13:46:21 ERROR]: originated from: org.geooo.RessourceBlock
+[13:46:21 ERROR]: Message / Cause: Not a directory
+[13:46:21 ERROR]: Exception: java.io.IOException
+[13:46:21 ERROR]: ----------------------Full stack trace----------------------
+[13:46:21 ERROR]: [java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method), java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258), java.base/java.io.File.createNewFile(File.java:1045), org.geooo.RessourceBlock.writeToFile(RessourceBlock.java:36), org.geooo.Ressource.disassemble(Ressource.java:91), org.geooo.Client.main(Client.java:35)]
+[13:46:21 ERROR]: Error while handling blockfile!
+[13:46:21 ERROR]: originated from: org.geooo.RessourceBlock
+[13:46:21 ERROR]: Message / Cause: Not a directory
+[13:46:21 ERROR]: Exception: java.io.IOException
+[13:46:21 ERROR]: ----------------------Full stack trace----------------------
+[13:46:21 ERROR]: [java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method), java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258), java.base/java.io.File.createNewFile(File.java:1045), org.geooo.RessourceBlock.writeToFile(RessourceBlock.java:36), org.geooo.Ressource.disassemble(Ressource.java:91), org.geooo.Client.main(Client.java:35)]
+[13:46:21 INFO]: 2 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[13:47:42 INFO]: []
+[13:47:42 INFO]: Generating Ressource with title: myTitle
+[13:47:42 INFO]: UUID of Ressource is: 5135c2c032da44929de75eea75d61d75
+[13:47:42 INFO]: bytes: 3.1087766E7
+[13:47:42 INFO]: div result: 1.8529752492904663
+[13:47:42 INFO]: Generating 2 blocks!
+[13:47:42 INFO]: 2 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[13:54:34 ERROR]: Error while generating hashsum from file!
+[13:54:34 ERROR]: originated from: org.geooo.util.HashSum
+[13:54:34 ERROR]: Message / Cause: client/res/out.mp4
+[13:54:34 ERROR]: Exception: java.nio.file.NoSuchFileException
+[13:54:34 ERROR]: ----------------------Full stack trace----------------------
+[13:54:34 ERROR]: [java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111), java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:261), java.base/java.nio.file.Files.newByteChannel(Files.java:379), java.base/java.nio.file.Files.newByteChannel(Files.java:431), java.base/java.nio.file.Files.readAllBytes(Files.java:3268), org.geooo.util.HashSum.fromFile(HashSum.java:37), org.geooo.Ressource.doesLocalRessourceExist(Ressource.java:152), org.geooo.Ressource.reassemble(Ressource.java:103), org.geooo.Client.main(Client.java:37)]
+[13:54:34 INFO]: [client/res/5135c2c032da44929de75eea75d61d75]
+[13:54:34 ERROR]: Configfile is required but not present! 
+[13:54:34 ERROR]: originated from: org.geooo.metadata.ConfigFile
+--------------------------------NEW APPLICATION START--------------------------------
+[13:56:39 ERROR]: Error while generating hashsum from file!
+[13:56:39 ERROR]: originated from: org.geooo.util.HashSum
+[13:56:39 ERROR]: Message / Cause: client/res/out.mp4
+[13:56:39 ERROR]: Exception: java.nio.file.NoSuchFileException
+[13:56:39 ERROR]: ----------------------Full stack trace----------------------
+[13:56:39 ERROR]: [java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106), java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111), java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:261), java.base/java.nio.file.Files.newByteChannel(Files.java:379), java.base/java.nio.file.Files.newByteChannel(Files.java:431), java.base/java.nio.file.Files.readAllBytes(Files.java:3268), org.geooo.util.HashSum.fromFile(HashSum.java:37), org.geooo.Ressource.doesLocalRessourceExist(Ressource.java:153), org.geooo.Ressource.reassemble(Ressource.java:103), org.geooo.Client.main(Client.java:37)]
+[13:56:39 INFO]: [client/res/5135c2c032da44929de75eea75d61d75]
+[13:56:39 ERROR]: Configfile is required but not present! 
+[13:56:39 ERROR]: originated from: org.geooo.metadata.ConfigFile
+--------------------------------NEW APPLICATION START--------------------------------
+[13:57:26 ERROR]: Configfile is required but not present! 
+[13:57:26 ERROR]: originated from: org.geooo.metadata.ConfigFile
+--------------------------------NEW APPLICATION START--------------------------------
+[13:59:10 INFO]: Generating Ressource with title: myTitle
+[13:59:10 INFO]: UUID of Ressource is: 21b035a3c7aa403ea96223aa3cf65677
+[13:59:10 INFO]: Generating 2 blocks!
+2m[13:59:10 SUCCESS]: 2 blocks generated!
+[13:59:10 ERROR]: Error while writing to ressourcefile!
+[13:59:10 ERROR]: originated from: org.geooo.metadata.RessourceFile
+[13:59:10 ERROR]: Message / Cause: client/res/21b035a3c7aa403ea96223aa3cf65677 (Is a directory)
+[13:59:10 ERROR]: Exception: java.io.FileNotFoundException
+[13:59:10 ERROR]: ----------------------Full stack trace----------------------
+[13:59:10 ERROR]: [java.base/java.io.FileOutputStream.open0(Native Method), java.base/java.io.FileOutputStream.open(FileOutputStream.java:289), java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:230), java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:179), java.base/java.io.FileWriter.<init>(FileWriter.java:98), org.geooo.metadata.RessourceFile.writeToFile(RessourceFile.java:27), org.geooo.Ressource.disassemble(Ressource.java:100), org.geooo.Client.main(Client.java:35)]
+--------------------------------NEW APPLICATION START--------------------------------
+[14:01:13 INFO]: Generating Ressource with title: myTitle
+[14:01:13 INFO]: UUID of Ressource is: 18b274f7eaac4a14af2f046ceaee8166
+[14:01:13 INFO]: Generating 2 blocks!
+2m[14:01:13 SUCCESS]: 2 blocks generated!
+[14:01:13 ERROR]: Error while writing to ressourcefile!
+[14:01:13 ERROR]: originated from: org.geooo.metadata.RessourceFile
+[14:01:13 ERROR]: Message / Cause: client/res/18b274f7eaac4a14af2f046ceaee8166 (Is a directory)
+[14:01:13 ERROR]: Exception: java.io.FileNotFoundException
+[14:01:13 ERROR]: ----------------------Full stack trace----------------------
+[14:01:13 ERROR]: [java.base/java.io.FileOutputStream.open0(Native Method), java.base/java.io.FileOutputStream.open(FileOutputStream.java:289), java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:230), java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:179), java.base/java.io.FileWriter.<init>(FileWriter.java:98), org.geooo.metadata.RessourceFile.writeToFile(RessourceFile.java:27), org.geooo.Ressource.disassemble(Ressource.java:100), org.geooo.Client.main(Client.java:35)]
+--------------------------------NEW APPLICATION START--------------------------------
+[14:02:31 INFO]: Generating Ressource with title: myTitle
+[14:02:31 INFO]: UUID of Ressource is: 9264590e9a44421796dbc165aba20583
+[14:02:31 INFO]: Generating 2 blocks!
+2m[14:02:31 SUCCESS]: 2 blocks generated!
+[14:02:31 ERROR]: Configfile is required but not present! 
+[14:02:31 ERROR]: originated from: org.geooo.metadata.ConfigFile
+--------------------------------NEW APPLICATION START--------------------------------
+[14:03:56 INFO]: Generating Ressource with title: myTitle
+[14:03:56 INFO]: UUID of Ressource is: 230a058cdb5a4538a04475cd9a43314d
+[14:03:56 INFO]: Generating 2 blocks!
+2m[14:03:56 SUCCESS]: 2 blocks generated!
+--------------------------------NEW APPLICATION START--------------------------------
+[14:07:08 INFO]: Generating Ressource with title: myTitle
+[14:07:08 INFO]: UUID of Ressource is: cd1ff44573474dcbb4b95903ad13e649
+[14:07:08 INFO]: Generating 2 blocks!
+2m[14:07:08 SUCCESS]: 2 blocks generated!
+[14:07:08 WARNING]: Config file doesn't exist! May crash now...
+--------------------------------NEW APPLICATION START--------------------------------
+[14:09:36 INFO]: Generating Ressource with title: myTitle
+[14:09:36 INFO]: UUID of Ressource is: 89f4249d9e29463c9a6c65cc016021b5
+[14:09:36 INFO]: Generating 2 blocks!
+2m[14:09:36 SUCCESS]: 2 blocks generated!
+[14:09:36 WARNING]: Config file doesn't exist! May crash now...
+--------------------------------NEW APPLICATION START--------------------------------
+[14:13:20 INFO]: Generating Ressource with title: myTitle
+[14:13:20 INFO]: UUID of Ressource is: ff44e6c0e3244650b998f296b07464ab
+[14:13:20 INFO]: Generating 2 blocks!
+2m[14:13:20 SUCCESS]: 2 blocks generated!
+[14:13:20 WARNING]: Config file doesn't exist! May crash now...
+--------------------------------NEW APPLICATION START--------------------------------
+[14:14:01 ERROR]: Configfile is required but not present! 
+[14:14:01 ERROR]: originated from: org.geooo.metadata.ConfigFile
+--------------------------------NEW APPLICATION START--------------------------------
+[14:15:10 ERROR]: Configfile is required but not present! 
+[14:15:10 ERROR]: originated from: org.geooo.metadata.ConfigFile
+--------------------------------NEW APPLICATION START--------------------------------
+[14:26:14 INFO]: client/res/ff44e6c0e3244650b998f296b07464ab/ff44e6c0e3244650b998f296b07464ab.g2g
+--------------------------------NEW APPLICATION START--------------------------------
+[14:29:57 ERROR]: Malformed ressourcefile! Component entry doesn't have 4 components!
+[14:29:57 ERROR]: originated from: org.geooo.metadata.RessourceFile
+--------------------------------NEW APPLICATION START--------------------------------
+[14:31:00 INFO]: Generating Ressource with title: myTitle
+[14:31:00 INFO]: UUID of Ressource is: b438d41d25de4bc3a6c043a6431fb0df
+[14:31:00 INFO]: Generating 2 blocks!
+2m[14:31:00 SUCCESS]: 2 blocks generated!
+[14:31:00 WARNING]: Config file doesn't exist! May crash now...
+--------------------------------NEW APPLICATION START--------------------------------
+[14:31:30 ERROR]: Some files supplied for reassembly didn't exist!
+[14:31:30 ERROR]: originated from: org.geooo.Ressource
+[14:31:30 ERROR]: Configfile is required but not present! 
+[14:31:30 ERROR]: originated from: org.geooo.metadata.ConfigFile
+--------------------------------NEW APPLICATION START--------------------------------
+[14:32:14 INFO]: Reassembling 2 blocks!
+[14:32:14 WARNING]: HashSum mismatch between ressourcefile and reassembled file!
+2m[14:32:14 SUCCESS]: Successfully reassembled sourcefile!
+--------------------------------NEW APPLICATION START--------------------------------
+[14:43:13 INFO]: Reassembling 2 blocks!
+2m[14:43:13 SUCCESS]: Added block 0 to file!
+[14:43:13 WARNING]: HashSum mismatch between ressourcefile and reassembled file!
+2m[14:43:13 SUCCESS]: Successfully reassembled sourcefile!
+--------------------------------NEW APPLICATION START--------------------------------
+[14:44:59 INFO]: Reassembling 2 blocks!
+2m[14:44:59 SUCCESS]: Added block 0 to file!
+2m[14:44:59 SUCCESS]: Added block 1 to file!
+2m[14:45:00 SUCCESS]: Hashsums match!
+2m[14:45:00 SUCCESS]: Successfully reassembled sourcefile!

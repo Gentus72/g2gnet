@@ -16,6 +16,7 @@ public class Logger {
     private static final String ANSI_WHITE = "\u001B[37m";
     private static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_GREEN = "\033[0;32m";
+    public static final String ANSI_CYAN = "\033[0;36m";
     public static final String ANSI_RESET = "\u001B[0m";
 
     /*
@@ -63,6 +64,10 @@ public class Logger {
         log(LoggingType.INFO, message);
     }
 
+    public static void success(String message) {
+        log(LoggingType.SUCCESS, message);
+    }
+
     public static void warn(String message) {
         log(LoggingType.WARNING, message);
     }
@@ -87,11 +92,13 @@ public class Logger {
     private static void log(LoggingType loggingType, String message) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         String currentDateTimeFormatted = currentDateTime.toString().replace("T", " ").split("\\.")[0];
+        currentDateTimeFormatted = currentDateTimeFormatted.substring(currentDateTimeFormatted.indexOf(" ") + 1); // only get time
         String output = "";
 
         // Die Nachricht wird entsprechend schön formattiert.
         switch (loggingType) {
             case LoggingType.INFO -> output = ANSI_WHITE + "[" + currentDateTimeFormatted + " INFO]: " + message;
+            case LoggingType.SUCCESS -> output = ANSI_GREEN + "[" + currentDateTimeFormatted + " SUCCESS]: " + message;
             case LoggingType.WARNING -> output = ANSI_YELLOW + "[" + currentDateTimeFormatted + " WARNING]: " + message;
             case LoggingType.ERROR -> output = ANSI_RED + "[" + currentDateTimeFormatted + " ERROR]: " + message;
         }

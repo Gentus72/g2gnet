@@ -1,9 +1,14 @@
 package org.geooo.util;
 
 public enum LoggingType {
-    INFO("INFO"), WARNING("WARNING"), ERROR("ERROR");
+    INFO("INFO"),
+    SUCCESS("SUCCESS"),
+    WARNING("WARNING"),
+    ERROR("ERROR");
+
+    String value;
 
     LoggingType(String value) {
-        // do nothing
+        this.value = value;
     }
 }
