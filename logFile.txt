@@ -323,3 +323,39 @@
 2m[14:44:59 SUCCESS]: Added block 1 to file!
 2m[14:45:00 SUCCESS]: Hashsums match!
 2m[14:45:00 SUCCESS]: Successfully reassembled sourcefile!
+--------------------------------NEW APPLICATION START--------------------------------
+[12:46:14 INFO]: Generating Ressource with title: myTitle
+[12:46:14 INFO]: UUID of Ressource is: b50a1034db554247b4b08a1bd3cba66e
+[12:46:14 INFO]: Generating 2 blocks!
+2m[12:46:14 SUCCESS]: 2 blocks generated!
+[12:46:14 WARNING]: Config file doesn't exist! May crash now...
+--------------------------------NEW APPLICATION START--------------------------------
+[12:48:09 INFO]: Generating Ressource with title: myTitle
+[12:48:09 INFO]: UUID of Ressource is: c9e097875f8c4d9087a6ca6e5d63d693
+[12:48:09 INFO]: Generating 2 blocks!
+2m[12:48:09 SUCCESS]: 2 blocks generated!
+[12:48:09 WARNING]: Config file doesn't exist! May crash now...
+--------------------------------NEW APPLICATION START--------------------------------
+[12:54:06 INFO]: Generating Ressource with title: myTitle
+[12:54:06 INFO]: UUID of Ressource is: 9cacbf6e61304bea872c5337e92af079
+[12:54:06 INFO]: Generating 2 blocks!
+2m[12:54:06 SUCCESS]: 2 blocks generated!
+[12:54:06 WARNING]: Config file doesn't exist! May crash now...
+--------------------------------NEW APPLICATION START--------------------------------
+[13:12:13 ERROR]: Error while getting public key from base64!
+[13:12:13 ERROR]: originated from: org.geooo.dto.ClientDTO
+[13:12:13 ERROR]: Message / Cause: Only ECPrivateKeySpec and PKCS8EncodedKeySpec supported for EC private keys
+[13:12:13 ERROR]: Exception: java.security.spec.InvalidKeySpecException
+[13:12:13 ERROR]: ----------------------Full stack trace----------------------
+[13:12:13 ERROR]: [jdk.crypto.ec/sun.security.ec.ECKeyFactory.implGeneratePrivate(ECKeyFactory.java:251), jdk.crypto.ec/sun.security.ec.ECKeyFactory.engineGeneratePrivate(ECKeyFactory.java:164), java.base/java.security.KeyFactory.generatePrivate(KeyFactory.java:389), org.geooo.dto.ClientDTO.setPrivateKeyBase64(ClientDTO.java:66), org.geooo.metadata.ClientFile.readFromFile(ClientFile.java:37), org.geooo.Client.<init>(Client.java:55), org.geooo.Client.main(Client.java:37)]
+[13:12:13 INFO]: Generating Ressource with title: myTitle
+[13:12:13 INFO]: UUID of Ressource is: b09d8239488d4301b52813d64940a720
+[13:12:13 INFO]: Generating 2 blocks!
+2m[13:12:13 SUCCESS]: 2 blocks generated!
+[13:12:13 WARNING]: Config file doesn't exist! May crash now...
+--------------------------------NEW APPLICATION START--------------------------------
+[13:17:35 INFO]: Generating Ressource with title: myTitle
+[13:17:35 INFO]: UUID of Ressource is: 79cda042a5a040cc9c6a45aac509c755
+[13:17:35 INFO]: Generating 2 blocks!
+2m[13:17:35 SUCCESS]: 2 blocks generated!
+[13:17:35 WARNING]: Config file doesn't exist! May crash now...

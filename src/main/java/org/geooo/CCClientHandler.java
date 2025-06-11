@@ -8,6 +8,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.geooo.dto.ClientHandlerDTO;
@@ -37,7 +38,7 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
             case "RESSOURCE" -> {
                 // check that ressourcefile exists
                 String ressourceUUID = args[2];
-                File ressourceFile = new File(String.format("%s%s.g2g", CCServer.CCSERVER_DIRECTORY, ressourceUUID));
+                File ressourceFile = new File(String.format("%s%s.g2g", CCServer.getRessourceDirectory(), ressourceUUID));
 
                 if (!ressourceFile.exists()) {
                     sendResponse(String.format("ERROR ressource %s doesn't exist!", ressourceUUID));
@@ -62,48 +63,48 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
     }
 
     public void handleCommandAUTH(String[] args) {
-        ArrayList<ServerDTO> servers = server.getServers(); // avoid repeated call
-        servers.add(this.server); // add ccserver because it can also accept and deliver blocks
+        ArrayList<String> locations = new ArrayList<>(); // avoid repeated call
+        for (ServerDTO server : this.server.getServers()) {
+            locations.add(server.getAddress());
+        }
+
+        locations.add(this.server.getAddress()); // add ccserver because it can also accept and deliver blocks
         int currentIndex = 0;
+        Logger.info(Arrays.toString(locations.toArray()));
 
-        sendResponse("SUCCESS");
+        sendResponse("AUTH SUCCESS " + args[1]); // add ressourceUUID
 
-        FilesRemote.receiveFile("tmpRessourceFile.g2g", inputStream);
+        FilesRemote.receiveFile("tmp.g2g", inputStream);
         Logger.info("Received temporary ressourcefile!");
 
-        RessourceFile tmpFile = new RessourceFile("tmpRessourceFile.g2gtmp");
+        RessourceFile ressourceFile = new RessourceFile("tmp.g2g");
 
         HashMap<Integer, String> blockLocations = new HashMap<>();
-        String clientPublicKey = tmpFile.getConfigContent().get("PublicKey");
+        String clientPublicKey = ressourceFile.getConfigContent().get("PublicKey");
 
         // send allow to all servers
-        for (RessourceBlockDTO block : tmpFile.getBlocks()) {
+        for (RessourceBlockDTO block : ressourceFile.getBlocks()) {
             // while send ALLOW wasn't successfull, try another one
-            while (!sendAllow(servers.get(currentIndex).getAddress(), clientPublicKey, block.getUUID())) {
-                servers.remove(currentIndex);
+            while (!sendAllow(locations.get(currentIndex), clientPublicKey, block.getUUID())) {
+                locations.remove(currentIndex);
 
                 currentIndex++;
-                if (currentIndex >= servers.size()) {
+                if (currentIndex >= locations.size()) {
                     currentIndex = 0;
                 }
             }
 
-            blockLocations.put(block.getSequenceID(), servers.get(currentIndex).getAddress());
+            blockLocations.put(block.getSequenceID(), locations.get(currentIndex));
 
             currentIndex++;
-            if (currentIndex >= servers.size()) {
+            if (currentIndex >= locations.size()) {
                 currentIndex = 0;
             }
         }
 
-        // assemble full ressource file
-        // File ressourceFile = tmpFile.convertToRessourceFile(CCServer.CCSERVER_DIRECTORY, "tmpRessourceFile.g2gtmp", blockLocations);
-        // if (ressourceFile == null || clientPublicKey == null) {
-        //     Logger.error("Error while processing tmpfile!");
-        //     sendResponse("ERROR Internal server error!");
-        // }
-        // sendResponse("SUCCESS");
-        // FilesRemote.sendFile(ressourceFile, outputStream);
+        ressourceFile.replaceBlockLocations(blockLocations);
+        FilesRemote.sendFile(ressourceFile.getFile(), outputStream);
+        Logger.info("Sent assembled ressourcefile!");
     }
 
     public void handleCommandREGISTER(String[] args) {
@@ -131,15 +132,28 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
     }
 
     public boolean sendAllow(String address, String clientPublicKey, String blockUUID) {
+        String response;
+
         try (Socket tmpSocket = new Socket(address, 7000); DataOutputStream tmpOutputStream = new DataOutputStream(tmpSocket.getOutputStream()); DataInputStream tmpInputStream = new DataInputStream(tmpSocket.getInputStream());) {
-
+            Logger.info(String.format("Sending ALLOW to %s", address));
             tmpOutputStream.writeUTF(String.format("ALLOW %s %s", clientPublicKey, blockUUID));
+            tmpOutputStream.flush();
 
-            String response = tmpInputStream.readUTF();
-            return response.contains("SUCCESS");
+            response = tmpInputStream.readUTF();
+
+            if (!response.contains("SUCCESS")) {
+                Logger.error(String.format("ALLOW on [%s] failed!", address));
+                return false;
+            }
+
+            Logger.success(String.format("ALLOW on [%s] was successfull!", address));
+            tmpOutputStream.writeUTF("DISCONNECT");
+            tmpOutputStream.flush();
         } catch (IOException e) {
             Logger.error("Error while sending allow command to " + address);
             return false;
         }
+
+        return response.contains("SUCCESS");
     }
 }

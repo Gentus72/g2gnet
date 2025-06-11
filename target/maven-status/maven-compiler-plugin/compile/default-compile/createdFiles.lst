@@ -26,6 +26,5 @@ org/geooo/util/ServerCommand.class
 org/geooo/Server.class
 org/geooo/gui/FXTest$2.class
 org/geooo/dto/ServerDTO.class
-org/geooo/metadata/TemporaryRessourceFile.class
 org/geooo/metadata/NetworkFile.class
 org/geooo/Client.class

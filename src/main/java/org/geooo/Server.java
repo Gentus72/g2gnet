@@ -17,7 +17,6 @@ import org.geooo.util.Logger;
 import org.geooo.util.ServerResponse;
 
 public class Server extends ServerDTO {
-    public static final String SERVER_DIRECTORY = "server/";
 
     public ArrayList<ClientDTO> clients;
     public CCServer ccServer;
@@ -52,7 +51,9 @@ public class Server extends ServerDTO {
             String[] responseArgs = response.split(" ");
 
             if (ServerResponse.valueOf(responseArgs[0]).equals(ServerResponse.SUCCESS)) {
-                if (responseArgs.length < 3 || !responseArgs[1].equals(networkUUID)) Logger.warn(String.format("NetworkUUID mismatch! %s != %s -> Updating...", responseArgs[1], networkUUID));
+                if (responseArgs.length < 3 || !responseArgs[1].equals(networkUUID)) {
+                    Logger.warn(String.format("NetworkUUID mismatch! %s != %s -> Updating...", responseArgs[1], networkUUID));
+                }
 
                 Logger.info("Successfully connected to CCServer at: " + ccAddress);
                 this.ccServer = new CCServer(responseArgs[2]);
@@ -78,7 +79,7 @@ public class Server extends ServerDTO {
     public void startServer() {
         this.clients = new ArrayList<>();
 
-        this.serverFile = new ServerFile(SERVER_DIRECTORY + "serverFile.g2gsrv");
+        this.serverFile = new ServerFile(getRessourceDirectory() + "serverFile.g2gsrv");
 
         if (!this.serverFile.getFile().exists()) {
             Logger.warn("No config file detected! Generating blank one - please fill it out!");
@@ -105,5 +106,9 @@ public class Server extends ServerDTO {
             Logger.error("Error while setting up server socket!");
             Logger.exception(e);
         }
+    }
+
+    public static String getRessourceDirectory() {
+        return "server/";
     }
 }

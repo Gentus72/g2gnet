@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -34,7 +35,7 @@ public final class Client extends ClientDTO {
     public static void main(String[] args) {
         // Ressource.reassemble(RESSOURCE_DIRECTORY, "b438d41d25de4bc3a6c043a6431fb0df", new File(RESSOURCE_DIRECTORY + "out.mp4"));
         Client client = new Client();
-        Ressource.disassemble(RESSOURCE_DIRECTORY, new File(RESSOURCE_DIRECTORY + "test3.mp4"), "myTitle", client.getPublicKeyBase64());
+        // Ressource.disassemble(RESSOURCE_DIRECTORY, new File(RESSOURCE_DIRECTORY + "test3.mp4"), "myTitle", client.getPublicKeyBase64());
         client.startClient();
     }
 
@@ -65,6 +66,7 @@ public final class Client extends ClientDTO {
         registeredServerResponses.put(ServerResponse.INFO, this::handleServerResponseINFO);
         registeredServerResponses.put(ServerResponse.REDIRECT, this::handleServerResponseREDIRECT);
         registeredServerResponses.put(ServerResponse.DOWNLOAD, this::handleServerResponseDOWNLOAD);
+        registeredServerResponses.put(ServerResponse.AUTH, this::handleServerResponseAUTH);
         registeredServerResponses.put(ServerResponse.ERROR, (String[] args) -> Logger.error("Error response from server: " + String.join(" ", args)));
         registeredServerResponses.put(ServerResponse.CLOSE, (String[] args) -> disconnect());
     }
@@ -107,11 +109,19 @@ public final class Client extends ClientDTO {
                 return;
             }
 
+            if (command.equals(ServerCommand.AUTH)) {
+                File[] ressourceFiles = new File(RESSOURCE_DIRECTORY).listFiles((dir, name) -> name.equals(args[1] + ".g2g"));
+                if (ressourceFiles == null || ressourceFiles.length == 0) {
+                    Logger.error("Ressource to auth not present in filesystem!");
+                    return;
+                }
+            }
+
             sendCommand(args);
 
             String resPayload = this.inputStream.readUTF();
             String[] resArgs = resPayload.split(" ");
-            Logger.info(String.format("-->: %s", HOST_ADDRESS, resPayload));
+            Logger.info(String.format("->: %s", resPayload));
             ServerResponse response = ServerResponse.valueOf(resArgs[0]);
 
             for (var entry : registeredServerResponses.entrySet()) {
@@ -168,6 +178,33 @@ public final class Client extends ClientDTO {
         } catch (IOException e) {
             Logger.error("Error while creating client ressource directory!");
             Logger.exception(e);
+        }
+    }
+
+    // AUTH <SUCCESS | FAIL>
+    // Response to the AUTH command
+    // signals, whether the client can upload or not
+    public void handleServerResponseAUTH(String[] args) {
+        if (args[1].equals("SUCCESS")) {
+            Logger.success("Upload authorization granted! Sending ressourcefile...");
+            String ressourceUUID = args[2];
+            String ressourceFilePath = String.format("%s%s.g2g", RESSOURCE_DIRECTORY, ressourceUUID);
+
+            FilesRemote.sendFile(new File(ressourceFilePath), outputStream);
+            FilesRemote.receiveFile("tmp.g2g", inputStream);
+            Logger.success("Received assmebled ressourcefile!");
+
+            // move file to ressource directory and delete tmp file
+            try {
+                Files.delete(Path.of(ressourceFilePath));
+                Files.move(Path.of("./tmp.g2g"), Path.of(ressourceFilePath));
+            } catch (IOException e) {
+                Logger.error("Error while replacing temporary ressourcefile with serverresponse!");
+                Logger.exception(e);
+            }
+        } else {
+            Logger.error("Upload authorization failed! Server responded with:");
+            Logger.error(Arrays.toString(args));
         }
     }
 

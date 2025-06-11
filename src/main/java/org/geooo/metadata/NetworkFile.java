@@ -41,7 +41,6 @@ public class NetworkFile extends ConfigFile {
 
             // addSection(writer, ccServer.getServers(), "Servers (uuid, address):",
             // ServerDTO::getUUID, ServerDTO::getAddress);
-
             writer.write("Ressources (uuid, title, size):\n");
             for (RessourceDTO ressource : ccServer.getRessources()) {
                 writer.write(String.format("%s,%s,%d", ressource.getUUID(), ressource.getTitle(), ressource.getBlockAmount()));
@@ -97,16 +96,14 @@ public class NetworkFile extends ConfigFile {
 
     // get ressource metadata based on available ressourcefiles
     public void updateRessources(CCServer ccServer) {
-        File ressourceDir = new File(CCServer.CCSERVER_DIRECTORY);
+        File ressourceDir = new File(CCServer.getRessourceDirectory());
         ArrayList<RessourceDTO> ressources = new ArrayList<>();
 
         // check if resource dir exists
-
         File[] matchingFiles = ressourceDir.listFiles((dir, name) -> name.endsWith(".g2g"));
 
         if (matchingFiles == null || matchingFiles.length == 0) {
-            Logger.error(
-                    "Error while fetching local files or no ressource files found! Ressources in networkfile can't be updated!");
+            Logger.warn("Error while fetching local files or no ressource files found! Ressources in networkfile can't be updated!");
             return;
         }
 
@@ -115,7 +112,9 @@ public class NetworkFile extends ConfigFile {
 
             try (BufferedReader reader = new BufferedReader(new FileReader(ressourceFile))) {
                 String uuid = reader.readLine().split(" ")[1];
-                if (!uuid.equals(ressource.getUUID())) Logger.error("UUID mismatch between ressourcefile name and first line!");
+                if (!uuid.equals(ressource.getUUID())) {
+                    Logger.error("UUID mismatch between ressourcefile name and first line!");
+                }
 
                 ressource.setTitle(reader.readLine().split(" ")[1]);
                 reader.readLine(); // next line is hashSum, which we don't need

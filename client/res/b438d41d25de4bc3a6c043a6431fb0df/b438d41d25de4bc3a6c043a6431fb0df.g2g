@@ -1,9 +1,0 @@
-UUID: b438d41d25de4bc3a6c043a6431fb0df
-Title: myTitle
-PublicKey: myKey
-HashSum: 16edcb17f4df6639451557b27bf1f26da3d1642a50fc1ee5ec1628167b309749
-AmountOfBlocks: 2
-SourceFileName: test3.mp4
-Blocks (uuid, location, hash, sequenceID):
-e36c127132f340778dd0010902d07103,<loc>,0a5d9dea9dda2c8290bd005de88c6c759cfe4a94821b64b669a64270739286a5,0
-02ee32587a02477bbcff6f67ef03de54,<loc>,9f8f494970c7a9fb441694a11866554653cc0dd6e800c3832b17b76e31fd37df,1

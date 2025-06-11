@@ -12,7 +12,6 @@ import org.geooo.metadata.NetworkFile;
 import org.geooo.util.Logger;
 
 public class CCServer extends Server {
-    public static final String CCSERVER_DIRECTORY = "ccserver/";
 
     // network info
     private String networkUUID;
@@ -31,7 +30,7 @@ public class CCServer extends Server {
         this.clients = new ArrayList<>();
         this.servers = new ArrayList<>();
         this.ressources = new ArrayList<>();
-        this.networkFile = new NetworkFile(CCSERVER_DIRECTORY + "networkFile.g2gnet");
+        this.networkFile = new NetworkFile(getRessourceDirectory() + "networkFile.g2gnet");
     }
 
     public CCServer(String address) {
@@ -39,7 +38,9 @@ public class CCServer extends Server {
     }
 
     public void startServer() {
-        if (this.networkFile.getFile().exists()) this.networkFile.readFromFile(this);
+        if (this.networkFile.getFile().exists()) {
+            this.networkFile.readFromFile(this);
+        }
         this.networkFile.updateRessources(this);
         this.networkFile.writeToFile(this);
 
@@ -89,5 +90,9 @@ public class CCServer extends Server {
 
     public NetworkFile getNetworkFile() {
         return this.networkFile;
+    }
+
+    public static String getRessourceDirectory() {
+        return "ccserver/";
     }
 }

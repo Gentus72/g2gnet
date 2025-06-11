@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -34,8 +33,6 @@ public class Ressource extends RessourceDTO {
         this.title = title;
     }
 
-    // TODO implement tmpfile
-    // TODO implement parentdirectory
     public static Ressource disassemble(String parentDirectory, File sourceFile, String title, String clientPublicKey) {
         if (doesLocalRessourceExist(parentDirectory, sourceFile)) {
             Logger.error("Ressource hashsum has been found locally!");
@@ -96,7 +93,7 @@ public class Ressource extends RessourceDTO {
             Logger.exception(e);
         }
 
-        RessourceFile ressourceFile = new RessourceFile(String.format("%s/%s.g2g", ressourceDirectory.getPath(), ressource.getUUID()));
+        RessourceFile ressourceFile = new RessourceFile(String.format("%s%s.g2g", parentDirectory, ressource.getUUID()));
         ressourceFile.writeToFile(ressource, clientPublicKey);
 
         return ressource;
@@ -152,29 +149,26 @@ public class Ressource extends RessourceDTO {
         return ressource;
     }
 
+    // TODO change
     public static boolean doesLocalRessourceExist(String parentDirectory, File sourceFile) {
-        String sourceHashSum = HashSum.fromFile(sourceFile);
-
-        File[] ressourceDirectories = new File(parentDirectory).listFiles((dir, name) -> new File(dir, name).isDirectory());
-
-        if (ressourceDirectories == null || ressourceDirectories.length == 0) {
-            return false;
-        }
-
-        Logger.info(Arrays.toString(ressourceDirectories));
-
-        for (File ressourceDirectory : ressourceDirectories) {
-            RessourceFile ressourceFile = new RessourceFile(parentDirectory + ressourceDirectory.getName() + "/" + ressourceDirectory.getName() + ".g2g");
-            String ressourceHashSum = ressourceFile.getConfigContent().get("TotalHashSum");
-
-            if (sourceHashSum.equals(ressourceHashSum)) {
-                Logger.info(String.format("source: %s", sourceHashSum));
-                Logger.info(String.format("resfile: %s", ressourceHashSum));
-                return true;
-            }
-        }
-
         return false;
+
+        // String sourceHashSum = HashSum.fromFile(sourceFile);
+        // File[] ressourceDirectories = new File(parentDirectory).listFiles((dir, name) -> new File(dir, name).isDirectory());
+        // if (ressourceDirectories == null || ressourceDirectories.length == 0) {
+        //     return false;
+        // }
+        // Logger.info(Arrays.toString(ressourceDirectories));
+        // for (File ressourceDirectory : ressourceDirectories) {
+        //     RessourceFile ressourceFile = new RessourceFile(parentDirectory + ressourceDirectory.getName() + "/" + ressourceDirectory.getName() + ".g2g");
+        //     String ressourceHashSum = ressourceFile.getConfigContent().get("TotalHashSum");
+        //     if (sourceHashSum.equals(ressourceHashSum)) {
+        //         Logger.info(String.format("source: %s", sourceHashSum));
+        //         Logger.info(String.format("resfile: %s", ressourceHashSum));
+        //         return true;
+        //     }
+        // }
+        // return false;
     }
 
     public File getSourceFile() {

@@ -28,7 +28,7 @@ public class RessourceFile extends ConfigFile {
             writer.write(String.format("UUID: %s\n", ressource.getUUID()));
             writer.write(String.format("Title: %s\n", ressource.getTitle()));
             writer.write(String.format("HashSum: %s\n", ressource.getTotalHashSum()));
-            writer.write(String.format("Uploader: %s\n", clientPublicKey));
+            writer.write(String.format("PublicKey: %s\n", clientPublicKey));
             writer.write(String.format("AmountOfBlocks: %d\n", ressource.getBlockAmount()));
             writer.write(String.format("SourceFileName: %s\n", ressource.getSourceFile().getName()));
 
@@ -92,5 +92,37 @@ public class RessourceFile extends ConfigFile {
         }
 
         return commands;
+    }
+
+    public void replaceBlockLocations(HashMap<Integer, String> blockLocations) {
+        ensureConfigFile(true);
+        ArrayList<String> content = new ArrayList<>();
+
+        if (blockLocations.size() > this.getBlocks().size()) {
+            Logger.warn("Server locations array is bigger than amount of blocks in ressourcefile! Not all locations will be used!");
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
+            String line = reader.readLine();
+
+            while (line != null) {
+                if (line.contains("<loc>")) {
+                    int sequenceID = Integer.parseInt(line.split(",")[3]);
+                    line = line.replace("<loc>", blockLocations.get(sequenceID));
+                }
+                content.add(line);
+
+                line = reader.readLine();
+            }
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file))) {
+                for (String l : content) {
+                    writer.write(l + "\n");
+                }
+            }
+        } catch (IOException e) {
+            Logger.error("Error while reading configfile (replaceBlockLocations)!");
+            Logger.exception(e);
+        }
     }
 }

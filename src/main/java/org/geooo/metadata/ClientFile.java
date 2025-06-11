@@ -33,7 +33,7 @@ public class ClientFile extends ConfigFile {
         setConfigContentFromFile();
 
         client.setUUID(configContent.get("UUID"));
-        client.setPublicKey(configContent.get("PublicKey"));
-        client.setPrivateKey(configContent.get("PrivateKey"));
+        client.setPublickeyBase64(configContent.get("PublicKey"));
+        client.setPrivateKeyBase64(configContent.get("PrivateKey"));
     }
 }

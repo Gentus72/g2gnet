@@ -17,6 +17,7 @@ import org.geooo.util.Logger;
 import org.geooo.util.ServerCommand;
 
 public class ClientHandlerDTO<T extends Server> implements Runnable {
+
     public Socket serverSocket;
     public ClientDTO client;
     protected T server;
@@ -73,7 +74,7 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         if (!(this.server instanceof CCServer)) { // if its not a ccServer
             if (this.server.ccServer == null) {
                 response += "DISCONNECTED";
-            } else  {
+            } else {
                 response += "CONNECTED\n";
                 response += String.format(" - NetworkUUID: %s\n - CCServerIP: %s\n - AuthorizedKeys:\n", this.server.ccServer.getNetworkUUID(), this.server.ccServer.getAddress());
 
@@ -85,7 +86,17 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
             CCServer s = (CCServer) this.server;
 
             response += "CCSERVER\n";
-            response += String.format(" - NetworkUUID: %s\n - Connected Servers: %d\n - Stored Ressources: %d\n --- for more Information, request the networkfile --- ", s.getNetworkUUID(), s.getServers().size(), s.getRessources().size());
+            response += String.format(" - NetworkUUID: %s\n - Connected Servers: %d\n - Stored Ressources: %d\n --- for more Information, request the networkfile --- \n", s.getNetworkUUID(), s.getServers().size(), s.getRessources().size());
+        }
+
+        response += "ALLOWED KEYS:\n";
+        for (String key : this.server.getClientPublicKeysBase64()) {
+            response += key + "\n";
+        }
+
+        response += "ALLOWED UUIDS:\n";
+        for (String uuid : this.server.getAllowedBlockUUIDs()) {
+            response += uuid + "\n";
         }
 
         sendResponse(response);
@@ -94,7 +105,7 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
     public void handleCommandGETBLOCK(String[] args) {
         // check if ressource directory exists
         String ressourceUUID = args[1];
-        String defaultDirectory = (this.server instanceof CCServer) ? CCServer.CCSERVER_DIRECTORY : Server.SERVER_DIRECTORY;
+        String defaultDirectory = T.getRessourceDirectory();
         File ressourceDirectory = new File(defaultDirectory + ressourceUUID + "/");
 
         String blockUUID = args[2];
@@ -171,7 +182,9 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
                 // if ServerCommand.valueOf(); didn't throw an exception, the client still sent
                 // a valid command
                 // call fallback function
-                if (!validCommand) this.fallbackFunction.accept(clientArgs);
+                if (!validCommand) {
+                    this.fallbackFunction.accept(clientArgs);
+                }
             } catch (IOException e) {
                 if (e instanceof EOFException) {
                     Logger.error("Client disconnected unexpectedly!");
@@ -182,8 +195,9 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
                 Logger.exception(e);
                 return;
             } catch (IllegalArgumentException e) {
-                Logger.warn("Received unknown command: " + clientInput);
+                Logger.warn("Received unknown command: " + clientInput.split(" ")[0]);
                 sendResponse("ERROR unkown command! Try again...");
+                Logger.exception(e);
             }
         }
 
