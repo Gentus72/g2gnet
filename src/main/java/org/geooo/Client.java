@@ -52,7 +52,9 @@ public final class Client extends ClientDTO {
 
     public Client() {
         this.clientFile = new ClientFile(RESSOURCE_DIRECTORY + "clientFile.g2gclient");
-        this.clientFile.readFromFile(this);
+        if (this.clientFile.getFile().exists()) {
+            this.clientFile.readFromFile(this);
+        }
 
         if (this.getUUID() == null) {
             this.setUUID(G2GUtil.getRandomUUID());
@@ -62,11 +64,13 @@ public final class Client extends ClientDTO {
         registeredClientCommands.put(ClientCommand.CONNECT, this::handleClientCommandCONNECT);
         registeredClientCommands.put(ClientCommand.INFO, this::handleClientCommandINFO);
         registeredClientCommands.put(ClientCommand.AUTOGET, this::handleClientCommandAUTOGET);
+        registeredClientCommands.put(ClientCommand.AUTOUPLOAD, this::handleClientCommandAUTOUPLOAD);
 
         registeredServerResponses.put(ServerResponse.INFO, this::handleServerResponseINFO);
         registeredServerResponses.put(ServerResponse.REDIRECT, this::handleServerResponseREDIRECT);
         registeredServerResponses.put(ServerResponse.DOWNLOAD, this::handleServerResponseDOWNLOAD);
         registeredServerResponses.put(ServerResponse.AUTH, this::handleServerResponseAUTH);
+        registeredServerResponses.put(ServerResponse.SUCCESS, this::handleServerResponseSUCCESS);
         registeredServerResponses.put(ServerResponse.ERROR, (String[] args) -> Logger.error("Error response from server: " + String.join(" ", args)));
         registeredServerResponses.put(ServerResponse.CLOSE, (String[] args) -> disconnect());
     }
@@ -208,6 +212,29 @@ public final class Client extends ClientDTO {
         }
     }
 
+    // success response for AUTH to a hostServer
+    // SUCCESS <ressourceUUID> <decryptedBlockUUID>
+    public void handleServerResponseSUCCESS(String[] args) {
+        File blockFile = new File(String.format("%s%s/%s.g2gblock", RESSOURCE_DIRECTORY, args[1], args[2]));
+        if (!blockFile.exists()) {
+            Logger.error(String.format("Blockfile [%s] doesn't exist!", blockFile.getPath()));
+            return;
+        }
+
+        try {
+            Logger.success("Block upload authorized! Uploading...");
+            FilesRemote.sendFile(blockFile, outputStream);
+
+            String response = this.inputStream.readUTF();
+            if (response.contains("SUCCESS")) {
+                Logger.success(String.format("Block [%s] uploaded successfully!", args[2]));
+            }
+        } catch (IOException e) {
+            Logger.error("Error while reading server output to block upload!");
+            Logger.exception(e);
+        }
+    }
+
     public void handleClientCommandCONNECT(String[] args) {
         HOST_ADDRESS = args[1];
         HOST_PORT = 7000;
@@ -314,14 +341,42 @@ public final class Client extends ClientDTO {
         Logger.info(String.format("Downloading %d blocks...", commands.size()));
 
         for (var entry : commands.entrySet()) {
-            String serverIP = entry.getValue();
+            String serverAddress = entry.getValue();
             Logger.info(String.format("Downloading block from %s... ", entry.getValue()));
-            handleClientCommandCONNECT(new String[]{"CONNECT", serverIP});
+            handleClientCommandCONNECT(new String[]{"CONNECT", serverAddress});
             handleServerInteraction(entry.getKey()); // send GETBLOCK
             handleServerInteraction(new String[]{"DISCONNECT"});
         }
 
         Logger.success("All blocks downloaded!");
+    }
+
+    public void handleClientCommandAUTOUPLOAD(String[] args) {
+        RessourceFile ressourceFile = new RessourceFile(RESSOURCE_DIRECTORY + args[1] + ".g2g");
+
+        if (!ressourceFile.getFile().exists()) {
+            Logger.error("Ressourcefile doesn't exist!");
+            return;
+        }
+
+        HashMap<String[], String> commands = ressourceFile.getAUTHCommands(this.getPrivateKey());
+
+        if (commands.size() != Integer.parseInt(ressourceFile.getConfigContent().get("AmountOfBlocks"))) {
+            Logger.error("Block amount mismatch between ressourcefile entry and amount of AUTH commands!");
+        }
+
+        Logger.info(String.format("Uploading %d blocks...", commands.size()));
+
+        for (var entry : commands.entrySet()) {
+            String serverAddress = entry.getValue();
+            Logger.info(String.format("Authorizing block to %s... ", entry.getValue()));
+            handleClientCommandCONNECT(new String[]{"CONNECT", serverAddress});
+            handleServerInteraction(entry.getKey()); // send AUTH
+            handleServerInteraction(new String[]{"DISCONNECT"});
+        }
+
+        Logger.success(String.format("[%d/%d] blocks uploaded!", commands.size(), commands.size()));
+        Logger.success("Ressource uploaded successfully!");
     }
 
     public void disconnect() {

@@ -74,10 +74,11 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
 
         sendResponse("AUTH SUCCESS " + args[1]); // add ressourceUUID
 
-        FilesRemote.receiveFile("tmp.g2g", inputStream);
+        String ressourceFilePath = CCServer.getRessourceDirectory() + args[1] + ".g2g";
+        FilesRemote.receiveFile(ressourceFilePath, inputStream);
         Logger.info("Received temporary ressourcefile!");
 
-        RessourceFile ressourceFile = new RessourceFile("tmp.g2g");
+        RessourceFile ressourceFile = new RessourceFile(ressourceFilePath);
 
         HashMap<Integer, String> blockLocations = new HashMap<>();
         String clientPublicKey = ressourceFile.getConfigContent().get("PublicKey");
@@ -85,7 +86,7 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         // send allow to all servers
         for (RessourceBlockDTO block : ressourceFile.getBlocks()) {
             // while send ALLOW wasn't successfull, try another one
-            while (!sendAllow(locations.get(currentIndex), clientPublicKey, block.getUUID())) {
+            while (!sendAllow(locations.get(currentIndex), clientPublicKey, args[1], block.getUUID())) {
                 locations.remove(currentIndex);
 
                 currentIndex++;
@@ -131,12 +132,12 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         }
     }
 
-    public boolean sendAllow(String address, String clientPublicKey, String blockUUID) {
+    public boolean sendAllow(String address, String clientPublicKey, String ressourceUUID, String blockUUID) {
         String response;
 
         try (Socket tmpSocket = new Socket(address, 7000); DataOutputStream tmpOutputStream = new DataOutputStream(tmpSocket.getOutputStream()); DataInputStream tmpInputStream = new DataInputStream(tmpSocket.getInputStream());) {
             Logger.info(String.format("Sending ALLOW to %s", address));
-            tmpOutputStream.writeUTF(String.format("ALLOW %s %s", clientPublicKey, blockUUID));
+            tmpOutputStream.writeUTF(String.format("ALLOW %s %s %s", clientPublicKey, ressourceUUID, blockUUID));
             tmpOutputStream.flush();
 
             response = tmpInputStream.readUTF();

@@ -86,7 +86,7 @@ public class ServerDTO {
         try {
             byte[] keyBytes = Base64.getDecoder().decode(clientPublicKeyBase64);
             X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
-            KeyFactory keyFactory = KeyFactory.getInstance("EC");
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             this.clientPublicKeys.add(keyFactory.generatePublic(keySpec));
         } catch (Exception e) {
             Logger.error("Error while setting public key from base64!");

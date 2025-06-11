@@ -6,6 +6,7 @@
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/metadata/RessourceFile.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/ClientHandler.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/util/ChunkedFileReader.java
+/home/gentus72/code/g2gnet/src/main/java/org/geooo/util/EncryptionManager.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/util/FilesRemote.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/Ressource.java
 /home/gentus72/code/g2gnet/src/main/java/org/geooo/RessourceBlock.java

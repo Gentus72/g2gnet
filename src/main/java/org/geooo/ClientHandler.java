@@ -3,15 +3,12 @@ package org.geooo;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.PublicKey;
-import java.util.Base64;
-
-import javax.crypto.Cipher;
 
 import org.geooo.dto.ClientHandlerDTO;
+import org.geooo.util.EncryptionManager;
 import org.geooo.util.FilesRemote;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerCommand;
@@ -32,24 +29,39 @@ public class ClientHandler extends ClientHandlerDTO<Server> {
 
     public void handleCommandALLOW(String[] args) {
         this.server.addClientPublicKey(args[1]);
-        this.server.addAllowedBlockUUID(args[2]);
+        this.server.addAllowedBlockUUID(args[3]);
+
+        try {
+            File ressourceDIrectory = new File(Server.getRessourceDirectory() + args[2]);
+            if (!ressourceDIrectory.exists()) {
+                Logger.info("Ressource directory doesn't exist! Creating it...");
+                Files.createDirectory(Path.of(ressourceDIrectory.getPath()));
+            }
+        } catch (IOException e) {
+            Logger.error("Error while creating ressourcefile!");
+            Logger.exception(e);
+        }
 
         sendResponse("SUCCESS");
     }
 
     public void handleCommandAUTH(String[] args) {
-        String encryptedUUID = args[1];
+        String ressourceUUID = args[1];
+        String encryptedUUID = args[2];
 
         for (PublicKey key : this.server.getClientPublicKeys()) {
-            String decryptedUUID = decryptWithPublicKey(encryptedUUID, key);
+            String decryptedUUID = EncryptionManager.decryptWithPublicKey(encryptedUUID, key);
 
             if (decryptedUUID != null && this.server.getAllowedBlockUUIDs().contains(decryptedUUID)) {
-                sendResponse("SUCCESS");
+                sendResponse(String.format("SUCCESS %s %s", ressourceUUID, decryptedUUID));
 
                 // ensure ressource directory
                 try {
-                    if (!new File(Server.getRessourceDirectory() + decryptedUUID).exists()) {
-                        Logger.warn("Ressource directory doesn't exist! This should happen! Creating one...");
+                    File ressourceDirectory = new File(Server.getRessourceDirectory() + ressourceUUID);
+
+                    if (!ressourceDirectory.exists() || !ressourceDirectory.isDirectory()) {
+                        Logger.warn(ressourceDirectory.getPath());
+                        Logger.warn("Ressource directory doesn't exist! This shouldn't happen! Creating one...");
                         Files.createDirectory(Path.of(Server.getRessourceDirectory() + decryptedUUID));
                     }
                 } catch (IOException e) {
@@ -57,24 +69,12 @@ public class ClientHandler extends ClientHandlerDTO<Server> {
                     Logger.exception(e);
                 }
 
-                FilesRemote.receiveFile(String.format("%s%s/%s.g2gblock", Server.getRessourceDirectory(), decryptedUUID, decryptedUUID), inputStream);
+                FilesRemote.receiveFile(String.format("%s%s/%s.g2gblock", Server.getRessourceDirectory(), ressourceUUID, decryptedUUID), inputStream);
                 sendResponse("SUCCESS");
+                return;
             }
         }
-    }
 
-    static String decryptWithPublicKey(String encryptedText, PublicKey publicKey) {
-        try {
-            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-            cipher.init(Cipher.DECRYPT_MODE, publicKey);
-
-            byte[] encryptedBytes = Base64.getDecoder().decode(encryptedText);
-            byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-
-            return new String(decryptedBytes, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            // do nothing, the decryption failed on purpose - the key didn't work!
-            return null;
-        }
+        sendResponse("ERROR decryption didn't work! Publickey invalid!");
     }
 }
