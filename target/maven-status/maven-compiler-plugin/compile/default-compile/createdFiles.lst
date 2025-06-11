@@ -1,5 +1,5 @@
-org/geooo/util/ServerResponse.class
 org/geooo/dto/ClientDTO.class
+org/geooo/util/ServerResponse.class
 org/geooo/util/Logger.class
 org/geooo/util/ClientCommand.class
 org/geooo/dto/RessourceBlockDTO.class
@@ -15,8 +15,8 @@ org/geooo/RessourceBlock.class
 org/geooo/metadata/RessourceFile.class
 org/geooo/metadata/ClientFile.class
 org/geooo/metadata/ConfigFile.class
-org/geooo/gui/FXTest$1.class
 org/geooo/dto/ClientHandlerDTO.class
+org/geooo/gui/FXTest$1.class
 org/geooo/CCServer.class
 org/geooo/util/HashSum.class
 org/geooo/metadata/ServerFile.class
