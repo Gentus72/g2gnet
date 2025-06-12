@@ -8,14 +8,12 @@ import java.io.IOException;
 import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.zip.GZIPInputStream;
 
 import org.geooo.Ressource;
 import org.geooo.dto.RessourceBlockDTO;
 import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 
-// TODO make non-static, since there can be multiple ressourcefiles
 public class RessourceFile extends ConfigFile {
 
     private final String blockHeader = "Blocks (uuid, location, hash, sequenceID):";

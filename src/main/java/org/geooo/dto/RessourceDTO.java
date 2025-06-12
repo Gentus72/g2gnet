@@ -1,5 +1,9 @@
 package org.geooo.dto;
 
+/*
+ * Helfer-Klasse für die Ressource-Klasse.
+ * Enthält hauptsächlich Getter- und Setter-Methoden.
+ */
 public class RessourceDTO {
 
     public String title;
@@ -11,10 +15,6 @@ public class RessourceDTO {
     public RessourceDTO() {
         // do nothing;
     }
-
-    // public RessourceDTO(String parentDirectory) {
-    //     this.parentDirectory = parentDirectory;
-    // }
 
     public RessourceDTO(String uuid, String title, int blockAmount) {
         this.title = title;

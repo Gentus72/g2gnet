@@ -11,7 +11,7 @@ import org.geooo.dto.ServerDTO;
 import org.geooo.metadata.NetworkFile;
 import org.geooo.util.Logger;
 
-public class CCServer extends Server {
+public class CCServer extends HostServer {
 
     // network info
     private String networkUUID;

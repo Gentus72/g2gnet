@@ -16,23 +16,23 @@ import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerResponse;
 
-public class Server extends ServerDTO {
+public class HostServer extends ServerDTO {
 
     public ArrayList<ClientDTO> clients;
     public CCServer ccServer;
     public ServerFile serverFile;
 
     public static void main(String[] args) {
-        Server server = new Server();
+        HostServer server = new HostServer();
 
         server.startServer();
     }
 
-    public Server() {
+    public HostServer() {
         super();
     }
 
-    public Server(String address) {
+    public HostServer(String address) {
         super(address);
     }
 
@@ -44,7 +44,7 @@ public class Server extends ServerDTO {
             DataInputStream inputStream = new DataInputStream(socket.getInputStream());
             Logger.info(String.format("Successfully connected to Server [%s:7000]!", ccAddress));
 
-            outputStream.writeUTF(String.format("REGISTER %s %s", this.getUUID(), InetAddress.getLocalHost().getHostAddress()));
+            outputStream.writeUTF(String.format("REGISTER %s", this.getUUID()));
             outputStream.flush();
 
             String response = inputStream.readUTF();
@@ -99,13 +99,29 @@ public class Server extends ServerDTO {
             while (true) {
                 Socket newServerSocket = serverSocket.accept();
 
-                ClientHandler newClientHandler = new ClientHandler(this, newServerSocket);
+                HostClientHandler newClientHandler = new HostClientHandler(this, newServerSocket);
                 newClientHandler.run();
             }
         } catch (IOException e) {
             Logger.error("Error while setting up server socket!");
             Logger.exception(e);
         }
+    }
+
+    public CCServer getCCServer() {
+        return this.ccServer;
+    }
+
+    public void setCCServer(CCServer ccServer) {
+        this.ccServer = ccServer;
+    }
+
+    public ServerFile getServerFile() {
+        return this.serverFile;
+    }
+
+    public void setServerFile(ServerFile serverFile) {
+        this.serverFile = serverFile;
     }
 
     public static String getRessourceDirectory() {

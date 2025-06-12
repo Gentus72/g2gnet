@@ -39,8 +39,7 @@ public abstract class G2GUtil {
 
     /*
      * Inspiriert von
-     * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-
-     * socket-in-java/
+     * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-socket-in-java/
      * Letzter Zugriff: 28.03.2025, 12:21 Uhr
      */
     public static void sendFileRemote(String fileName, DataOutputStream outputStream) {
@@ -62,8 +61,7 @@ public abstract class G2GUtil {
 
     /*
      * Inspiriert von
-     * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-
-     * socket-in-java/
+     * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-socket-in-java/
      * Letzter Zugriff: 28.03.2025, 12:21 Uhr
      */
     public static void sendFileRemote(File file, DataOutputStream outputStream) {
@@ -85,8 +83,7 @@ public abstract class G2GUtil {
 
     /*
      * Inspiriert von
-     * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-
-     * socket-in-java/
+     * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-socket-in-java/
      * Letzter Zugriff: 28.03.2025, 12:21 Uhr
      */
     public static void receiveFileRemote(String fileName, DataInputStream inputStream) {

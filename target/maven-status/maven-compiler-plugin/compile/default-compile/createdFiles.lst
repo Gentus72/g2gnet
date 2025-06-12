@@ -4,7 +4,6 @@ org/geooo/util/Logger.class
 org/geooo/util/ClientCommand.class
 org/geooo/dto/RessourceBlockDTO.class
 org/geooo/gui/FXTest.class
-org/geooo/util/RessourceDistributionStrategy.class
 org/geooo/dto/RessourceDTO.class
 org/geooo/util/ChunkedFileReader.class
 org/geooo/util/LoggingType.class
@@ -14,14 +13,15 @@ org/geooo/util/Logger$1.class
 org/geooo/RessourceBlock.class
 org/geooo/metadata/RessourceFile.class
 org/geooo/metadata/ClientFile.class
+org/geooo/util/G2GUtil.class
 org/geooo/metadata/ConfigFile.class
 org/geooo/dto/ClientHandlerDTO.class
 org/geooo/gui/FXTest$1.class
 org/geooo/CCServer.class
-org/geooo/util/HashSum.class
 org/geooo/metadata/ServerFile.class
 org/geooo/CCClientHandler.class
-org/geooo/util/FilesRemote.class
+org/geooo/util/Command.class
+org/geooo/ClientHelper.class
 org/geooo/util/ServerCommand.class
 org/geooo/Server.class
 org/geooo/gui/FXTest$2.class

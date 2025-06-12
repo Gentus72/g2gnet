@@ -367,3 +367,5 @@
 [14:35:48 INFO]: Generating 2 blocks!
 2m[14:35:48 SUCCESS]: 2 blocks generated!
 [14:35:48 WARNING]: Config file doesn't exist! May crash now...
+--------------------------------NEW APPLICATION START--------------------------------
+[21:28:02 INFO]: New Server chosen: org.geooo.dto.ServerDTO@2fd07a97

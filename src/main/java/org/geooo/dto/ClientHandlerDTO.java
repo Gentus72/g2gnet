@@ -11,12 +11,19 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 import org.geooo.CCServer;
-import org.geooo.Server;
+import org.geooo.HostServer;
 import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerCommand;
 
-public class ClientHandlerDTO<T extends Server> implements Runnable {
+/*
+ * Ein Thread für den Umgang eines Servers mit dem Client.
+ * Vereint Funktionalität für Server und CCServer durch den Generic T.
+ * Enthält Logik für Verbindung und Datenaustausch mit dem Client.
+ * Durch die HashMap registeresCommands lassen sich einfach neue Befehle in
+ * einzelnen Methoden entwickeln.
+ */
+public class ClientHandlerDTO<T extends HostServer> implements Runnable {
 
     public Socket serverSocket;
     public ClientDTO client;
@@ -49,6 +56,7 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         };
     }
 
+    // Methode um eine Text-Antwort an den Client zu senden
     public void sendResponse(String payload) {
         try {
             this.outputStream.writeUTF(payload);
@@ -58,6 +66,7 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         }
     }
 
+    // Methode für den Verbindungsaufbau
     public void setup() {
         try {
             this.inputStream = new DataInputStream(this.serverSocket.getInputStream());
@@ -68,6 +77,9 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         }
     }
 
+    // STATUS
+    // Gibt informationen an den Client über den Netzwerkstatus,
+    // verfügbare Ressourcen und erlaubte Upload-UUIDs / -Publickeys
     public void handleCommandSTATUS(String[] args) {
         String response = "SUCCESS \nStatus: ";
 
@@ -102,6 +114,10 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         sendResponse(response);
     }
 
+    // GETBLOCK <ressourceUUID> <blockUUID>
+    // Lässt den Client beliebige Ressourcenblöcke herunterladen
+    // Sendet zuerst ERROR oder DOWNLOAD um zu zeigen,
+    // ob der Block verfügbar ist
     public void handleCommandGETBLOCK(String[] args) {
         // check if ressource directory exists
         String ressourceUUID = args[1];
@@ -124,6 +140,8 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         G2GUtil.sendFileRemote(blockFile, outputStream);
     }
 
+    // DISCONNECT
+    // Schließt die Verbindung zwischen Client und Server
     public void handleCommandCLOSE(String[] args) {
         try {
             Logger.info("Client has closed their connection!");
@@ -136,12 +154,14 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         }
     }
 
+    // Methode zum schließen der Verbindung
     public void close() {
         try {
             this.inputStream.close();
             this.outputStream.close();
 
             this.server.clients.remove(this.client);
+            this.running = false;
         } catch (IOException e) {
             Logger.error("Error while closing streams!");
             Logger.exception(e);
@@ -152,6 +172,9 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         this.registeredCommands.put(command, function);
     }
 
+    // Hauptmethode des Threads
+    // Liest kontinuierlich die Eingabe des Clients und versucht,
+    // die zugehörige Funktion auszuführen
     @Override
     public void run() {
         setup();

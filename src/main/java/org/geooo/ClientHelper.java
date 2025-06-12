@@ -22,7 +22,11 @@ import org.geooo.util.ServerCommand;
 import org.geooo.util.ServerResponse;
 
 public abstract class ClientHelper {
+    private static boolean wasCommandSuccessfull = false;
+
     public static void handleServerInteraction(Client client, String[] args) {
+        wasCommandSuccessfull = false;
+
         try {
             ServerCommand command = ServerCommand.valueOf(args[0]);
             if (!command.hasCorrectArgsAmount(args.length)) {
@@ -83,7 +87,7 @@ public abstract class ClientHelper {
         client.currentHost = args[1];
         Logger.info(String.format("Being redirected to: %s", args[1]));
         disconnect(client);
-        handleClientCommandCONNECT(client, new String[]{"CONNECT", client.currentHost, String.valueOf(client.hostPort)});
+        handleClientCommandCONNECT(client, new String[]{ "CONNECT", client.currentHost, String.valueOf(client.hostPort) });
 
         // redirect command to ccServer
         handleServerInteraction(client, client.currentClientInput);
@@ -104,6 +108,9 @@ public abstract class ClientHelper {
                 // update clientfile
                 Logger.info("Received ressourcefile!");
             }
+            default -> {
+                Logger.error("Malformed server response!");
+            }
         }
     }
 
@@ -123,10 +130,12 @@ public abstract class ClientHelper {
 
             G2GUtil.receiveFileRemote(String.format("%s%s.g2gblock", ressourceDirectoryPath, args[2]), client.inputStream);
             Logger.success(String.format("Download for block %s successful!", args[2]));
+            wasCommandSuccessfull = true;
             client.clientFile.writeToFile(client);
         } catch (IOException e) {
             Logger.error("Error while creating client ressource directory!");
             Logger.exception(e);
+            wasCommandSuccessfull = false;
         }
     }
 
@@ -143,6 +152,7 @@ public abstract class ClientHelper {
             G2GUtil.sendFileRemote(ressourceFilePath, client.outputStream);
             G2GUtil.receiveFileRemote("tmp.g2g", client.inputStream);
             Logger.success("Received assmebled ressourcefile!");
+            wasCommandSuccessfull = true;
 
             // move file to ressource directory and delete tmp file
             try {
@@ -155,6 +165,7 @@ public abstract class ClientHelper {
         } else {
             Logger.error("Upload authorization failed! Server responded with:");
             Logger.error(Arrays.toString(args));
+            wasCommandSuccessfull = false;
         }
     }
 
@@ -176,11 +187,20 @@ public abstract class ClientHelper {
             String response = client.inputStream.readUTF();
             if (response.contains("SUCCESS")) {
                 Logger.success(String.format("Block [%s] uploaded successfully!", args[2]));
+                wasCommandSuccessfull = true;
+            } else {
+                Logger.error(String.format("Error while uploading blockfile [%s] to [%s]", args[2], client.socket.getInetAddress().getHostAddress()));
+                wasCommandSuccessfull = false;
             }
         } catch (IOException e) {
             Logger.error("Error while reading server output to block upload!");
             Logger.exception(e);
         }
+    }
+
+    public static void handleServerResponseERROR(Client clinet, String[] args) {
+        Logger.error("Error response from server: " + String.join(" ", args));
+        wasCommandSuccessfull = false;
     }
 
     // CONNECT <address>
@@ -292,6 +312,7 @@ public abstract class ClientHelper {
 
         if (commands.size() != Integer.parseInt(ressourceFile.getConfigContent().get("AmountOfBlocks"))) {
             Logger.error("Block amount mismatch between ressourcefile entry and amount of GETBLOCK commands!");
+            wasCommandSuccessfull = false;
         }
 
         Logger.info(String.format("Downloading %d blocks...", commands.size()));
@@ -302,9 +323,18 @@ public abstract class ClientHelper {
             handleClientCommandCONNECT(client, new String[]{"CONNECT", serverAddress});
             handleServerInteraction(client, entry.getKey()); // send GETBLOCK
             handleServerInteraction(client, new String[]{"DISCONNECT"});
+
+            if (!wasCommandSuccessfull) {
+                Logger.error(String.format("Block [%s] couldn't be downloaded!", entry.getKey()[2]));
+                break;
+            }
         }
 
-        Logger.success("All blocks downloaded!");
+        if (wasCommandSuccessfull) {
+            Logger.success("All blocks downloaded!");
+        } else {
+            Logger.error("Not all blocks could be downloaded!");
+        }
     }
 
     // AUTOUPLOAD <ressourceUUID>

@@ -1,5 +1,9 @@
 package org.geooo.dto;
 
+/*
+ * Helfer-Klasse für die RessourceBlock-Klasse.
+ * Enthält hauptsächlich Getter- und Setter-Methoden.
+ */
 public class RessourceBlockDTO {
     public String uuid;
     public String location;

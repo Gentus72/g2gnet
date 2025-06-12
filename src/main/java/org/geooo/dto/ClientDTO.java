@@ -13,6 +13,10 @@ import java.util.Base64;
 import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 
+/*
+ * Helfer-Klasse für die Client-Klasse.
+ * Enthält hauptsächlich Getter- und Setter-Methoden.
+ */
 public class ClientDTO {
 
     String uuid;

@@ -86,7 +86,7 @@ public final class Client extends ClientDTO {
         registeredServerResponses.put(ServerResponse.DOWNLOAD, ClientHelper::handleServerResponseDOWNLOAD);
         registeredServerResponses.put(ServerResponse.AUTH, ClientHelper::handleServerResponseAUTH);
         registeredServerResponses.put(ServerResponse.SUCCESS, ClientHelper::handleServerResponseSUCCESS);
-        registeredServerResponses.put(ServerResponse.ERROR, (Client client, String[] args) -> Logger.error("Error response from server: " + String.join(" ", args)));
+        registeredServerResponses.put(ServerResponse.ERROR, ClientHelper::handleServerResponseERROR);
         registeredServerResponses.put(ServerResponse.CLOSE, (Client client, String[] args) -> ClientHelper.disconnect(client));
     }
 }

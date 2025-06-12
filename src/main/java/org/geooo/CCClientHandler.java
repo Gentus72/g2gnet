@@ -19,6 +19,11 @@ import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerCommand;
 
+/*
+ * Der Thread für den Umgang zwischen CCServer und Client
+ * Beinhaltet Methoden / Befehle zum Authorisieren von Uploads und
+ * zum registrieren von Servern im Netzwerk
+ */
 public class CCClientHandler extends ClientHandlerDTO<CCServer> {
 
     public CCClientHandler(CCServer server, Socket serverSocket) {
@@ -29,6 +34,9 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         registerCommand(ServerCommand.REGISTER, this::handleCommandREGISTER);
     }
 
+    // INFO <NETWORK | RESSOURCE> <networkUUID | ressourceUUID>
+    // Lässt den Client Netzwerk- / Ressourcendateien herunterladen
+    // Gibt ERROR zurück, wenn das Netzwerk / die Ressource nicht gefunden wurde
     public void handleCommandINFO(String[] args) {
         switch (args[1]) {
             case "NETWORK" -> {
@@ -62,6 +70,12 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         }
     }
 
+    // AUTH <ressourceUUID>
+    // Authorisiert den Upload einer Ressource
+    // Gibt AUTH SUCCESS zurück, um den Upload zu gewähren
+    // Danach sendet der Client die unvollständige Ressourcendatei
+    // Der CCServer füllt sie aus und gibt sie vervollständigt
+    // mit IP-Addressen zurück, wo jeder einzelne Block hochgeladen werden kann
     public void handleCommandAUTH(String[] args) {
         ArrayList<String> locations = new ArrayList<>(); // avoid repeated call
         for (ServerDTO server : this.server.getServers()) {
@@ -108,6 +122,8 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         Logger.info("Sent assembled ressourcefile!");
     }
 
+    // REGISTER <serverUUID>
+    // Fügt einen Server zum Netzwerk hinzu
     public void handleCommandREGISTER(String[] args) {
         boolean alreadyInList = false;
 
@@ -120,7 +136,7 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         }
 
         if (!alreadyInList) {
-            this.server.addServer(new ServerDTO(args[1], args[2]));
+            this.server.addServer(new ServerDTO(args[1], this.serverSocket.getInetAddress().getHostAddress()));
         }
 
         try {
@@ -132,6 +148,8 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         }
     }
 
+    // Methode um den ALLOW Befehl an die HostServer zu senden
+    // um den Upload eines Clients zu erlauben
     public boolean sendAllow(String address, String clientPublicKey, String ressourceUUID, String blockUUID) {
         String response;
 
