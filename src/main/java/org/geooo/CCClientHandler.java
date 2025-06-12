@@ -15,7 +15,7 @@ import org.geooo.dto.ClientHandlerDTO;
 import org.geooo.dto.RessourceBlockDTO;
 import org.geooo.dto.ServerDTO;
 import org.geooo.metadata.RessourceFile;
-import org.geooo.util.FilesRemote;
+import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerCommand;
 
@@ -33,7 +33,7 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         switch (args[1]) {
             case "NETWORK" -> {
                 sendResponse(String.format("INFO NETWORK %s", this.server.getNetworkUUID()));
-                FilesRemote.sendFile(this.server.getNetworkFile().getFile(), outputStream);
+                G2GUtil.sendFileRemote(this.server.getNetworkFile().getFile(), outputStream);
             }
             case "RESSOURCE" -> {
                 // check that ressourcefile exists
@@ -52,7 +52,7 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
                         Logger.exception(e);
                     }
 
-                    FilesRemote.sendFile(ressourceFile, outputStream);
+                    G2GUtil.sendFileRemote(ressourceFile, outputStream);
                 }
             }
             default -> {
@@ -75,7 +75,7 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         sendResponse("AUTH SUCCESS " + args[1]); // add ressourceUUID
 
         String ressourceFilePath = CCServer.getRessourceDirectory() + args[1] + ".g2g";
-        FilesRemote.receiveFile(ressourceFilePath, inputStream);
+        G2GUtil.receiveFileRemote(ressourceFilePath, inputStream);
         Logger.info("Received temporary ressourcefile!");
 
         RessourceFile ressourceFile = new RessourceFile(ressourceFilePath);
@@ -104,7 +104,7 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         }
 
         ressourceFile.replaceBlockLocations(blockLocations);
-        FilesRemote.sendFile(ressourceFile.getFile(), outputStream);
+        G2GUtil.sendFileRemote(ressourceFile.getFile(), outputStream);
         Logger.info("Sent assembled ressourcefile!");
     }
 

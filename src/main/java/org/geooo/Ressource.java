@@ -14,7 +14,6 @@ import org.geooo.dto.RessourceDTO;
 import org.geooo.metadata.RessourceFile;
 import org.geooo.util.ChunkedFileReader;
 import org.geooo.util.G2GUtil;
-import org.geooo.util.HashSum;
 import org.geooo.util.Logger;
 
 public class Ressource extends RessourceDTO {
@@ -59,7 +58,7 @@ public class Ressource extends RessourceDTO {
         try {
             long sourceFileBytesAmount = Files.size(Path.of(sourceFile.getPath()));
 
-            ressource.totalHashSum = HashSum.fromFile(sourceFile);
+            ressource.totalHashSum = G2GUtil.getHashsumFromFile(sourceFile);
             ressource.blockAmount = (int) Math.ceil((double) sourceFileBytesAmount / BLOCK_SIZE);
 
             if (ressource.blockAmount == 0) {
@@ -81,7 +80,7 @@ public class Ressource extends RessourceDTO {
                     newBlock.setData(chunkedReader.readNextChunk());
                     newBlock.setParentDirectory(ressourceDirectory.getPath());
                     newBlock.setSequenceID(i);
-                    newBlock.setHashSum(HashSum.fromBytes(newBlock.getData()));
+                    newBlock.setHashSum(G2GUtil.getHashsumFromBytes(newBlock.getData()));
                     newBlock.writeToFile();
                     ressource.blockLocations.put(newBlock, "<loc>");
                 }
@@ -137,7 +136,7 @@ public class Ressource extends RessourceDTO {
             Logger.exception(e);
         }
 
-        if (!configContent.get("HashSum").equals(HashSum.fromFile(outputFile))) {
+        if (!configContent.get("HashSum").equals(G2GUtil.getHashsumFromFile(outputFile))) {
             Logger.warn("HashSum mismatch between ressourcefile and reassembled file!");
         } else {
             Logger.success("Hashsums match!");

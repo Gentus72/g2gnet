@@ -8,10 +8,11 @@ import java.io.IOException;
 import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.zip.GZIPInputStream;
 
 import org.geooo.Ressource;
 import org.geooo.dto.RessourceBlockDTO;
-import org.geooo.util.EncryptionManager;
+import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 
 // TODO make non-static, since there can be multiple ressourcefiles
@@ -104,7 +105,7 @@ public class RessourceFile extends ConfigFile {
         for (RessourceBlockDTO block : ressourceBlocks) {
             String address = block.getLocation();
             String blockUUID = block.getUUID();
-            String encryptedUUID = EncryptionManager.encryptWithPrivateKey(blockUUID, clientPrivateKey);
+            String encryptedUUID = G2GUtil.encryptWithPrivateKey(blockUUID, clientPrivateKey);
 
             String[] command = new String[]{"AUTH", content.get("UUID"), encryptedUUID};
 

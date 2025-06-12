@@ -8,8 +8,7 @@ import java.nio.file.Path;
 import java.security.PublicKey;
 
 import org.geooo.dto.ClientHandlerDTO;
-import org.geooo.util.EncryptionManager;
-import org.geooo.util.FilesRemote;
+import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerCommand;
 
@@ -50,7 +49,7 @@ public class ClientHandler extends ClientHandlerDTO<Server> {
         String encryptedUUID = args[2];
 
         for (PublicKey key : this.server.getClientPublicKeys()) {
-            String decryptedUUID = EncryptionManager.decryptWithPublicKey(encryptedUUID, key);
+            String decryptedUUID = G2GUtil.decryptWithPublicKey(encryptedUUID, key);
 
             if (decryptedUUID != null && this.server.getAllowedBlockUUIDs().contains(decryptedUUID)) {
                 sendResponse(String.format("SUCCESS %s %s", ressourceUUID, decryptedUUID));
@@ -69,7 +68,7 @@ public class ClientHandler extends ClientHandlerDTO<Server> {
                     Logger.exception(e);
                 }
 
-                FilesRemote.receiveFile(String.format("%s%s/%s.g2gblock", Server.getRessourceDirectory(), ressourceUUID, decryptedUUID), inputStream);
+                G2GUtil.receiveFileRemote(String.format("%s%s/%s.g2gblock", Server.getRessourceDirectory(), ressourceUUID, decryptedUUID), inputStream);
                 sendResponse("SUCCESS");
                 return;
             }

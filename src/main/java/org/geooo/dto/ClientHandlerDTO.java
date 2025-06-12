@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 import org.geooo.CCServer;
 import org.geooo.Server;
-import org.geooo.util.FilesRemote;
+import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerCommand;
 
@@ -121,7 +121,7 @@ public class ClientHandlerDTO<T extends Server> implements Runnable {
         // handle download
         sendResponse(String.format("DOWNLOAD %s %s", ressourceUUID, blockUUID));
 
-        FilesRemote.sendFile(blockFile, outputStream);
+        G2GUtil.sendFileRemote(blockFile, outputStream);
     }
 
     public void handleCommandCLOSE(String[] args) {
