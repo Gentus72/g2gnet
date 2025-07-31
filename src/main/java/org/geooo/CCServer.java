@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.geooo.dto.RessourceDTO;
 import org.geooo.dto.ServerDTO;
 import org.geooo.metadata.NetworkFile;
+import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 
 public class CCServer extends HostServer {
@@ -40,7 +41,10 @@ public class CCServer extends HostServer {
     public void startServer() {
         if (this.networkFile.getFile().exists()) {
             this.networkFile.readFromFile(this);
+        } else {
+            this.setUUID(G2GUtil.getRandomUUID());
         }
+
         this.networkFile.updateRessources(this);
         this.networkFile.writeToFile(this);
 

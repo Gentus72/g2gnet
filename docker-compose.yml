@@ -18,7 +18,7 @@ services:
       build:
          context: .
          dockerfile: Dockerfile
-      command: ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.Server"]
+      command: ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer"]
       networks:
          custom_net:
             ipv4_address: 172.20.0.11
@@ -32,7 +32,7 @@ services:
          context: .
          dockerfile: Dockerfile
       command:
-         ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.Server"]
+         ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer"]
       networks:
          custom_net:
             ipv4_address: 172.20.0.12
@@ -46,7 +46,7 @@ services:
          context: .
          dockerfile: Dockerfile
       command:
-         ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.Server"]
+         ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer"]
       networks:
          custom_net:
             ipv4_address: 172.20.0.13

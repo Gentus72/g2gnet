@@ -34,8 +34,9 @@ public class NetworkFile extends ConfigFile {
             writer.write(String.format("UUID: %s\n", ccServer.getNetworkUUID()));
 
             writer.write("Servers (uuid, address):\n");
+            Logger.info(String.format("Writing %d + 1 (this) servers to file!", ccServer.getServers().size()));
+            writer.write(String.format("%s, %s\n", ccServer.getUUID(), ccServer.getAddress()));
             for (ServerDTO server : ccServer.getServers()) {
-                Logger.info("Writing server to file!");
                 writer.write(String.format("%s, %s\n", server.getUUID(), server.getAddress()));
             }
 
@@ -43,7 +44,7 @@ public class NetworkFile extends ConfigFile {
             // ServerDTO::getUUID, ServerDTO::getAddress);
             writer.write("Ressources (uuid, title, size):\n");
             for (RessourceDTO ressource : ccServer.getRessources()) {
-                writer.write(String.format("%s,%s,%d", ressource.getUUID(), ressource.getTitle(), ressource.getBlockAmount()));
+                writer.write(String.format("%s,%s,%d\n", ressource.getUUID(), ressource.getTitle(), ressource.getBlockAmount()));
             }
         } catch (IOException e) {
             Logger.error("Error while writing to networkfile!");

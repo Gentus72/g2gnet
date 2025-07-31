@@ -22,6 +22,7 @@ import org.geooo.util.ServerCommand;
 import org.geooo.util.ServerResponse;
 
 public abstract class ClientHelper {
+
     private static boolean wasCommandSuccessfull = false;
 
     public static void handleServerInteraction(Client client, String[] args) {
@@ -76,7 +77,11 @@ public abstract class ClientHelper {
                 }
             }
         } catch (IllegalArgumentException e) {
-            Logger.error(String.format("Unknown client-command %s! Try again...", args[0]));
+            if (args[0].equals("")) {
+                return;
+            }
+
+            Logger.error(String.format("Unknown client-command '%s'! Try again...", args[0]));
         }
     }
 
@@ -87,7 +92,7 @@ public abstract class ClientHelper {
         client.currentHost = args[1];
         Logger.info(String.format("Being redirected to: %s", args[1]));
         disconnect(client);
-        handleClientCommandCONNECT(client, new String[]{ "CONNECT", client.currentHost, String.valueOf(client.hostPort) });
+        handleClientCommandCONNECT(client, new String[]{"CONNECT", client.currentHost, String.valueOf(client.hostPort)});
 
         // redirect command to ccServer
         handleServerInteraction(client, client.currentClientInput);
@@ -258,6 +263,11 @@ public abstract class ClientHelper {
                     }
 
                     Logger.info(" - Ressources (uuid, blockAmount):");
+                    if (networkInfo.getRessources().isEmpty()) {
+                        Logger.info("   - none");
+                        return;
+                    }
+
                     for (RessourceDTO ressource : networkInfo.getRessources()) {
                         Logger.info(String.format("   - [%s, %d]", ressource.getUUID(), ressource.getBlockAmount()));
                     }

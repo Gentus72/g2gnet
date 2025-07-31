@@ -64,7 +64,6 @@ public class FXTest extends Application {
         // System.out.println("Hello World!");
         // }
         // });
-
         VBox root = new VBox();
         root.setAlignment(Pos.TOP_CENTER);
         root.getChildren().add(topSearchBox);
@@ -98,7 +97,7 @@ public class FXTest extends Application {
 
         Scene scene = new Scene(root, 1100, 720);
 
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("G2GNet Distributed File Storage");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();

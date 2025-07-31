@@ -10,6 +10,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -18,9 +19,13 @@ import java.util.Base64;
 import java.util.HexFormat;
 import java.util.UUID;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public abstract class G2GUtil {
+
     public static String getRandomUUID() {
         return UUID.randomUUID().toString().replace("-", "");
     }
@@ -170,9 +175,14 @@ public abstract class G2GUtil {
             byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
 
             return new String(decryptedBytes, StandardCharsets.UTF_8);
-        } catch (Exception e) {
+        } catch (InvalidKeyException e) {
             // do nothing, the decryption failed on purpose - the key didn't work!
             return null;
+        } catch (NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
+            Logger.error("Error while decrypting message with public key!");
+            Logger.exception(e);
         }
+
+        return null;
     }
 }

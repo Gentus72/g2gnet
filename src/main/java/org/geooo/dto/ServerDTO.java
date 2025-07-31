@@ -95,7 +95,11 @@ public class ServerDTO {
     }
 
     public ArrayList<String> getAllowedBlockUUIDs() {
-        return allowedBlockUUIDs;
+        if (this.allowedBlockUUIDs == null) {
+            this.allowedBlockUUIDs = new ArrayList<>();
+        }
+
+        return this.allowedBlockUUIDs;
     }
 
     public void setAllowedBlockUUIDs(ArrayList<String> allowedBlockUUIDs) {

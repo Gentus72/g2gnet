@@ -144,7 +144,7 @@ public class ClientHandlerDTO<T extends HostServer> implements Runnable {
     // Schließt die Verbindung zwischen Client und Server
     public void handleCommandCLOSE(String[] args) {
         try {
-            Logger.info("Client has closed their connection!");
+            Logger.info(String.format("Client [%s] has closed their connection!", this.serverSocket.getInetAddress().getHostAddress()));
             this.outputStream.writeUTF("CLOSE closing connection!");
             this.running = false;
             close();
@@ -223,7 +223,5 @@ public class ClientHandlerDTO<T extends HostServer> implements Runnable {
                 Logger.exception(e);
             }
         }
-
-        Logger.info("Clienthandler thread exiting!");
     }
 }

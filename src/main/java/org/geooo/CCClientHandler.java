@@ -34,7 +34,7 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         registerCommand(ServerCommand.REGISTER, this::handleCommandREGISTER);
     }
 
-    // INFO <NETWORK | RESSOURCE> <networkUUID | ressourceUUID>
+    // INFO <NETWORK | RESSOURCE> <?ressourceUUID>
     // Lässt den Client Netzwerk- / Ressourcendateien herunterladen
     // Gibt ERROR zurück, wenn das Netzwerk / die Ressource nicht gefunden wurde
     public void handleCommandINFO(String[] args) {
@@ -135,14 +135,17 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
             }
         }
 
+        String newServerIPv4 = this.serverSocket.getInetAddress().getHostAddress();
         if (!alreadyInList) {
-            this.server.addServer(new ServerDTO(args[1], this.serverSocket.getInetAddress().getHostAddress()));
+            this.server.addServer(new ServerDTO(args[1], newServerIPv4));
         }
+
+        Logger.success(String.format("Added new Server [%s]!", newServerIPv4));
 
         try {
             sendResponse(String.format("SUCCESS %s %s", this.server.getNetworkUUID(), InetAddress.getLocalHost().getHostAddress()));
         } catch (UnknownHostException e) {
-            Logger.error("Error while geting local ipv4address!");
+            Logger.error("Error while getting local ipv4address!");
             Logger.exception(e);
             sendResponse("ERROR Internal server error!");
         }
