@@ -131,4 +131,29 @@ public class NetworkFile extends ConfigFile {
 
         ccServer.setRessources(ressources);
     }
+
+    public ArrayList<ServerDTO> getServers() {
+        ArrayList<ServerDTO> servers = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
+            String line = reader.readLine();
+
+            do {
+                line = reader.readLine();
+            } while (!line.contains("Servers (uuid, address):"));
+
+            while (!line.contains("Ressources (uuid, title, size):")) {
+                String[] components = line.split(",");
+                ServerDTO newServer = new ServerDTO(components[0].strip(), components[1].strip());
+                servers.add(newServer);
+
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+            Logger.error("Error while reading servers from networkfile!");
+            return null;
+        }
+
+        return null;
+    }
 }

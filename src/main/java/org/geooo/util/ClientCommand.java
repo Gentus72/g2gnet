@@ -5,6 +5,7 @@ public enum ClientCommand implements Command {
     REASSEMBLE(2),
     AUTOGET(2),
     AUTOUPLOAD(2),
+    FULLUPLOAD(3),
     CONNECT(2),
     INFO(3),
     HELP(1),

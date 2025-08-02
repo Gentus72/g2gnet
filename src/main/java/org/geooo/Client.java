@@ -76,11 +76,11 @@ public final class Client extends ClientDTO {
         registeredClientCommands.put(ClientCommand.INFO, ClientHelper::handleClientCommandINFO);
         registeredClientCommands.put(ClientCommand.AUTOGET, ClientHelper::handleClientCommandAUTOGET);
         registeredClientCommands.put(ClientCommand.AUTOUPLOAD, ClientHelper::handleClientCommandAUTOUPLOAD);
+        registeredClientCommands.put(ClientCommand.FULLUPLOAD, ClientHelper::handleClientCommandFULLUPLOAD);
         registeredClientCommands.put(ClientCommand.EXIT, ClientHelper::handleClientCommandEXIT);
 
         // Servercommands don't have to be registered, because they get interpreted by the server
         // -> leading to a Serverresponse (which is handled by the client)
-
         registeredServerResponses.put(ServerResponse.INFO, ClientHelper::handleServerResponseINFO);
         registeredServerResponses.put(ServerResponse.REDIRECT, ClientHelper::handleServerResponseREDIRECT);
         registeredServerResponses.put(ServerResponse.DOWNLOAD, ClientHelper::handleServerResponseDOWNLOAD);
@@ -90,4 +90,3 @@ public final class Client extends ClientDTO {
         registeredServerResponses.put(ServerResponse.CLOSE, (Client client, String[] args) -> ClientHelper.disconnect(client));
     }
 }
-

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -175,7 +176,7 @@ public abstract class ClientHelper {
     }
 
     // SUCCESS <ressourceUUID> <decryptedBlockUUID>
-    // Response for AUTH (authorizing a block) to a normal server
+    // Response for AUTH (authorizing a block) to a host server
     // Means the server could verify the clients public key
     // Is followed by the client uploading the according block
     public static void handleServerResponseSUCCESS(Client client, String[] args) {
@@ -345,6 +346,40 @@ public abstract class ClientHelper {
         } else {
             Logger.error("Not all blocks could be downloaded!");
         }
+    }
+
+    // FULLUPLOAD <networkUUID> <ressourceUUID>
+    public static void handleClientCommandFULLUPLOAD(Client client, String[] args) {
+        NetworkFile networkFile = new NetworkFile(Client.RESSOURCE_DIRECTORY + args[1] + ".g2gnet");
+
+        if (!networkFile.getFile().exists()) {
+            Logger.error("Networkfile doesn't exist!");
+            return;
+        }
+
+        RessourceFile ressourceFile = new RessourceFile(Client.RESSOURCE_DIRECTORY + args[2] + ".g2g");
+
+        if (!ressourceFile.getFile().exists()) {
+            Logger.error("Ressourcefile doesn't exist!");
+            return;
+        }
+
+        // check if ressourcefile is already assembled
+        ArrayList<RessourceBlockDTO> blocks = ressourceFile.getBlocks();
+        boolean assembled = !blocks.get(0).getLocation().equals("<loc>");
+
+        if (!assembled) {
+            // get assembled ressourcefile
+            String ccServerAddress = networkFile.getServers().get(0).getAddress();
+
+            handleClientCommandCONNECT(client, new String[]{"CONNECT", ccServerAddress});
+            handleServerInteraction(client, new String[]{"AUTH", args[2]});
+            handleServerInteraction(client, new String[]{"DISCONNECT"});
+        } else {
+            Logger.warn("Ressourcefile for upload was already assembled! Was this intended?");
+        }
+
+        handleClientCommandAUTOUPLOAD(client, new String[]{"AUTOUPLOAD", args[2]});
     }
 
     // AUTOUPLOAD <ressourceUUID>
