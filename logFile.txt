@@ -369,3 +369,29 @@
 [14:35:48 WARNING]: Config file doesn't exist! May crash now...
 --------------------------------NEW APPLICATION START--------------------------------
 [21:28:02 INFO]: New Server chosen: org.geooo.dto.ServerDTO@2fd07a97
+--------------------------------NEW APPLICATION START--------------------------------
+[18:41:49 WARNING]: Click
+[18:41:52 WARNING]: Click
+--------------------------------NEW APPLICATION START--------------------------------
+[18:42:22 WARNING]: Click
+[18:42:23 WARNING]: Click
+--------------------------------NEW APPLICATION START--------------------------------
+[18:43:45 WARNING]: Left Click
+[18:43:46 WARNING]: Left Click
+[18:43:46 WARNING]: Left Click
+[18:43:46 WARNING]: Left Click
+--------------------------------NEW APPLICATION START--------------------------------
+[18:45:39 INFO]: Connecting to new network with IPv4 [Hallo]
+--------------------------------NEW APPLICATION START--------------------------------
+[19:27:58 WARNING]: Error while fetching local files or no ressource files found! Ressources in networkfile can't be updated!
+[19:27:59 INFO]: Writing 0 + 1 (this) servers to file!
+[19:27:59 INFO]: Server running on port 7000!
+--------------------------------NEW APPLICATION START--------------------------------
+[20:22:04 ERROR]: Unknown client-command 'clear'! Try again...
+[20:22:04 ERROR]: originated from: org.geooo.ClientHelper
+--------------------------------NEW APPLICATION START--------------------------------
+[20:31:10 ERROR]: No display found! Won't start without client GUI!
+[20:31:10 ERROR]: originated from: org.geooo.Client
+--------------------------------NEW APPLICATION START--------------------------------
+[20:31:31 ERROR]: No display found! Won't start without client GUI!
+[20:31:31 ERROR]: originated from: org.geooo.Client

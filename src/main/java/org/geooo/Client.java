@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.function.BiConsumer;
 
 import org.geooo.dto.ClientDTO;
+import org.geooo.gui.G2GUI;
 import org.geooo.metadata.ClientFile;
 import org.geooo.util.ClientCommand;
 import org.geooo.util.G2GUtil;
@@ -32,9 +33,19 @@ public final class Client extends ClientDTO {
     public HashMap<ServerResponse, BiConsumer<Client, String[]>> registeredServerResponses = new HashMap<>();
 
     public static void main(String[] args) {
-        // Ressource.reassemble(RESSOURCE_DIRECTORY, "b438d41d25de4bc3a6c043a6431fb0df", new File(RESSOURCE_DIRECTORY + "out.mp4"));
+        // Ressource.reassemble(RESSOURCE_DIRECTORY, "b438d41d25de4bc3a6c043a6431fb0df",
+        // new File(RESSOURCE_DIRECTORY + "out.mp4"));
         Client client = new Client();
-        // Ressource.disassemble(RESSOURCE_DIRECTORY, new File(RESSOURCE_DIRECTORY + "test3.mp4"), "myTitle", client.getPublicKeyBase64());
+        // Ressource.disassemble(RESSOURCE_DIRECTORY, new File(RESSOURCE_DIRECTORY +
+        // "test3.mp4"), "myTitle", client.getPublicKeyBase64());
+
+        if (System.getProperty("java.awt.headless", "false").equals("true") ||
+                System.getenv("DISPLAY") == null) {
+            Logger.warn("No display found! Can't start without client GUI!");
+            // return;
+        }
+
+        G2GUI.start(client);
         client.startClient();
     }
 
@@ -57,7 +68,9 @@ public final class Client extends ClientDTO {
         this.userInputScanner = new Scanner(System.in);
 
         while (true) {
-            String consolePrefix = this.isConnected ? String.format("%s[%s] $> ", Logger.ANSI_CYAN, this.socket.getInetAddress().getHostAddress()) : Logger.ANSI_RESET + "[CLIENT] $> ";
+            String consolePrefix = this.isConnected
+                    ? String.format("%s[%s] $> ", Logger.ANSI_CYAN, this.socket.getInetAddress().getHostAddress())
+                    : Logger.ANSI_RESET + "[CLIENT] $> ";
             System.out.print(consolePrefix);
             currentClientInput = this.userInputScanner.nextLine().split(" ");
 
@@ -79,7 +92,8 @@ public final class Client extends ClientDTO {
         registeredClientCommands.put(ClientCommand.FULLUPLOAD, ClientHelper::handleClientCommandFULLUPLOAD);
         registeredClientCommands.put(ClientCommand.EXIT, ClientHelper::handleClientCommandEXIT);
 
-        // Servercommands don't have to be registered, because they get interpreted by the server
+        // Servercommands don't have to be registered, because they get interpreted by
+        // the server
         // -> leading to a Serverresponse (which is handled by the client)
         registeredServerResponses.put(ServerResponse.INFO, ClientHelper::handleServerResponseINFO);
         registeredServerResponses.put(ServerResponse.REDIRECT, ClientHelper::handleServerResponseREDIRECT);
@@ -87,6 +101,7 @@ public final class Client extends ClientDTO {
         registeredServerResponses.put(ServerResponse.AUTH, ClientHelper::handleServerResponseAUTH);
         registeredServerResponses.put(ServerResponse.SUCCESS, ClientHelper::handleServerResponseSUCCESS);
         registeredServerResponses.put(ServerResponse.ERROR, ClientHelper::handleServerResponseERROR);
-        registeredServerResponses.put(ServerResponse.CLOSE, (Client client, String[] args) -> ClientHelper.disconnect(client));
+        registeredServerResponses.put(ServerResponse.CLOSE,
+                (Client client, String[] args) -> ClientHelper.disconnect(client));
     }
 }

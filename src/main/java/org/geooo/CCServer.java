@@ -38,10 +38,13 @@ public class CCServer extends HostServer {
         super(address);
     }
 
+    @Override
     public void startServer() {
         if (this.networkFile.getFile().exists()) {
             this.networkFile.readFromFile(this);
-        } else {
+        }
+
+        if (this.getUUID() == null) {
             this.setUUID(G2GUtil.getRandomUUID());
         }
 

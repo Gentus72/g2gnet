@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import org.geooo.dto.NetworkDTO;
 import org.geooo.dto.RessourceBlockDTO;
 import org.geooo.dto.RessourceDTO;
 import org.geooo.dto.ServerDTO;
+import org.geooo.gui.G2GUI;
 import org.geooo.metadata.NetworkFile;
 import org.geooo.metadata.RessourceFile;
 import org.geooo.util.ClientCommand;
@@ -37,7 +39,8 @@ public abstract class ClientHelper {
             }
 
             if (command.equals(ServerCommand.AUTH)) {
-                File[] ressourceFiles = new File(Client.RESSOURCE_DIRECTORY).listFiles((dir, name) -> name.equals(args[1] + ".g2g"));
+                File[] ressourceFiles = new File(Client.RESSOURCE_DIRECTORY)
+                        .listFiles((dir, name) -> name.equals(args[1] + ".g2g"));
                 if (ressourceFiles == null || ressourceFiles.length == 0) {
                     Logger.error("Ressource to auth not present in filesystem!");
                     return;
@@ -88,12 +91,14 @@ public abstract class ClientHelper {
 
     // REDIRECT <destinationAddress>
     // Response to any command thats not supported by a normal server
-    // The connection will automatically switch to the CCServer and send the original command
+    // The connection will automatically switch to the CCServer and send the
+    // original command
     public static void handleServerResponseREDIRECT(Client client, String[] args) {
         client.currentHost = args[1];
         Logger.info(String.format("Being redirected to: %s", args[1]));
         disconnect(client);
-        handleClientCommandCONNECT(client, new String[]{"CONNECT", client.currentHost, String.valueOf(client.hostPort)});
+        handleClientCommandCONNECT(client,
+                new String[] { "CONNECT", client.currentHost, String.valueOf(client.hostPort) });
 
         // redirect command to ccServer
         handleServerInteraction(client, client.currentClientInput);
@@ -106,11 +111,19 @@ public abstract class ClientHelper {
     public static void handleServerResponseINFO(Client client, String[] args) {
         switch (args[1]) {
             case "NETWORK" -> {
-                G2GUtil.receiveFileRemote(String.format("%s%s.g2gnet", Client.RESSOURCE_DIRECTORY, args[2]), client.inputStream);
+                String networkFileName = String.format("%s%s.g2gnet", Client.RESSOURCE_DIRECTORY, args[2]);
+
+                G2GUtil.receiveFileRemote(networkFileName,
+                        client.inputStream);
                 Logger.info("Received networkfile!");
+
+                NetworkFile networkFile = new NetworkFile(networkFileName);
+                NetworkDTO network = networkFile.getNetwork();
+                G2GUI.setConnectedNetwork(network);
             }
             case "RESSOURCE" -> {
-                G2GUtil.receiveFileRemote(String.format("%s%s.g2g", Client.RESSOURCE_DIRECTORY, args[2]), client.inputStream);
+                G2GUtil.receiveFileRemote(String.format("%s%s.g2g", Client.RESSOURCE_DIRECTORY, args[2]),
+                        client.inputStream);
                 // update clientfile
                 Logger.info("Received ressourcefile!");
             }
@@ -134,7 +147,8 @@ public abstract class ClientHelper {
                 Files.createDirectory(Path.of(ressourceDirectoryPath));
             }
 
-            G2GUtil.receiveFileRemote(String.format("%s%s.g2gblock", ressourceDirectoryPath, args[2]), client.inputStream);
+            G2GUtil.receiveFileRemote(String.format("%s%s.g2gblock", ressourceDirectoryPath, args[2]),
+                    client.inputStream);
             Logger.success(String.format("Download for block %s successful!", args[2]));
             wasCommandSuccessfull = true;
             client.clientFile.writeToFile(client);
@@ -195,7 +209,8 @@ public abstract class ClientHelper {
                 Logger.success(String.format("Block [%s] uploaded successfully!", args[2]));
                 wasCommandSuccessfull = true;
             } else {
-                Logger.error(String.format("Error while uploading blockfile [%s] to [%s]", args[2], client.socket.getInetAddress().getHostAddress()));
+                Logger.error(String.format("Error while uploading blockfile [%s] to [%s]", args[2],
+                        client.socket.getInetAddress().getHostAddress()));
                 wasCommandSuccessfull = false;
             }
         } catch (IOException e) {
@@ -223,9 +238,13 @@ public abstract class ClientHelper {
             client.socket.setSoTimeout(30000); // 30 sec
             client.outputStream = new DataOutputStream(client.socket.getOutputStream());
             client.inputStream = new DataInputStream(client.socket.getInputStream());
-            Logger.success(String.format("Successfully connected to Server [%s:%d]!", client.currentHost, client.hostPort));
+            Logger.success(
+                    String.format("Successfully connected to Server [%s:%d]!", client.currentHost, client.hostPort));
 
             client.isConnected = true;
+
+            Logger.info("Getting server information!");
+            handleServerInteraction(client, new String[] { "INFO", "NETWORK" });
         } catch (IOException e) {
             Logger.error("Error while connecting to server!");
             Logger.exception(e);
@@ -239,7 +258,8 @@ public abstract class ClientHelper {
             case "NETWORK" -> {
                 if (args[2].equals("ALL")) {
                     Logger.info("Known networks (uuid):");
-                    File[] networkFiles = new File(Client.RESSOURCE_DIRECTORY).listFiles((dir, name) -> name.endsWith(".g2gnet"));
+                    File[] networkFiles = new File(Client.RESSOURCE_DIRECTORY)
+                            .listFiles((dir, name) -> name.endsWith(".g2gnet"));
 
                     for (File file : networkFiles) {
                         Logger.info(file.getName());
@@ -277,7 +297,8 @@ public abstract class ClientHelper {
             case "RESSOURCE" -> {
                 if (args[2].equals("ALL")) {
                     Logger.info("Known ressources (uuid):");
-                    File[] ressourceFiles = new File(Client.RESSOURCE_DIRECTORY).listFiles((dir, name) -> name.endsWith(".g2g"));
+                    File[] ressourceFiles = new File(Client.RESSOURCE_DIRECTORY)
+                            .listFiles((dir, name) -> name.endsWith(".g2g"));
 
                     for (File file : ressourceFiles) {
                         Logger.info(file.getName());
@@ -331,9 +352,9 @@ public abstract class ClientHelper {
         for (var entry : commands.entrySet()) {
             String serverAddress = entry.getValue();
             Logger.info(String.format("Downloading block from %s... ", entry.getValue()));
-            handleClientCommandCONNECT(client, new String[]{"CONNECT", serverAddress});
+            handleClientCommandCONNECT(client, new String[] { "CONNECT", serverAddress });
             handleServerInteraction(client, entry.getKey()); // send GETBLOCK
-            handleServerInteraction(client, new String[]{"DISCONNECT"});
+            handleServerInteraction(client, new String[] { "DISCONNECT" });
 
             if (!wasCommandSuccessfull) {
                 Logger.error(String.format("Block [%s] couldn't be downloaded!", entry.getKey()[2]));
@@ -372,14 +393,14 @@ public abstract class ClientHelper {
             // get assembled ressourcefile
             String ccServerAddress = networkFile.getServers().get(0).getAddress();
 
-            handleClientCommandCONNECT(client, new String[]{"CONNECT", ccServerAddress});
-            handleServerInteraction(client, new String[]{"AUTH", args[2]});
-            handleServerInteraction(client, new String[]{"DISCONNECT"});
+            handleClientCommandCONNECT(client, new String[] { "CONNECT", ccServerAddress });
+            handleServerInteraction(client, new String[] { "AUTH", args[2] });
+            handleServerInteraction(client, new String[] { "DISCONNECT" });
         } else {
             Logger.warn("Ressourcefile for upload was already assembled! Was this intended?");
         }
 
-        handleClientCommandAUTOUPLOAD(client, new String[]{"AUTOUPLOAD", args[2]});
+        handleClientCommandAUTOUPLOAD(client, new String[] { "AUTOUPLOAD", args[2] });
     }
 
     // AUTOUPLOAD <ressourceUUID>
@@ -405,9 +426,9 @@ public abstract class ClientHelper {
         for (var entry : commands.entrySet()) {
             String serverAddress = entry.getValue();
             Logger.info(String.format("Authorizing block to %s... ", entry.getValue()));
-            handleClientCommandCONNECT(client, new String[]{"CONNECT", serverAddress});
+            handleClientCommandCONNECT(client, new String[] { "CONNECT", serverAddress });
             handleServerInteraction(client, entry.getKey()); // send AUTH
-            handleServerInteraction(client, new String[]{"DISCONNECT"});
+            handleServerInteraction(client, new String[] { "DISCONNECT" });
         }
 
         Logger.success(String.format("[%d/%d] blocks uploaded!", commands.size(), commands.size()));

@@ -1,9 +1,6 @@
 version: "3.8"
-
 services:
    ccserver:
-      # image: stickw7/g2gnet:latest
-      # pull_policy: always
       build:
          context: .
          dockerfile: Dockerfile
@@ -11,10 +8,7 @@ services:
       networks:
          custom_net:
             ipv4_address: 172.20.0.10
-
    server1:
-      # image: stickw7/g2gnet:latest
-      # pull_policy: always
       build:
          context: .
          dockerfile: Dockerfile
@@ -24,10 +18,7 @@ services:
             ipv4_address: 172.20.0.11
       depends_on:
          - ccserver
-
    server2:
-      # image: stickw7/g2gnet:latest
-      # pull_policy: always
       build:
          context: .
          dockerfile: Dockerfile
@@ -38,10 +29,7 @@ services:
             ipv4_address: 172.20.0.12
       depends_on:
          - server1
-
    server3:
-      # image: stickw7/g2gnet:latest
-      # pull_policy: always
       build:
          context: .
          dockerfile: Dockerfile
@@ -52,23 +40,26 @@ services:
             ipv4_address: 172.20.0.13
       depends_on:
          - server2
-
    client:
-      # image: stickw7/g2gnet:latest
-      # pull_policy: always
       build:
          context: .
          dockerfile: Dockerfile
-      command:
-         ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.Client"]
+      command: ["./vnc-startup.sh"]
       networks:
          custom_net:
             ipv4_address: 172.20.0.20
+      ports:
+         - "5901:5901"  # Expose VNC port to host
+      # Remove these X11 forwarding lines - they conflict with VNC
+      # environment:
+      #   - DISPLAY=:1
+      # volumes:
+      #   - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      #   - ~/.Xauthority:/root/.Xauthority:rw
       depends_on:
          - server3
       stdin_open: true
       tty: true
-
 networks:
    custom_net:
       driver: bridge

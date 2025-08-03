@@ -7,8 +7,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.geooo.CCServer;
+import org.geooo.dto.NetworkDTO;
 import org.geooo.dto.RessourceDTO;
 import org.geooo.dto.ServerDTO;
 import org.geooo.util.G2GUtil;
@@ -32,6 +34,8 @@ public class NetworkFile extends ConfigFile {
             }
 
             writer.write(String.format("UUID: %s\n", ccServer.getNetworkUUID()));
+            writer.write(String.format("CCServer: %s\n", ccServer.getAddress()));
+            writer.write(String.format("NetworkLabel: %s\n", "<noLabel>"));
 
             writer.write("Servers (uuid, address):\n");
             Logger.info(String.format("Writing %d + 1 (this) servers to file!", ccServer.getServers().size()));
@@ -44,7 +48,8 @@ public class NetworkFile extends ConfigFile {
             // ServerDTO::getUUID, ServerDTO::getAddress);
             writer.write("Ressources (uuid, title, size):\n");
             for (RessourceDTO ressource : ccServer.getRessources()) {
-                writer.write(String.format("%s,%s,%d\n", ressource.getUUID(), ressource.getTitle(), ressource.getBlockAmount()));
+                writer.write(String.format("%s,%s,%d\n", ressource.getUUID(), ressource.getTitle(),
+                        ressource.getBlockAmount()));
             }
         } catch (IOException e) {
             Logger.error("Error while writing to networkfile!");
@@ -81,7 +86,8 @@ public class NetworkFile extends ConfigFile {
             while (nextLine != null) {
                 String[] components = nextLine.split(",");
 
-                ressources.add(new RessourceDTO(components[0], components[1], Integer.parseInt(components[2]))); // uuid, title,
+                ressources.add(new RessourceDTO(components[0], components[1], Integer.parseInt(components[2]))); // uuid,
+                                                                                                                 // title,
                 // blockAmount
 
                 nextLine = reader.readLine();
@@ -104,7 +110,8 @@ public class NetworkFile extends ConfigFile {
         File[] matchingFiles = ressourceDir.listFiles((dir, name) -> name.endsWith(".g2g"));
 
         if (matchingFiles == null || matchingFiles.length == 0) {
-            Logger.warn("Error while fetching local files or no ressource files found! Ressources in networkfile can't be updated!");
+            Logger.warn(
+                    "Error while fetching local files or no ressource files found! Ressources in networkfile can't be updated!");
             return;
         }
 
@@ -155,5 +162,12 @@ public class NetworkFile extends ConfigFile {
         }
 
         return null;
+    }
+
+    public NetworkDTO getNetwork() {
+        HashMap<String, String> _configContent = getConfigContent();
+
+        return new NetworkDTO(_configContent.get("UUID"), _configContent.get("NetworkLabel"),
+                _configContent.get("CCServer"), this);
     }
 }
