@@ -1,61 +1,55 @@
 package org.geooo.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.geooo.dto.NetworkDTO;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 
 public class NetworkList extends VBox {
 
-    private ArrayList<NetworkDTO> availableNetworks;
-    private ListView<NetworkListItem> list;
+    private final ListProperty<NetworkDTO> networks;
+    private final ListProperty<NetworkListItem> listItems;
+    private final ListView<NetworkListItem> listView;
 
-    public NetworkList(ArrayList<NetworkDTO> availableNetworks) {
-        this.availableNetworks = availableNetworks;
+    public NetworkList(ListProperty<NetworkDTO> networkProp) {
+        this.networks = networkProp;
+        this.listItems = new SimpleListProperty<>(FXCollections.observableArrayList());
+        this.listView = new ListView<>(listItems);
+        this.listView.itemsProperty().bind(listItems);
 
-        this.setMinWidth(300);
-        this.setMinHeight(2000);
-        this.setBackground(new Background(new BackgroundFill(new Color(0.8, 0.8, 0.8, 1), null, null)));
+        this.setPrefWidth(300);
+        this.setPrefHeight(670);
+        VBox.setVgrow(listView, Priority.ALWAYS);
+        listView.setPrefHeight(620);
 
-        Label label = new Label("Available Networks");
-        label.setPrefWidth(300);
-        label.setPrefHeight(40);
-        label.setFont(Fonts.headerFont);
-        // label.setTextAlignment(TextAlignment.CENTER);
-        // label.setContentDisplay(ContentDisplay.CENTER);
-        label.setAlignment(Pos.CENTER);
+        Label header = new Label("Available Networks");
+        header.setFont(Fonts.headerFont);
+        header.setPrefWidth(300);
+        header.setPrefHeight(50);
+        header.setTextAlignment(TextAlignment.CENTER);
+        header.setAlignment(Pos.CENTER);
 
-        this.list = new ListView<>();
-        ObservableList<NetworkListItem> items = FXCollections.observableList(generateListItems(this.availableNetworks));
+        getChildren().addAll(header, listView);
 
-        this.list.setItems(items);
-        this.getChildren().addAll(label, list);
+        updateListItems();
+
+        networks.addListener((ListChangeListener<NetworkDTO>) change -> {
+            updateListItems();
+        });
     }
 
-    public void setNetworks(ArrayList<NetworkDTO> availableNetworks) {
-        this.availableNetworks = availableNetworks;
-
-        ObservableList<NetworkListItem> items = FXCollections.observableList(generateListItems(this.availableNetworks));
-        this.list.setItems(items);
-    }
-
-    private List<NetworkListItem> generateListItems(ArrayList<NetworkDTO> availableNetworks) {
-        List<NetworkListItem> listItems = new ArrayList<>();
-
-        for (NetworkDTO network : availableNetworks) {
-            listItems.add(new NetworkListItem(network));
+    private void updateListItems() {
+        listItems.clear();
+        for (NetworkDTO dto : networks) {
+            listItems.add(new NetworkListItem(dto));
         }
-
-        return listItems;
     }
 }

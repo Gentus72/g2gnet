@@ -62,12 +62,22 @@ public class NetworkFile extends ConfigFile {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String networkUUID = reader.readLine().split(" ")[1];
+            String ccServerAddress = reader.readLine().split(" ")[1];
+            String networkLabel = reader.readLine().split(" ")[1];
             ArrayList<ServerDTO> servers = new ArrayList<>();
             ArrayList<RessourceDTO> ressources = new ArrayList<>();
 
             if (ccServer.getNetworkUUID() != null && !ccServer.getNetworkUUID().equals(networkUUID)) {
                 Logger.error("UUID mismatch between networkfile and ccServer's networkUUID!");
                 return;
+            }
+
+            if (ccServer.getAddress() != null && !ccServer.getAddress().equals(ccServerAddress)) {
+                Logger.warn("IPv4 Address mismatch between CCServer and Networkfile!");
+            }
+
+            if (networkLabel.isEmpty()) {
+                Logger.warn("No Label has been set in the networkFile!");
             }
 
             ccServer.setNetworkUUID(networkUUID);
@@ -148,6 +158,7 @@ public class NetworkFile extends ConfigFile {
             do {
                 line = reader.readLine();
             } while (!line.contains("Servers (uuid, address):"));
+            line = reader.readLine();
 
             while (!line.contains("Ressources (uuid, title, size):")) {
                 String[] components = line.split(",");
@@ -156,12 +167,39 @@ public class NetworkFile extends ConfigFile {
 
                 line = reader.readLine();
             }
+
+            return servers;
         } catch (IOException e) {
             Logger.error("Error while reading servers from networkfile!");
             return null;
         }
+    }
 
-        return null;
+    public ArrayList<RessourceDTO> getRessources() {
+        ArrayList<RessourceDTO> ressources = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
+            String line = reader.readLine();
+
+            do {
+                line = reader.readLine();
+            } while (!line.contains("Ressources (uuid, title, size):"));
+            line = reader.readLine();
+
+            while (line != null) {
+                String[] components = line.split(",");
+                RessourceDTO newRessource = new RessourceDTO(components[0].strip(), components[1].strip(),
+                        Integer.parseInt(components[2].strip()));
+                ressources.add(newRessource);
+
+                line = reader.readLine();
+            }
+
+            return ressources;
+        } catch (IOException e) {
+            Logger.error("Error while reading ressources from networkfile!");
+            return null;
+        }
     }
 
     public NetworkDTO getNetwork() {

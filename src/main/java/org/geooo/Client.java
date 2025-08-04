@@ -48,6 +48,7 @@ public final class Client extends ClientDTO {
         G2GUI gui = new G2GUI(client);
         Thread t = new Thread(gui);
         t.start();
+
         client.startClient();
     }
 
