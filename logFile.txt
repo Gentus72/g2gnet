@@ -395,3 +395,12 @@
 --------------------------------NEW APPLICATION START--------------------------------
 [20:31:31 ERROR]: No display found! Won't start without client GUI!
 [20:31:31 ERROR]: originated from: org.geooo.Client
+--------------------------------NEW APPLICATION START--------------------------------
+[02:52:15 WARNING]: No config file detected! Generating blank one - please fill it out!
+[02:52:15 WARNING]: Config file doesn't exist! May crash now...
+[02:52:18 ERROR]: Error while connecting to CCServer!
+[02:52:18 ERROR]: originated from: org.geooo.HostServer
+[02:52:18 ERROR]: Message / Cause: No route to host
+[02:52:18 ERROR]: Exception: java.net.NoRouteToHostException
+[02:52:18 ERROR]: ----------------------Full stack trace----------------------
+[02:52:18 ERROR]: [java.base/sun.nio.ch.Net.connect0(Native Method), java.base/sun.nio.ch.Net.connect(Net.java:589), java.base/sun.nio.ch.Net.connect(Net.java:578), java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583), java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327), java.base/java.net.Socket.connect(Socket.java:751), java.base/java.net.Socket.connect(Socket.java:686), java.base/java.net.Socket.<init>(Socket.java:555), java.base/java.net.Socket.<init>(Socket.java:324), org.geooo.HostServer.connectToCC(HostServer.java:41), org.geooo.HostServer.startServer(HostServer.java:94), org.geooo.HostServer.main(HostServer.java:28)]

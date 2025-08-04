@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class G2GUI extends Application {
+public class G2GUI extends Application implements Runnable {
 
     public static Client client;
     public static ArrayList<NetworkDTO> availableNetworks = new ArrayList<>();
@@ -38,14 +38,6 @@ public class G2GUI extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    public static void start(Client _client) {
-        client = _client;
-
-        readNetworksFromFiles();
-
-        launch(new String[] {});
     }
 
     public static void readNetworksFromFiles() {
@@ -70,11 +62,12 @@ public class G2GUI extends Application {
         }
 
         if (client.isConnected) {
-            ClientHelper.handleServerInteraction(client, new String[] { "DISCONNECT" });
+            ClientHelper.handleServerInteraction(client, new String[]{"DISCONNECT"});
         }
 
         // this will automatically trigger setConnectedNetwork()
-        ClientHelper.handleClientCommandCONNECT(client, new String[] { "CONNECT", IPv4 });
+        client.currentClientInput = new String[]{"CONNECT", IPv4};
+        ClientHelper.handleClientCommandCONNECT(client, new String[]{"CONNECT", IPv4});
     }
 
     // is only called from ClientHelper.handleClientCommandCONNECT()
@@ -86,5 +79,22 @@ public class G2GUI extends Application {
 
         connectedNetwork = network;
         Logger.success("new network selected!");
+    }
+
+    public G2GUI() {
+
+    }
+
+    @SuppressWarnings("OverridableMethodCallInConstructor")
+    public G2GUI(Client _client) {
+        Logger.info("Starting client GUI...");
+        client = _client;
+    }
+
+    @Override
+    public void run() {
+        readNetworksFromFiles();
+
+        launch(new String[]{});
     }
 }

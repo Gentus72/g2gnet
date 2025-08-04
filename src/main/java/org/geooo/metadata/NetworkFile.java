@@ -86,8 +86,8 @@ public class NetworkFile extends ConfigFile {
             while (nextLine != null) {
                 String[] components = nextLine.split(",");
 
-                ressources.add(new RessourceDTO(components[0], components[1], Integer.parseInt(components[2]))); // uuid,
-                                                                                                                 // title,
+                ressources.add(new RessourceDTO(components[0], components[1], Integer.parseInt(components[2].strip()))); // uuid,
+                // title,
                 // blockAmount
 
                 nextLine = reader.readLine();

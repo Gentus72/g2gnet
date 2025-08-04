@@ -16,7 +16,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class NetworkList extends VBox {
+
+    private ArrayList<NetworkDTO> availableNetworks;
+    private ListView<NetworkListItem> list;
+
     public NetworkList(ArrayList<NetworkDTO> availableNetworks) {
+        this.availableNetworks = availableNetworks;
+
         this.setMinWidth(300);
         this.setMinHeight(2000);
         this.setBackground(new Background(new BackgroundFill(new Color(0.8, 0.8, 0.8, 1), null, null)));
@@ -29,11 +35,18 @@ public class NetworkList extends VBox {
         // label.setContentDisplay(ContentDisplay.CENTER);
         label.setAlignment(Pos.CENTER);
 
-        ListView<NetworkListItem> list = new ListView<>();
-        ObservableList<NetworkListItem> items = FXCollections.observableList(generateListItems(availableNetworks));
+        this.list = new ListView<>();
+        ObservableList<NetworkListItem> items = FXCollections.observableList(generateListItems(this.availableNetworks));
 
-        list.setItems(items);
+        this.list.setItems(items);
         this.getChildren().addAll(label, list);
+    }
+
+    public void setNetworks(ArrayList<NetworkDTO> availableNetworks) {
+        this.availableNetworks = availableNetworks;
+
+        ObservableList<NetworkListItem> items = FXCollections.observableList(generateListItems(this.availableNetworks));
+        this.list.setItems(items);
     }
 
     private List<NetworkListItem> generateListItems(ArrayList<NetworkDTO> availableNetworks) {
