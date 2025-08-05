@@ -23,7 +23,7 @@ public class CCServer extends HostServer {
 
     public static void main(String[] args) {
         CCServer server = new CCServer();
-        server.startServer();
+        server.startServer(args);
     }
 
     public CCServer() {
@@ -40,9 +40,30 @@ public class CCServer extends HostServer {
     }
 
     @Override
-    public void startServer() {
+    public void startServer(String[] args) {
         if (this.networkFile.getFile().exists()) {
             this.networkFile.readFromFile(this);
+        } else {
+            Logger.warn("No network file detected! Trying to generate from command line arguments...");
+
+            for (String arg : args) {
+                if (arg.contains("=")) {
+                    String prefix = arg.split("=")[0];
+                    String value = arg.split("=")[1];
+
+                    switch (prefix) {
+                        case "--networkLabel" -> {
+                            this.setNetworkLabel(value);
+                        }
+                        case "--networkUUID" -> {
+                            this.setNetworkUUID(value);
+                        }
+                        default -> {
+                            Logger.warn("unkown command line argument: " + arg);
+                        }
+                    }
+                }
+            }
         }
 
         if (this.getUUID() == null) {

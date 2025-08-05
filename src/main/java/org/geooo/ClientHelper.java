@@ -111,6 +111,8 @@ public abstract class ClientHelper {
     // Gives information about the network or a specific ressource
     // If INFO was called on a non-CCServer it will redirect to the CCServer
     public static void handleServerResponseINFO(Client client, String[] args) {
+        wasRedirected = false;
+
         switch (args[1]) {
             case "NETWORK" -> {
                 String networkFileName = String.format("%s%s.g2gnet", Client.RESSOURCE_DIRECTORY, args[2]);

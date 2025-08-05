@@ -25,7 +25,7 @@ public class HostServer extends ServerDTO {
     public static void main(String[] args) {
         HostServer server = new HostServer();
 
-        server.startServer();
+        server.startServer(args);
     }
 
     public HostServer() {
@@ -76,20 +76,45 @@ public class HostServer extends ServerDTO {
         }
     }
 
-    public void startServer() {
+    public void startServer(String[] args) {
         this.clients = new ArrayList<>();
 
         this.serverFile = new ServerFile(getRessourceDirectory() + "serverFile.g2gsrv");
 
         if (!this.serverFile.getFile().exists()) {
-            Logger.warn("No config file detected! Generating blank one - please fill it out!");
+            Logger.warn("No config file detected! Trying to generate from command line arguments...");
             this.setUUID(G2GUtil.getRandomUUID());
             this.serverFile.generateBlankConfig(this);
-            // System.exit(0);
+
+            CCServer newCCServer = new CCServer("noAddress");
+
+            // set ccServer and networkUUID from arguments
+            for (String arg : args) {
+                if (arg.contains("=")) {
+                    String prefix = arg.split("=")[0];
+                    String value = arg.split("=")[1];
+
+                    switch (prefix) {
+                        case "--ccServer" -> {
+                            // TODO verify IP string
+                            newCCServer.setAddress(value);
+                        }
+                        case "--networkUUID" -> {
+                            newCCServer.setNetworkUUID(value);
+                        }
+                        default -> {
+                            Logger.warn("unkown command line argument: " + arg);
+                        }
+                    }
+                }
+            }
+
+            this.ccServer = newCCServer;
+            this.serverFile.writeToFile(this);
         }
 
         HashMap<String, String> configContent = this.serverFile.getConfigContent();
-        this.setUUID(configContent.get("UUID").equals("null") ? G2GUtil.getRandomUUID() : configContent.get("UUID"));
+        this.setUUID(configContent.get("UUID").isEmpty() ? G2GUtil.getRandomUUID() : configContent.get("UUID"));
 
         connectToCC(configContent.get("CCServerAddress"), configContent.get("NetworkUUID"));
 

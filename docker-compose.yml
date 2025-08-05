@@ -1,18 +1,21 @@
 version: "3.8"
 services:
+  ###################################################################################################################
+  # NETZWERK_EINS
+  ###################################################################################################################
   ccserver1:
     build:
       context: .
-      dockerfile: Dockerfile
-    command: ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.CCServer"]
+      dockerfile: Dockerfile_CCServer
+    command: ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.CCServer", "--networkUUID=e88bf9954ea3409ca80b0a72719c92ea", "--networkLabel=Netzwerk_EINS"]
     networks:
       custom_net:
         ipv4_address: 172.20.0.10
   server1_1:
     build:
       context: .
-      dockerfile: Dockerfile
-    command: ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer"]
+      dockerfile: Dockerfile_HostServer
+    command: ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer", "--ccServer=172.20.0.10", "--networkUUID=e88bf9954ea3409ca80b0a72719c92ea"]
     networks:
       custom_net:
         ipv4_address: 172.20.0.11
@@ -21,9 +24,9 @@ services:
   server1_2:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_HostServer
     command:
-      ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer"]
+      ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer", "--ccServer=172.20.0.10", "--networkUUID=e88bf9954ea3409ca80b0a72719c92ea"]
     networks:
       custom_net:
         ipv4_address: 172.20.0.12
@@ -32,22 +35,84 @@ services:
   server1_3:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_HostServer
     command:
-      ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer"]
+      ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer", "--ccServer=172.20.0.10", "--networkUUID=e88bf9954ea3409ca80b0a72719c92ea"]
     networks:
       custom_net:
         ipv4_address: 172.20.0.13
     depends_on:
       - server1_2
-  client:
+  ###################################################################################################################
+  # NETZWERK_ZWEI
+  ###################################################################################################################
+  ccserver2:
     build:
       context: .
-      dockerfile: Dockerfile
-    command: ["./vnc-startup.sh"]
+      dockerfile: Dockerfile_CCServer
+    command: ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.CCServer", "--networkUUID=f1f5346b8060470595e0728a7e4a928a", "--networkLabel=Netzwerk_ZWEI"]
     networks:
       custom_net:
         ipv4_address: 172.20.0.20
+    depends_on:
+      - server1_3
+  server2_1:
+    build:
+      context: .
+      dockerfile: Dockerfile_HostServer
+    command:
+      ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer", "--ccServer=172.20.0.20", "--networkUUID=f1f5346b8060470595e0728a7e4a928a"]
+    networks:
+      custom_net:
+        ipv4_address: 172.20.0.21
+    depends_on:
+      - ccserver2
+  ###################################################################################################################
+  # NETZWERK_DREI
+  ###################################################################################################################
+  ccserver3:
+    build:
+      context: .
+      dockerfile: Dockerfile_CCServer
+    command: ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.CCServer", "--networkUUID=2ce2934aa1f64084b75150c4aed43b93", "--networkLabel=Netzwerk_DREI"]
+    networks:
+      custom_net:
+        ipv4_address: 172.20.0.30
+    depends_on:
+      - server2_1
+  server3_1:
+    build:
+      context: .
+      dockerfile: Dockerfile_HostServer
+    command:
+      ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer", "--ccServer=172.20.0.30", "--networkUUID=2ce2934aa1f64084b75150c4aed43b93"]
+    networks:
+      custom_net:
+        ipv4_address: 172.20.0.31
+    depends_on:
+      - ccserver3
+  server3_2:
+    build:
+      context: .
+      dockerfile: Dockerfile_HostServer
+    command:
+      ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer", "--ccServer=172.20.0.30", "--networkUUID=2ce2934aa1f64084b75150c4aed43b93"]
+    networks:
+      custom_net:
+        ipv4_address: 172.20.0.32
+    depends_on:
+      - server3_1
+  ###################################################################################################################
+  # CLIENT
+  ###################################################################################################################
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile_Client
+    command: ["./vnc-startup.sh"]
+    networks:
+      custom_net:
+        ipv4_address: 172.20.0.100
     ports:
       - "5901:5901" # vnc
     depends_on:

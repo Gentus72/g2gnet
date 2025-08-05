@@ -2,35 +2,37 @@ package org.geooo.gui;
 
 import org.geooo.dto.NetworkDTO;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
 public class NetworkListItem extends HBox {
     public NetworkDTO network;
-    private BooleanProperty isConnected = new SimpleBooleanProperty();
+    private Button button;
+    private boolean isConnected;
 
-    public NetworkListItem(NetworkDTO network) {
+    public NetworkListItem(NetworkDTO network, ObjectProperty<NetworkDTO> connectedNetworkProp) {
         this.network = network;
-        this.isConnected.set(G2GUI.connectedNetwork.get() != null && this.network.getNetworkUUID().equals(G2GUI.connectedNetwork.get().getNetworkUUID()));
-        this.isConnected.bind(Bindings.createBooleanBinding(() -> {
-            return this.network.getNetworkUUID().equals(G2GUI.connectedNetwork.get().getNetworkUUID());
-        }, G2GUI.connectedNetwork));
+        this.isConnected = connectedNetworkProp.get() != null && this.network.getNetworkUUID().equals(connectedNetworkProp.get().getNetworkUUID());
+
+        connectedNetworkProp.addListener((obs, oldVal, newVal) -> {
+            this.isConnected = this.network.getNetworkUUID().equals(connectedNetworkProp.get().getNetworkUUID());
+            this.button.setDisable(this.isConnected);
+            this.button.setText(this.isConnected ? "Connected" : "Connect");
+        });
 
         this.setWidth(300);
         this.setHeight(100);
 
         Label _label = new Label(network.getNetworkLabel().equals("<noLabel>") ? network.getCCServerIPv4() : network.getNetworkLabel());
         _label.setPrefWidth(185);
-        Button button = new Button(this.isConnected.get() ? "Connected" : "Connect");
-        button.setDisable(this.isConnected.get());
-        button.setPrefWidth(100);
+        this.button = new Button(this.isConnected ? "Connected" : "Connect");
+        this.button.setDisable(this.isConnected);
+        this.button.setPrefWidth(100);
 
-        button.setOnMousePressed(mouseEvent -> {
-            if (mouseEvent.isPrimaryButtonDown() && !this.isConnected.get()) {
+        this.button.setOnMousePressed(mouseEvent -> {
+            if (mouseEvent.isPrimaryButtonDown() && !this.isConnected) {
                 G2GUI.connectNetwork(this.network.getCCServerIPv4());
             }
         });

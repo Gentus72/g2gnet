@@ -3,6 +3,7 @@ package org.geooo.gui;
 import org.geooo.dto.NetworkDTO;
 
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -19,7 +20,7 @@ public class NetworkList extends VBox {
     private final ListProperty<NetworkListItem> listItems;
     private final ListView<NetworkListItem> listView;
 
-    public NetworkList(ListProperty<NetworkDTO> networkProp) {
+    public NetworkList(ListProperty<NetworkDTO> networkProp, ObjectProperty<NetworkDTO> connectedNetworkProp) {
         this.networks = networkProp;
         this.listItems = new SimpleListProperty<>(FXCollections.observableArrayList());
         this.listView = new ListView<>(listItems);
@@ -39,17 +40,17 @@ public class NetworkList extends VBox {
 
         getChildren().addAll(header, listView);
 
-        updateListItems();
+        updateListItems(connectedNetworkProp);
 
         networks.addListener((ListChangeListener<NetworkDTO>) change -> {
-            updateListItems();
+            updateListItems(connectedNetworkProp);
         });
     }
 
-    private void updateListItems() {
+    private void updateListItems(ObjectProperty<NetworkDTO> connectedNetworkProp) {
         listItems.clear();
         for (NetworkDTO dto : networks) {
-            listItems.add(new NetworkListItem(dto));
+            listItems.add(new NetworkListItem(dto, connectedNetworkProp));
         }
     }
 }

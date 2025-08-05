@@ -1,0 +1,14 @@
+FROM eclipse-temurin:21-jdk-jammy
+
+WORKDIR /app
+
+# Copy your JAR file
+COPY target/*.jar /app
+
+# Copy additional resources
+COPY server/ /app/server
+
+EXPOSE 7000
+
+# wird in docker-compose.yml überschrieben
+CMD ["java", "-cp", "/app/g2gnet-1.0-SNAPSHOT.jar", "org.geooo.HostServer"]

@@ -59,6 +59,11 @@ public abstract class ConfigFile {
                 if (line.contains(":")) {
                     String[] components = line.split(" ");
 
+                    if (components.length == 1) { // value is empty
+                        this.configContent.put(components[0].replace(":", ""), "");
+                        continue;
+                    }
+
                     this.configContent.put(components[0].replace(":", ""), components[1]);
                 }
 
