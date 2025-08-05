@@ -10,20 +10,10 @@ rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1 2>/dev/null || true
 
 # Start VNC server on display :1
 echo "Starting VNC server on display :1..."
-vncserver :1 -geometry 1280x720 -depth 24 -localhost no
-
-# Wait for VNC server to start
-sleep 3
+vncserver :1 -geometry 1280x720 -depth 24 -localhost no -SecurityTypes None --I-KNOW-THIS-IS-INSECURE
 
 # Set DISPLAY environment variable
 export DISPLAY=:1
-
-# Start window manager in background
-echo "Starting Fluxbox window manager..."
-fluxbox &
-
-# Wait for window manager to start
-sleep 2
 
 # Start your JavaFX application with proper module path
 echo "Starting JavaFX application..."

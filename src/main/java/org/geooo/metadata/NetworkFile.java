@@ -35,7 +35,8 @@ public class NetworkFile extends ConfigFile {
 
             writer.write(String.format("UUID: %s\n", ccServer.getNetworkUUID()));
             writer.write(String.format("CCServer: %s\n", ccServer.getAddress()));
-            writer.write(String.format("NetworkLabel: %s\n", "<noLabel>"));
+            String networkLabel = ccServer.getNetworkLabel() != null ? ccServer.getNetworkLabel() : "<noLabel>";
+            writer.write(String.format("NetworkLabel: %s\n", networkLabel));
 
             writer.write("Servers (uuid, address):\n");
             Logger.info(String.format("Writing %d + 1 (this) servers to file!", ccServer.getServers().size()));
@@ -81,6 +82,7 @@ public class NetworkFile extends ConfigFile {
             }
 
             ccServer.setNetworkUUID(networkUUID);
+            ccServer.setNetworkLabel(networkLabel);
             reader.readLine(); // line will be server headers
             String nextLine = reader.readLine(); // also header ? idk
 

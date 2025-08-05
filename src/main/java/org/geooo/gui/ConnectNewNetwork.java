@@ -1,7 +1,5 @@
 package org.geooo.gui;
 
-import java.util.function.Consumer;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -11,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 public class ConnectNewNetwork extends HBox {
-    public ConnectNewNetwork(Consumer<String> connectNetwork) {
+    public ConnectNewNetwork() {
         this.setBackground(new Background(new BackgroundFill(new Color(0.9d, 0.9d, 0.9d, 1), null, null)));
         this.setMaxHeight(50);
         this.setMinHeight(50);
@@ -29,7 +27,8 @@ public class ConnectNewNetwork extends HBox {
                     return;
                 }
 
-                connectNetwork.accept(inputField.getText());
+                G2GUI.connectNetwork(inputField.getText());
+                inputField.clear();
             }
         });
 

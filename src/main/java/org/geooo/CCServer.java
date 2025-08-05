@@ -19,6 +19,7 @@ public class CCServer extends HostServer {
     private ArrayList<ServerDTO> servers;
     private ArrayList<RessourceDTO> ressources;
     private NetworkFile networkFile;
+    private String networkLabel;
 
     public static void main(String[] args) {
         CCServer server = new CCServer();
@@ -101,5 +102,13 @@ public class CCServer extends HostServer {
 
     public static String getRessourceDirectory() {
         return "ccserver/";
+    }
+
+    public String getNetworkLabel() {
+        return this.networkLabel;
+    }
+
+    public void setNetworkLabel(String networkLabel) {
+        this.networkLabel = networkLabel;
     }
 }

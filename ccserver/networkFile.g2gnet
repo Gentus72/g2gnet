@@ -1,3 +1,5 @@
 UUID: 137f1c666f1b49a887a19bd3a5b45991
+CCServer: 172.20.0.10
+NetworkLabel: Netzwerk_Eins
 Servers (uuid, address):
 Ressources (uuid, title, size):

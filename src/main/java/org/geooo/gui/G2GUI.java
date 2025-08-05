@@ -31,7 +31,7 @@ public class G2GUI extends Application implements Runnable {
     public void start(Stage primaryStage) {
         VBox root = new VBox();
         root.setAlignment(Pos.TOP_CENTER);
-        root.getChildren().add(new ConnectNewNetwork(this::connectNetwork));
+        root.getChildren().add(new ConnectNewNetwork());
 
         HBox content = new HBox();
         NetworkList networkList = new NetworkList(availableNetworks);
@@ -61,11 +61,11 @@ public class G2GUI extends Application implements Runnable {
         }
     }
 
-    public void connectNetwork(String IPv4) {
-        if (connectedNetwork.getValue() != null && connectedNetwork.getValue().getCCServerIPv4().equals(IPv4)) {
-            Logger.warn("Client tried to connect to the netowrk he's already connected to!");
-            return;
-        }
+    public static void connectNetwork(String IPv4) {
+        // if (connectedNetwork.get().getCCServerIPv4().equals(IPv4)) {
+        // Logger.warn("Client tried to connect to the netowrk he's already connected to!");
+        // return;
+        // }
 
         if (client.isConnected) {
             ClientHelper.handleServerInteraction(client, new String[] { "DISCONNECT" });
@@ -79,12 +79,19 @@ public class G2GUI extends Application implements Runnable {
     // is only called from ClientHelper.handleClientCommandCONNECT()
     // all connect/disconnect logic is handled there
     public static void setConnectedNetwork(NetworkDTO network) {
-        if (!availableNetworks.contains(network)) {
-            availableNetworks.add(network);
+        connectedNetwork.set(new NetworkDTO(network.getNetworkUUID(), network.getNetworkLabel(),
+                network.getCCServerIPv4(), network.getNetworkFile()));
+
+        boolean isAlreadyInList = false;
+
+        for (NetworkDTO n : availableNetworks.get()) {
+            if (n.getNetworkUUID().equals(network.getNetworkUUID()))
+                isAlreadyInList = true;
         }
 
-        connectedNetwork.set(new NetworkDTO(network.getCCServerIPv4(), network.getNetworkUUID(),
-                network.getNetworkLabel(), network.getNetworkFile()));
+        if (!isAlreadyInList)
+            availableNetworks.add(network);
+
         Logger.success("new network selected!");
     }
 

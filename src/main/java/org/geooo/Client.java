@@ -39,12 +39,6 @@ public final class Client extends ClientDTO {
         // Ressource.disassemble(RESSOURCE_DIRECTORY, new File(RESSOURCE_DIRECTORY +
         // "test3.mp4"), "myTitle", client.getPublicKeyBase64());
 
-        if (System.getProperty("java.awt.headless", "false").equals("true")
-                || System.getenv("DISPLAY") == null) {
-            Logger.warn("No display found! Can't start without client GUI!");
-            // return;
-        }
-
         G2GUI gui = new G2GUI(client);
         Thread t = new Thread(gui);
         t.start();

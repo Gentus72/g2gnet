@@ -89,7 +89,7 @@ public class HostServer extends ServerDTO {
         }
 
         HashMap<String, String> configContent = this.serverFile.getConfigContent();
-        this.setUUID(configContent.get("UUID"));
+        this.setUUID(configContent.get("UUID").equals("null") ? G2GUtil.getRandomUUID() : configContent.get("UUID"));
 
         connectToCC(configContent.get("CCServerAddress"), configContent.get("NetworkUUID"));
 

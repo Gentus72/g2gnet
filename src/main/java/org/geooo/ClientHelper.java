@@ -27,6 +27,7 @@ import org.geooo.util.ServerResponse;
 public abstract class ClientHelper {
 
     private static boolean wasCommandSuccessfull = false;
+    private static boolean wasRedirected = false;
 
     public static void handleServerInteraction(Client client, String[] args) {
         wasCommandSuccessfull = false;
@@ -97,6 +98,7 @@ public abstract class ClientHelper {
         client.currentHost = args[1];
         Logger.info(String.format("Being redirected to: %s", args[1]));
         disconnect(client);
+        wasRedirected = true;
         handleClientCommandCONNECT(client,
                 new String[] { "CONNECT", client.currentHost, String.valueOf(client.hostPort) });
 
@@ -243,8 +245,11 @@ public abstract class ClientHelper {
 
             client.isConnected = true;
 
-            Logger.info("Getting server information!");
-            handleServerInteraction(client, new String[] { "INFO", "NETWORK" });
+            if (!wasRedirected) { // if the client hasn't been redirected, it means we still need to get the server information
+                Logger.info("Getting server information!");
+                client.currentClientInput = new String[] { "INFO", "NETWORK" };
+                handleServerInteraction(client, client.currentClientInput);
+            }
         } catch (IOException e) {
             Logger.error("Error while connecting to server!");
             Logger.exception(e);

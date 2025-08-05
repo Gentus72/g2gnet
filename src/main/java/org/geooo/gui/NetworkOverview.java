@@ -5,8 +5,11 @@ import org.geooo.dto.NetworkDTO;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class NetworkOverview extends VBox {
     private ObjectProperty<NetworkDTO> network;
@@ -58,6 +61,7 @@ public class NetworkOverview extends VBox {
         HBox headers2 = new HBox();
         headers2.getChildren().addAll(serverCountLabel, ressourceCountLabel);
 
+        this.setBackground(new Background(new BackgroundFill(new Color(0.95d, 0.95d, 0.95d, 1), null, null)));
         this.getChildren().addAll(headers, headers2);
     }
 }
