@@ -1,6 +1,7 @@
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\gui\ConnectNewNetwork.java
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\Ressource.java
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\gui\NetworkContent.java
+C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\gui\RessourceList.java
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\metadata\NetworkFile.java
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\CCServer.java
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\dto\ServerDTO.java
@@ -19,6 +20,7 @@ C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\metadata\ServerFi
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\HostServer.java
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\Client.java
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\gui\NetworkList.java
+C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\gui\RessourceListItem.java
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\dto\RessourceBlockDTO.java
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\util\G2GUtil.java
 C:\Users\Georg\Documents\Coding\g2gnet\src\main\java\org\geooo\util\LoggingType.java

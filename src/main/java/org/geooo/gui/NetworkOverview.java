@@ -4,6 +4,7 @@ import org.geooo.dto.NetworkDTO;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -61,7 +62,8 @@ public class NetworkOverview extends VBox {
         HBox headers2 = new HBox();
         headers2.getChildren().addAll(serverCountLabel, ressourceCountLabel);
 
-        this.setBackground(new Background(new BackgroundFill(new Color(0.95d, 0.95d, 0.95d, 1), null, null)));
+        this.setBackground(new Background(new BackgroundFill(new Color(1d, 1d, 1d, 1), null, null)));
+        this.setPadding(new Insets(0, 0, 0, 5));
         this.getChildren().addAll(headers, headers2);
     }
 }

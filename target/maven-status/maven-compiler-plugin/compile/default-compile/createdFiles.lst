@@ -23,9 +23,11 @@ org\geooo\metadata\RessourceFile.class
 org\geooo\dto\ServerDTO.class
 org\geooo\gui\NetworkListItem.class
 org\geooo\HostClientHandler.class
+org\geooo\gui\RessourceListItem.class
 org\geooo\util\ServerCommand.class
 org\geooo\RessourceBlock.class
 org\geooo\ClientHelper.class
+org\geooo\gui\RessourceList.class
 org\geooo\gui\Fonts.class
 org\geooo\Ressource.class
 org\geooo\gui\NetworkOverview.class

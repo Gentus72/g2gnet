@@ -10,13 +10,15 @@ public class NetworkContent extends VBox {
     // TODO add Upload / Download
 
     private NetworkOverview overview;
+    private RessourceList ressourceList;
 
     public NetworkContent(ObjectProperty<NetworkDTO> network) {
-        this.setWidth(800);
+        this.setWidth(900);
         this.setHeight(Double.MAX_VALUE);
 
         this.overview = new NetworkOverview(network);
+        this.ressourceList = new RessourceList(network);
 
-        this.getChildren().addAll(this.overview);
+        this.getChildren().addAll(this.overview, this.ressourceList);
     }
 }

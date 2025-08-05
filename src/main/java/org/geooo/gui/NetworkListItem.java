@@ -25,8 +25,8 @@ public class NetworkListItem extends HBox {
         this.setWidth(300);
         this.setHeight(100);
 
-        Label _label = new Label(network.getNetworkLabel().equals("<noLabel>") ? network.getCCServerIPv4() : network.getNetworkLabel());
-        _label.setPrefWidth(185);
+        Label label = new Label(network.getNetworkLabel().equals("<noLabel>") ? network.getCCServerIPv4() : network.getNetworkLabel());
+        label.setPrefWidth(185);
         this.button = new Button(this.isConnected ? "Connected" : "Connect");
         this.button.setDisable(this.isConnected);
         this.button.setPrefWidth(100);
@@ -37,7 +37,7 @@ public class NetworkListItem extends HBox {
             }
         });
 
-        this.getChildren().addAll(_label, button);
+        this.getChildren().addAll(label, button);
     }
 
     public NetworkDTO getNetwork() {

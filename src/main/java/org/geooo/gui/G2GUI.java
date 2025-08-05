@@ -35,7 +35,7 @@ public class G2GUI extends Application implements Runnable {
 
         HBox content = new HBox();
         NetworkList networkList = new NetworkList(availableNetworks, connectedNetwork);
-        content.getChildren().addAll(networkList, new NetworkOverview(connectedNetwork));
+        content.getChildren().addAll(networkList, new NetworkContent(connectedNetwork));
         root.getChildren().add(content);
 
         Scene scene = new Scene(root, 1100, 720);
