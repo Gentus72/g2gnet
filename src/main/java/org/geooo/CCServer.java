@@ -117,6 +117,12 @@ public class CCServer extends HostServer {
         this.ressources = ressources;
     }
 
+    public void addRessource(RessourceDTO ressource) {
+        Logger.warn("Debug adding ressource: " + ressource.getUUID());
+        this.ressources.add(ressource);
+        this.networkFile.writeToFile(this);
+    }
+
     public NetworkFile getNetworkFile() {
         return this.networkFile;
     }

@@ -2,9 +2,9 @@ package org.geooo.gui;
 
 import java.util.ArrayList;
 
+import org.geooo.ClientHelper;
 import org.geooo.dto.NetworkDTO;
 import org.geooo.dto.RessourceDTO;
-import org.geooo.util.Logger;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -18,17 +18,23 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class RessourceList extends VBox {
     private Label header;
     private Button uploadButton;
+    private FileChooser uploadFileChooser;
     private ArrayList<RessourceDTO> ressources;
     private ListProperty<RessourceListItem> listItems;
     private ListView<RessourceListItem> listView;
 
-    public RessourceList(ObjectProperty<NetworkDTO> connectedNetworkProp) {
+    public RessourceList(ObjectProperty<NetworkDTO> connectedNetworkProp, Stage primaryStage) {
         this.ressources = connectedNetworkProp.get() != null ? connectedNetworkProp.get().getNetworkFile().getRessources() : new ArrayList<>();
         this.listItems = new SimpleListProperty<>(FXCollections.observableArrayList());
+        this.uploadFileChooser = new FileChooser();
+        this.uploadFileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
 
         header = new Label("Available Ressources");
         header.setFont(Fonts.headerFont);
@@ -42,7 +48,19 @@ public class RessourceList extends VBox {
         uploadButton.setPrefHeight(30);
         uploadButton.setOnMousePressed(mouseEvent -> {
             if (mouseEvent.isPrimaryButtonDown()) {
-                Logger.info("Upload button clicked!");
+                if (connectedNetworkProp.get() == null) {
+                    return;
+                }
+
+                UploadModal uploadModal = new UploadModal();
+                String ressourceUUID = uploadModal.display();
+                String networkUUID = connectedNetworkProp.get().getNetworkUUID();
+
+                if (G2GUI.client != null && G2GUI.client.isConnected) {
+                    ClientHelper.handleServerInteraction(G2GUI.client, new String[] { "DISCONNECT" });
+                }
+
+                ClientHelper.handleClientCommandFULLUPLOAD(G2GUI.client, new String[] { "FULLUPLOAD", networkUUID, ressourceUUID });
             }
         });
 
@@ -63,6 +81,15 @@ public class RessourceList extends VBox {
         this.setPrefWidth(800);
         this.setPadding(new Insets(20, 0, 0, 0));
         this.getChildren().addAll(headerBox);
+    }
+
+    public void uploadFile() {
+        // String networkUUID = connectedNetworkProp.get().getNetworkUUID();
+        if (G2GUI.client.isConnected) {
+            ClientHelper.handleServerInteraction(G2GUI.client, new String[] { "DISCONNECT" });
+        }
+
+        ClientHelper.handleClientCommandFULLUPLOAD(G2GUI.client, new String[] { "FULLUPLOAD" });
     }
 
     private void updateListItems() {

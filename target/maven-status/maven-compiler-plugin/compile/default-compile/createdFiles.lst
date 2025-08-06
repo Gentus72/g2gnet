@@ -32,6 +32,7 @@ org\geooo\gui\Fonts.class
 org\geooo\Ressource.class
 org\geooo\gui\NetworkOverview.class
 org\geooo\dto\ClientHandlerDTO.class
+org\geooo\gui\UploadModal.class
 org\geooo\util\Command.class
 org\geooo\util\Logger.class
 org\geooo\gui\G2GUI.class

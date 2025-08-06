@@ -87,7 +87,7 @@ public class RessourceFile extends ConfigFile {
 
         for (RessourceBlockDTO block : ressourceBlocks) {
             String address = block.getLocation();
-            String[] command = new String[]{"GETBLOCK", this.getConfigContent().get("UUID"), block.getUUID()};
+            String[] command = new String[] { "GETBLOCK", this.getConfigContent().get("UUID"), block.getUUID() };
 
             commands.put(command, address);
         }
@@ -105,7 +105,7 @@ public class RessourceFile extends ConfigFile {
             String blockUUID = block.getUUID();
             String encryptedUUID = G2GUtil.encryptWithPrivateKey(blockUUID, clientPrivateKey);
 
-            String[] command = new String[]{"AUTH", content.get("UUID"), encryptedUUID};
+            String[] command = new String[] { "AUTH", content.get("UUID"), encryptedUUID };
 
             commands.put(command, address);
         }

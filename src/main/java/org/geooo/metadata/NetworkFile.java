@@ -48,6 +48,7 @@ public class NetworkFile extends ConfigFile {
             // addSection(writer, ccServer.getServers(), "Servers (uuid, address):",
             // ServerDTO::getUUID, ServerDTO::getAddress);
             writer.write("Ressources (uuid, title, size):\n");
+            Logger.info(String.format("Writing %d ressources to file", ccServer.getRessources().size()));
             for (RessourceDTO ressource : ccServer.getRessources()) {
                 writer.write(String.format("%s,%s,%d\n", ressource.getUUID(), ressource.getTitle(),
                         ressource.getBlockAmount()));

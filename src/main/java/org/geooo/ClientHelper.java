@@ -27,7 +27,6 @@ import org.geooo.util.ServerResponse;
 public abstract class ClientHelper {
 
     private static boolean wasCommandSuccessfull = false;
-    private static boolean wasRedirected = false;
 
     public static void handleServerInteraction(Client client, String[] args) {
         wasCommandSuccessfull = false;
@@ -98,7 +97,6 @@ public abstract class ClientHelper {
         client.currentHost = args[1];
         Logger.info(String.format("Being redirected to: %s", args[1]));
         disconnect(client);
-        wasRedirected = true;
         handleClientCommandCONNECT(client,
                 new String[] { "CONNECT", client.currentHost, String.valueOf(client.hostPort) });
 
@@ -111,8 +109,6 @@ public abstract class ClientHelper {
     // Gives information about the network or a specific ressource
     // If INFO was called on a non-CCServer it will redirect to the CCServer
     public static void handleServerResponseINFO(Client client, String[] args) {
-        wasRedirected = false;
-
         switch (args[1]) {
             case "NETWORK" -> {
                 String networkFileName = String.format("%s%s.g2gnet", Client.RESSOURCE_DIRECTORY, args[2]);
@@ -246,12 +242,6 @@ public abstract class ClientHelper {
                     String.format("Successfully connected to Server [%s:%d]!", client.currentHost, client.hostPort));
 
             client.isConnected = true;
-
-            if (!wasRedirected) { // if the client hasn't been redirected, it means we still need to get the server information
-                Logger.info("Getting server information!");
-                client.currentClientInput = new String[] { "INFO", "NETWORK" };
-                handleServerInteraction(client, client.currentClientInput);
-            }
         } catch (IOException e) {
             Logger.error("Error while connecting to server!");
             Logger.exception(e);

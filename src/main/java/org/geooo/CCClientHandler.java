@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 import org.geooo.dto.ClientHandlerDTO;
 import org.geooo.dto.RessourceBlockDTO;
+import org.geooo.dto.RessourceDTO;
 import org.geooo.dto.ServerDTO;
 import org.geooo.metadata.RessourceFile;
 import org.geooo.util.G2GUtil;
@@ -118,7 +119,13 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
         }
 
         ressourceFile.replaceBlockLocations(blockLocations);
+        // TODO check if ressource was actually uploaded
+        HashMap<String, String> ressourceInfo = ressourceFile.getConfigContent();
+        RessourceDTO dto = new RessourceDTO(ressourceInfo.get("UUID"), ressourceInfo.get("Title"), Integer.parseInt(ressourceInfo.get("AmountOfBlocks").strip()));
+        this.server.addRessource(dto);
+
         G2GUtil.sendFileRemote(ressourceFile.getFile(), outputStream);
+
         Logger.info("Sent assembled ressourcefile!");
     }
 

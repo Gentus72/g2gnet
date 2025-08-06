@@ -35,7 +35,7 @@ public class G2GUI extends Application implements Runnable {
 
         HBox content = new HBox();
         NetworkList networkList = new NetworkList(availableNetworks, connectedNetwork);
-        content.getChildren().addAll(networkList, new NetworkContent(connectedNetwork));
+        content.getChildren().addAll(networkList, new NetworkContent(connectedNetwork, primaryStage));
         root.getChildren().add(content);
 
         Scene scene = new Scene(root, 1100, 720);
@@ -74,6 +74,9 @@ public class G2GUI extends Application implements Runnable {
         // this will automatically trigger setConnectedNetwork()
         client.currentClientInput = new String[] { "CONNECT", IPv4 };
         ClientHelper.handleClientCommandCONNECT(client, new String[] { "CONNECT", IPv4 });
+        Logger.info("Getting server information!");
+        client.currentClientInput = new String[] { "INFO", "NETWORK" };
+        ClientHelper.handleServerInteraction(client, client.currentClientInput);
     }
 
     // is only called from ClientHelper.handleClientCommandCONNECT()
