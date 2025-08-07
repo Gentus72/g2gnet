@@ -90,7 +90,9 @@ public class NetworkFile extends ConfigFile {
             while (nextLine != null && !nextLine.contains("Ressources")) {
                 String[] components = nextLine.split(",");
 
-                servers.add(new ServerDTO(components[0], components[1])); // uuid & address
+                if (!components[1].equals(ccServer.getAddress())) {
+                    servers.add(new ServerDTO(components[0], components[1])); // uuid & address
+                }
 
                 nextLine = reader.readLine();
             }

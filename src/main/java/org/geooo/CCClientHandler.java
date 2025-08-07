@@ -8,7 +8,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import org.geooo.dto.ClientHandlerDTO;
@@ -80,12 +79,12 @@ public class CCClientHandler extends ClientHandlerDTO<CCServer> {
     public void handleCommandAUTH(String[] args) {
         ArrayList<String> locations = new ArrayList<>(); // avoid repeated call
         for (ServerDTO server : this.server.getServers()) {
-            locations.add(server.getAddress());
+            if (!server.getAddress().equals(this.serverSocket.getLocalAddress().getHostAddress())) {
+                locations.add(server.getAddress());
+            }
         }
 
-        locations.add(this.server.getAddress()); // add ccserver because it can also accept and deliver blocks
         int currentIndex = 0;
-        Logger.info(Arrays.toString(locations.toArray()));
 
         sendResponse("AUTH SUCCESS " + args[1]); // add ressourceUUID
 
