@@ -448,6 +448,7 @@ public abstract class ClientHelper {
             client.inputStream.close();
 
             client.isConnected = false;
+            wasCommandSuccessfull = true;
         } catch (IOException e) {
             Logger.error("Error while closing connection!");
             Logger.exception(e);

@@ -21,6 +21,11 @@ RUN wget -O /tmp/javafx.zip https://download2.gluonhq.com/openjfx/21.0.1/openjfx
 
 WORKDIR /app
 
+# avoid warnings in console
+ENV DCONF_PROFILE=""
+ENV GSETTINGS_BACKEND=memory
+ENV NO_AT_BRIDGE=1
+
 COPY target/*.jar /app
 COPY client/res/ /app/client/res
 

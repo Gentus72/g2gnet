@@ -10,7 +10,7 @@ rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1 2>/dev/null || true
 
 # Start VNC server on display :1
 echo "Starting VNC server on display :1..."
-vncserver :1 -geometry 1280x720 -depth 24 -localhost no -SecurityTypes None --I-KNOW-THIS-IS-INSECURE
+vncserver :1 -geometry 1920x1080 -depth 24 -localhost no -SecurityTypes None --I-KNOW-THIS-IS-INSECURE
 
 # Set DISPLAY environment variable
 export DISPLAY=:1

@@ -63,11 +63,10 @@ public class UploadModal {
                 return;
             }
 
-            // generate Ressource
-            Ressource ressource = Ressource.disassemble(Client.RESSOURCE_DIRECTORY, new File(Client.RESSOURCE_DIRECTORY + "test3.mp4"), "myTitle", G2GUI.client.getPublicKeyBase64());
+            String ressourceTitle = titleInput.getText();
+            Ressource ressource = Ressource.disassemble(Client.RESSOURCE_DIRECTORY, this.selectedFile, ressourceTitle, G2GUI.client.getPublicKeyBase64());
             this.ressourceUUID = ressource.getUUID();
 
-            Logger.info("Uploading file: " + selectedFile.getAbsolutePath());
             window.close();
         });
 
@@ -80,6 +79,6 @@ public class UploadModal {
         window.setScene(scene);
         window.showAndWait();
 
-        return ressourceUUID;
+        return this.ressourceUUID;
     }
 }

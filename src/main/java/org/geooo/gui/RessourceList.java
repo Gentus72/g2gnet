@@ -56,11 +56,15 @@ public class RessourceList extends VBox {
                 String ressourceUUID = uploadModal.display();
                 String networkUUID = connectedNetworkProp.get().getNetworkUUID();
 
+                NetworkDTO currentNetwork = G2GUI.connectedNetwork.get();
                 if (G2GUI.client != null && G2GUI.client.isConnected) {
                     ClientHelper.handleServerInteraction(G2GUI.client, new String[] { "DISCONNECT" });
                 }
 
                 ClientHelper.handleClientCommandFULLUPLOAD(G2GUI.client, new String[] { "FULLUPLOAD", networkUUID, ressourceUUID });
+
+                // refresh network overview and ressourcelist
+                G2GUI.connectNetwork(currentNetwork.getCCServerIPv4());
             }
         });
 
@@ -80,7 +84,7 @@ public class RessourceList extends VBox {
 
         this.setPrefWidth(800);
         this.setPadding(new Insets(20, 0, 0, 0));
-        this.getChildren().addAll(headerBox);
+        this.getChildren().addAll(headerBox, this.listView);
     }
 
     public void uploadFile() {

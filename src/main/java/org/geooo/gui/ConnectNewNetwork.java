@@ -1,5 +1,7 @@
 package org.geooo.gui;
 
+import java.io.File;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -7,6 +9,9 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class ConnectNewNetwork extends HBox {
     public ConnectNewNetwork() {
@@ -32,7 +37,21 @@ public class ConnectNewNetwork extends HBox {
             }
         });
 
-        this.getChildren().addAll(inputField, addButton);
+        FileChooser fileChooser = new FileChooser();
+        Button openFS = new Button("Open Filesystem");
+        openFS.setPrefWidth(150);
+        openFS.setOnMousePressed(mouseEvent -> {
+            if (mouseEvent.isPrimaryButtonDown()) {
+                Stage window = new Stage();
+                window.initModality(Modality.APPLICATION_MODAL);
+                window.setTitle("Upload a File");
+                window.setMinWidth(250);
+
+                File f = fileChooser.showOpenDialog(window);
+            }
+        });
+
+        this.getChildren().addAll(openFS, inputField, addButton);
     }
 
     /*
