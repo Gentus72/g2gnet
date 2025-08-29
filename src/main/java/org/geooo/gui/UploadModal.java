@@ -32,7 +32,10 @@ public class UploadModal {
         this.selectedFileName = new SimpleStringProperty();
     }
 
-    // Hauptmethode dieser Klasse. Gibt die UUID der erstellten Ressource zurück.
+    /**
+     * Hauptmethode dieser Klasse, die das Fenster startet.
+     * @return Gibt die UUID der erstellten Ressource zurück
+     */
     public String display() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);

@@ -17,6 +17,10 @@ public class RessourceListItem extends HBox {
     private RessourceDTO ressource;
     private Button button;
 
+    /**
+     * Eintrag in der Liste aller Ressourcen, die auf dem derzeitigen Netzwerk verfügbar sind
+     * @param ressource
+     */
     public RessourceListItem(RessourceDTO ressource) {
         this.ressource = ressource;
 
@@ -45,7 +49,9 @@ public class RessourceListItem extends HBox {
         this.getChildren().addAll(label, fileSizeLabel, button);
     }
 
-    // Logik für das Herunterladen der Ressource
+    /**
+     * Logik für das Herunterladen der Ressource
+     */
     public void downloadRessource() {
         if (G2GUI.client.isConnected) {
             ClientHelper.handleServerInteraction(G2GUI.client, new String[] { "DISCONNECT" });

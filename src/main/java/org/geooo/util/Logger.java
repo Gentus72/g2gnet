@@ -39,8 +39,9 @@ public class Logger {
         }
     }
 
-    /*
+    /**
      * Die getInstance-Methode als Referenz für die Singleton-Instanz des Loggers
+     * @return die Logger Instanz
      */
     public static Logger getInstance() {
         if (logger == null) {

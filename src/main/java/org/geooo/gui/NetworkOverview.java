@@ -19,6 +19,14 @@ import javafx.scene.paint.Color;
 public class NetworkOverview extends VBox {
     private Label headerLabel, connectedToLabel, serverCountLabel, ressourceCountLabel;
 
+    /**
+     * Alle generischen Information zum derzeitigen Netzwerk inkl.
+     * UUID des Netzwerks
+     * IPv4-Adresse des CCServers
+     * Anzahl an Servern
+     * Anzahl an Ressourcen
+     * @param networkProp
+     */
     public NetworkOverview(ObjectProperty<NetworkDTO> networkProp) {
         // netzwerktitel / label
         headerLabel = new Label("not connected");

@@ -160,6 +160,7 @@ public class ClientDTO {
     }
 
     /**
+     * Setzt die IPv4-Adresse des Clients
      * @param address
      */
     public void setAddress(String address) {

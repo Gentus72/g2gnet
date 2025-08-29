@@ -16,12 +16,21 @@ import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 import org.geooo.util.ServerResponse;
 
+/**
+ * Ein Server der zum Annehmen und Anbieten von Dateien / Ressourcen zuständig ist
+ * Gibt auf eine Verbindung mit dem Client eine REDIRECT Antwort und steht
+ * quasi nur mit dem CC-Server im Austausch.
+ */
 public class HostServer extends ServerDTO {
 
     public ArrayList<ClientDTO> clients;
     public CCServer ccServer;
     public ServerFile serverFile;
 
+    /**
+     * Hauptmethode des Host-Servers
+     * @param args
+     */
     public static void main(String[] args) {
         HostServer server = new HostServer();
 
@@ -32,10 +41,18 @@ public class HostServer extends ServerDTO {
         super();
     }
 
+    /**
+     * @param address
+     */
     public HostServer(String address) {
         super(address);
     }
 
+    /**
+     * Verbindet den Host-Server mit dem CC-Server und fügt sich damit dem Netzwerk hinzu
+     * @param ccAddress
+     * @param networkUUID
+     */
     public void connectToCC(String ccAddress, String networkUUID) {
         try {
             Socket socket = new Socket(ccAddress, 7000);
@@ -76,6 +93,11 @@ public class HostServer extends ServerDTO {
         }
     }
 
+    /**
+     * Startmethode für den Hostserver
+     * Initialisiert wichtige Elemente wie das Netzwerk und die Serverdatei
+     * @param args
+     */
     public void startServer(String[] args) {
         this.clients = new ArrayList<>();
 
@@ -133,22 +155,39 @@ public class HostServer extends ServerDTO {
         }
     }
 
+    /**
+     * @return den CC-Server dieses Host-Servers
+     */
     public CCServer getCCServer() {
         return this.ccServer;
     }
 
+    /**
+     * Setzt den CC-Server dieses Host-Servers
+     * @param ccServer
+     */
     public void setCCServer(CCServer ccServer) {
         this.ccServer = ccServer;
     }
 
+    /**
+     * @return die Serverdatei mit wichtigen Metadaten
+     */
     public ServerFile getServerFile() {
         return this.serverFile;
     }
 
+    /**
+     * Setzt die Serverdatei dieses Host-Servers
+     * @param serverFile
+     */
     public void setServerFile(ServerFile serverFile) {
         this.serverFile = serverFile;
     }
 
+    /**
+     * @return den Pfad des Ordners, wo alle Dateien des Host-Servers gespeichert werden
+     */
     public static String getRessourceDirectory() {
         return "server/";
     }

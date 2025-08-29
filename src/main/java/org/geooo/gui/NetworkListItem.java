@@ -16,6 +16,11 @@ public class NetworkListItem extends HBox {
     private Button button;
     private boolean isConnected;
 
+    /**
+     * Ein Eintrag in der Netzwerk-Schnellzugriffsliste
+     * @param network
+     * @param connectedNetworkProp
+     */
     public NetworkListItem(NetworkDTO network, ObjectProperty<NetworkDTO> connectedNetworkProp) {
         this.network = network;
         this.isConnected = connectedNetworkProp.get() != null && this.network.getNetworkUUID().equals(connectedNetworkProp.get().getNetworkUUID());
@@ -48,6 +53,9 @@ public class NetworkListItem extends HBox {
         this.getChildren().addAll(label, button);
     }
 
+    /**
+     * @return Gibt das Netzwerk dieses Eintrags aus
+     */
     public NetworkDTO getNetwork() {
         return this.network;
     }

@@ -8,11 +8,21 @@ public class ChunkedFileReader implements AutoCloseable {
     private final int chunkSize;
     private boolean endOfFile = false;
 
+    /**
+     * Ein Leser für Dateien, sodass immer nur x viele Bytes gelesen werden
+     * @param filePath
+     * @param chunkSize
+     * @throws IOException
+     */
     public ChunkedFileReader(String filePath, int chunkSize) throws IOException {
         this.fileOutputStream = new FileInputStream(filePath);
         this.chunkSize = chunkSize;
     }
 
+    /**
+     * @return Liest die nächsten x bytes und gibt sie aus
+     * @throws IOException
+     */
     public byte[] readNextChunk() throws IOException {
         if (endOfFile) return null;
 

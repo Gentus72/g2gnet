@@ -23,11 +23,18 @@ public class ServerDTO {
     private ArrayList<PublicKey> clientPublicKeys; // erlaubte Publickeys von Clients, die gerade hochladen dürfen
     private ArrayList<String> allowedBlockUUIDs;
 
+    /**
+     * @param uuid
+     * @param address
+     */
     public ServerDTO(String uuid, String address) {
         this.uuid = uuid;
         this.address = address;
     }
 
+    /**
+     * @param address
+     */
     public ServerDTO(String address) {
         this.address = address;
     }
@@ -36,10 +43,16 @@ public class ServerDTO {
 
     }
 
+    /**
+     * @return Gibt die UUID des Servers aus
+     */
     public String getUUID() {
         return this.uuid;
     }
 
+    /**
+     * @return gibt die IPv4-Adresse des Servers aus
+     */
     public String getAddress() {
         if (this.address == null) {
             this.address = G2GUtil.getLocalIPv4Address();
@@ -48,19 +61,32 @@ public class ServerDTO {
         return this.address;
     }
 
+    /**
+     * Setzt die UUID des Servers
+     * @param uuid
+     */
     public void setUUID(String uuid) {
         this.uuid = uuid;
     }
 
+    /**
+     * Setzt die IPv4-Adresse des Servers
+     * @param address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * @return Gibt die öffentlichen Schlüssel der Clients aus, die gerade auf diesen Server hochladen dürfen
+     */
     public ArrayList<PublicKey> getClientPublicKeys() {
         return this.clientPublicKeys;
     }
 
-    // Diese Warnung wird unterdrückt, da VS-Code hier einen Fehler macht. Weitere Exceptions können auftreten.
+    /**
+     * @return Gibt die öffentlichen Schlüssel in Base64-Kodierung der Clients aus, die gerade auf diesen Server hochladen dürfen
+     */
     public ArrayList<String> getClientPublicKeysBase64() {
         if (this.clientPublicKeys == null) {
             return new ArrayList<>();
@@ -75,6 +101,10 @@ public class ServerDTO {
         return keysBase64;
     }
 
+    /**
+     * Setzt öffentlichen Schlüssel der Clients aus, die gerade auf diesen Server hochladen dürfen
+     * @param clientPublicKeys
+     */
     public void setClientPublicKeys(ArrayList<PublicKey> clientPublicKeys) {
         if (this.clientPublicKeys == null) {
             this.clientPublicKeys = new ArrayList<>();
@@ -85,6 +115,10 @@ public class ServerDTO {
 
     // Diese Warnung wird unterdrückt, da VS-Code hier einen Fehler macht. Weitere Exceptions können auftreten.
     @SuppressWarnings("UseSpecificCatch")
+    /**
+     * Fügt einen öffentlichen Schlüssel eines Clients hinzu, der jetzt hochladen darf
+     * @param clientPublicKeyBase64
+     */
     public void addClientPublicKey(String clientPublicKeyBase64) {
         if (this.clientPublicKeys == null) {
             this.clientPublicKeys = new ArrayList<>();
@@ -101,6 +135,9 @@ public class ServerDTO {
         }
     }
 
+    /**
+     * @return Gibt die UUIDs aller Blöcöke aus, die gerade hochgeladen werden dürfen
+     */
     public ArrayList<String> getAllowedBlockUUIDs() {
         if (this.allowedBlockUUIDs == null) {
             this.allowedBlockUUIDs = new ArrayList<>();
@@ -109,6 +146,10 @@ public class ServerDTO {
         return this.allowedBlockUUIDs;
     }
 
+    /**
+     * Setzt die UUids aller Blöcke, die gerade hochgeladen werden dürfen
+     * @param allowedBlockUUIDs
+     */
     public void setAllowedBlockUUIDs(ArrayList<String> allowedBlockUUIDs) {
         if (this.allowedBlockUUIDs == null) {
             this.allowedBlockUUIDs = new ArrayList<>();
@@ -117,6 +158,10 @@ public class ServerDTO {
         this.allowedBlockUUIDs = allowedBlockUUIDs;
     }
 
+    /**
+     * Fügt eine UUID eines Blocks hinzu, der jetzt hochgeladen werden darf
+     * @param allowedBlockUUID
+     */
     public void addAllowedBlockUUID(String allowedBlockUUID) {
         if (this.allowedBlockUUIDs == null) {
             this.allowedBlockUUIDs = new ArrayList<>();
@@ -125,6 +170,9 @@ public class ServerDTO {
         this.allowedBlockUUIDs.add(allowedBlockUUID);
     }
 
+    /**
+     * @return Gibt den Pfad des Ordners an, in dem Ressourcen / Blöcke gespeichert werden
+     */
     public static String getRessourceDirectory() {
         return "unimplemented/";
     }

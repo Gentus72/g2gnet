@@ -18,6 +18,11 @@ import org.geooo.util.ServerCommand;
  */
 public class HostClientHandler extends ClientHandlerDTO<HostServer> {
 
+    /**
+     * Ein Thread zur Verwaltung der Verbindung eines einzelnen Clients
+     * @param server
+     * @param serverSocket
+     */
     public HostClientHandler(HostServer server, Socket serverSocket) {
         super(server, serverSocket);
 
@@ -30,9 +35,12 @@ public class HostClientHandler extends ClientHandlerDTO<HostServer> {
         };
     }
 
-    // ALLOW <clientPublicKey> <ressourceUUID> <blockUUID>
-    // Ein Befehl vom CCServer um den Upload eines bestimmten Blocks
-    // und eines bestimmten Clients zu erlauben
+    /**
+     * ALLOW <clientPublicKey> <ressourceUUID> <blockUUID>
+     * Ein Befehl vom CCServer um den Upload eines bestimmten Blocks
+     * und eines bestimmten Clients zu erlauben
+     * @param args
+     */
     public void handleCommandALLOW(String[] args) {
         this.server.addClientPublicKey(args[1]);
         this.server.addAllowedBlockUUID(args[3]);
@@ -51,11 +59,14 @@ public class HostClientHandler extends ClientHandlerDTO<HostServer> {
         sendResponse("SUCCESS");
     }
 
-    // AUTH <ressourceUUID> <encryptedBlockUUID>
-    // Anfrage des Clients für den Upload eines Blocks
-    // Gibt SUCCESS zurück wenn die Block-UUID mit einem der
-    // verfügbaren Publickeys (von Clients) entschlüsselt werden konnte
-    // Der Client sendet dann die Blockdatei
+    /**
+     * AUTH <ressourceUUID> <encryptedBlockUUID>
+     * Anfrage des Clients für den Upload eines Blocks
+     * Gibt SUCCESS zurück wenn die Block-UUID mit einem der
+     * verfügbaren Publickeys (von Clients) entschlüsselt werden konnte
+     * Der Client sendet dann die Blockdatei
+     * @param args
+     */
     public void handleCommandAUTH(String[] args) {
         String ressourceUUID = args[1];
         String encryptedUUID = args[2];

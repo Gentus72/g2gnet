@@ -14,6 +14,11 @@ public class NetworkContent extends VBox {
     private NetworkOverview overview;
     private RessourceList ressourceList;
 
+    /**
+     * Alle Informationen und Funktionalität zu einem Netzwerk
+     * @param network
+     * @param primaryStage
+     */
     public NetworkContent(ObjectProperty<NetworkDTO> network, Stage primaryStage) {
         this.setWidth(900);
         this.setHeight(Double.MAX_VALUE);

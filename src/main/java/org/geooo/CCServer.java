@@ -21,6 +21,10 @@ public class CCServer extends HostServer {
     private NetworkFile networkFile;
     private String networkLabel;
 
+    /**
+     * Hauptmethode des CCServers
+     * @param args
+     */
     public static void main(String[] args) {
         CCServer server = new CCServer();
         server.startServer(args);
@@ -88,53 +92,95 @@ public class CCServer extends HostServer {
         }
     }
 
+    /**
+     * @return Gibt die UUID des Netzwerks aus
+     */
     public String getNetworkUUID() {
         return this.networkUUID;
     }
 
+    /**
+     * Setzt die UUID des Netzwerks
+     * @param networkUUID
+     */
     public void setNetworkUUID(String networkUUID) {
         this.networkUUID = networkUUID;
     }
 
+    /**
+     * @return gibt eine Liste aller HostServer des Netzwerks aus
+     */
     public ArrayList<ServerDTO> getServers() {
         return this.servers;
     }
 
+    /**
+     * Setzt die Liste aller HostServer des Netzwerks
+     * @param servers
+     */
     public void setServers(ArrayList<ServerDTO> servers) {
         this.servers = servers;
     }
 
+    /**
+     * Fügt einen HostServer zur Liste hinzu
+     * @param server
+     */
     public void addServer(ServerDTO server) {
         this.servers.add(server);
         this.networkFile.writeToFile(this);
     }
 
+    /**
+     * @return Gibt eine Liste aller verfügbaren Ressourcen aus
+     */
     public ArrayList<RessourceDTO> getRessources() {
         return this.ressources;
     }
 
+    /**
+     * Setzt die Liste aller verfügbaren Ressourcen
+     * @param ressources
+     */
     public void setRessources(ArrayList<RessourceDTO> ressources) {
         this.ressources = ressources;
     }
 
+    /**
+     * Fügt eine Ressource zur Liste aller verfügbaren Ressourcen hinzu
+     * @param ressource
+     */
     public void addRessource(RessourceDTO ressource) {
         Logger.warn("Debug adding ressource: " + ressource.getUUID());
         this.ressources.add(ressource);
         this.networkFile.writeToFile(this);
     }
 
+    /**
+     * @return Gibt die Netzwerkdatei aus
+     */
     public NetworkFile getNetworkFile() {
         return this.networkFile;
     }
 
+    /**
+     * @return Gibt den Pfad des Ordners an, wo alle Daten des CCServers gespeichert werden
+     */
     public static String getRessourceDirectory() {
         return "ccserver/";
     }
 
+    /**
+     * @return Gibt das Label des Netzwerks aus
+     */
     public String getNetworkLabel() {
         return this.networkLabel;
     }
 
+    /**
+     * Setzt das Label des Netzwerks
+     * @param networkLabel
+     */
     public void setNetworkLabel(String networkLabel) {
         this.networkLabel = networkLabel;
     }

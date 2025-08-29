@@ -32,6 +32,10 @@ public final class Client extends ClientDTO {
     public HashMap<ClientCommand, BiConsumer<Client, String[]>> registeredClientCommands = new HashMap<>();
     public HashMap<ServerResponse, BiConsumer<Client, String[]>> registeredServerResponses = new HashMap<>();
 
+    /**
+     * Hauptmethode des Clients
+     * @param args
+     */
     public static void main(String[] args) {
         // Ressource.reassemble(RESSOURCE_DIRECTORY, "b438d41d25de4bc3a6c043a6431fb0df",
         // new File(RESSOURCE_DIRECTORY + "out.mp4"));
@@ -61,6 +65,9 @@ public final class Client extends ClientDTO {
         registerCommands();
     }
 
+    /**
+     * Startet die CLI des Clietns
+     */
     public void startClient() {
         Logger.info("Starting console client...");
         this.userInputScanner = new Scanner(System.in);

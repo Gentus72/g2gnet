@@ -24,6 +24,10 @@ public class NetworkFile extends ConfigFile {
         super(filePath);
     }
 
+    /**
+     * Schreibt alle Informationen aus dem CCServer in die Netzwerkdatei
+     * @param ccServer
+     */
     public void writeToFile(CCServer ccServer) {
         ensureConfigFile(false);
 
@@ -59,6 +63,10 @@ public class NetworkFile extends ConfigFile {
         }
     }
 
+    /**
+     * Liest alle Informationen aus der Netzwerkdatei und schreibt sie in den CCServer
+     * @param ccServer
+     */
     public void readFromFile(CCServer ccServer) {
         ensureConfigFile(true);
 
@@ -116,7 +124,10 @@ public class NetworkFile extends ConfigFile {
         }
     }
 
-    // get ressource metadata based on available ressourcefiles
+    /**
+     * Liest nur die Ressourcen aus der Netzwerkdatei und übergibt sie dem CCServer
+     * @param ccServer
+     */
     public void updateRessources(CCServer ccServer) {
         File ressourceDir = new File(CCServer.getRessourceDirectory());
         ArrayList<RessourceDTO> ressources = new ArrayList<>();
@@ -154,6 +165,9 @@ public class NetworkFile extends ConfigFile {
         ccServer.setRessources(ressources);
     }
 
+    /**
+     * @return Liest nur die Server aus der Netzwerkdatei und gibt sie aus
+     */
     public ArrayList<ServerDTO> getServers() {
         ArrayList<ServerDTO> servers = new ArrayList<>();
 
@@ -180,6 +194,9 @@ public class NetworkFile extends ConfigFile {
         }
     }
 
+    /**
+     * @return Liest nur die Ressourcen aus der Netzwerkdatei und gibt sie aus
+     */
     public ArrayList<RessourceDTO> getRessources() {
         ArrayList<RessourceDTO> ressources = new ArrayList<>();
 
@@ -207,6 +224,9 @@ public class NetworkFile extends ConfigFile {
         }
     }
 
+    /**
+     * @return Liest die Netzwerkdatei und gibt ein darius erstelltes Netzwerk aus
+     */
     public NetworkDTO getNetwork() {
         HashMap<String, String> _configContent = getConfigContent();
 

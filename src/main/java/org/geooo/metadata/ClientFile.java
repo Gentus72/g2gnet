@@ -7,6 +7,10 @@ import java.io.IOException;
 import org.geooo.Client;
 import org.geooo.util.Logger;
 
+/*
+ * Die Clientdatei wird genutzt um Metadaten des Clients zu speichern,
+ * sodass diese auch nach einem Neustart verfügbar sind
+ */
 public class ClientFile extends ConfigFile {
     // public static File file = new File(Client.RESSOURCE_DIRECTORY +
     // "clientfile.g2gclient");
@@ -15,6 +19,10 @@ public class ClientFile extends ConfigFile {
         super(filePath);
     }
 
+    /**
+     * Schreibt alle Informationen aus dem Client in die Clientdatei
+     * @param client
+     */
     public void writeToFile(Client client) {
         ensureConfigFile(false);
 
@@ -28,6 +36,10 @@ public class ClientFile extends ConfigFile {
         }
     }
 
+    /**
+     * Liest alle Informationen aus der Clientdatei und übergibt die dem Client
+     * @param client
+     */
     public void readFromFile(Client client) {
         ensureConfigFile(true);
         setConfigContentFromFile();

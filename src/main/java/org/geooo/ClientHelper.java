@@ -28,6 +28,11 @@ public abstract class ClientHelper {
 
     public static boolean wasCommandSuccessfull = false;
 
+    /**
+     * Sendet ein Kommando an den Server und verarbeitet den daraus folgenden Austausch mit dem Server
+     * @param client
+     * @param args
+     */
     public static void handleServerInteraction(Client client, String[] args) {
         wasCommandSuccessfull = false;
 
@@ -67,6 +72,11 @@ public abstract class ClientHelper {
         }
     }
 
+    /**
+     * Führt ein Kommando im Client-side-Modus aus
+     * @param client
+     * @param args
+     */
     public static void handleClientInteraction(Client client, String[] args) {
         try {
             ClientCommand command = ClientCommand.valueOf(args[0]);
@@ -89,10 +99,14 @@ public abstract class ClientHelper {
         }
     }
 
-    // REDIRECT <destinationAddress>
-    // Response to any command thats not supported by a normal server
-    // The connection will automatically switch to the CCServer and send the
-    // original command
+    /**
+     * REDIRECT <destinationAddress>
+     * Sollte der Client eine Anfrage an einen Host-Server senden,
+     * ist dies die Antwort und die Anfrage wird an den CC-Server delegiert
+     * original command
+     * @param client
+     * @param args
+     */
     public static void handleServerResponseREDIRECT(Client client, String[] args) {
         client.currentHost = args[1];
         Logger.info(String.format("Being redirected to: %s", args[1]));
@@ -104,10 +118,13 @@ public abstract class ClientHelper {
         handleServerInteraction(client, client.currentClientInput);
     }
 
-    // INFO <RESSOURCE | NETWORK> <? ressourceUUID>
-    // Response to the INFO command
-    // Gives information about the network or a specific ressource
-    // If INFO was called on a non-CCServer it will redirect to the CCServer
+    /**
+     * INFO <RESSOURCE | NETWORK> <? ressourceUUID>
+     * Antwort auf das INFO Kommando
+     * Gibt dem Client Auskunft darüber, was er für Daten erhalten wird
+     * @param client
+     * @param args
+     */
     public static void handleServerResponseINFO(Client client, String[] args) {
         switch (args[1]) {
             case "NETWORK" -> {
@@ -133,9 +150,13 @@ public abstract class ClientHelper {
         }
     }
 
-    // DOWNLOAD <ressourceUUID> <blockUUID>
-    // Response to the GETBLOCK command
-    // Is followed by the block file
+    /**
+     * DOWNLOAD <ressourceUUID> <blockUUID>
+     * Ist die Antwort auf das GETBLOCK Kommando und
+     * löst einen Downlaod vom Host-Server zum Client aus
+     * @param client
+     * @param args
+     */
     public static void handleServerResponseDOWNLOAD(Client client, String[] args) {
         try {
             // create directory
@@ -159,10 +180,13 @@ public abstract class ClientHelper {
         }
     }
 
-    // AUTH <SUCCESS | FAIL>
-    // Response to the AUTH (authorizing a ressource) command
-    // Signals, whether the client can upload to the network or not
-    // Is followed by an exchange of ressourcefiles
+    /**
+     * AUTH <SUCCESS | FAIL>
+     * Antwort auf das AUTH Kommando bei einem CC-Server und gibt Auskunft
+     * ob der Client auf das Netzwerk hochladen darf
+     * @param client
+     * @param args
+     */
     public static void handleServerResponseAUTH(Client client, String[] args) {
         if (args[1].equals("SUCCESS")) {
             Logger.success("Upload authorization granted! Sending ressourcefile...");
@@ -189,10 +213,14 @@ public abstract class ClientHelper {
         }
     }
 
-    // SUCCESS <ressourceUUID> <decryptedBlockUUID>
-    // Response for AUTH (authorizing a block) to a host server
-    // Means the server could verify the clients public key
-    // Is followed by the client uploading the according block
+    /**
+     * SUCCESS <ressourceUUID> <decryptedBlockUUID>
+     * Antwort auf das AUTH Kommando bei einem Host Server
+     * Ist die Bestätigung, dass der Client autorisiert ist,
+     * den Block hochzuladen
+     * @param client
+     * @param args
+     */
     public static void handleServerResponseSUCCESS(Client client, String[] args) {
         File blockFile = new File(String.format("%s%s/%s.g2gblock", Client.RESSOURCE_DIRECTORY, args[1], args[2]));
         if (!blockFile.exists()) {
@@ -224,8 +252,12 @@ public abstract class ClientHelper {
         wasCommandSuccessfull = false;
     }
 
-    // CONNECT <address>
-    // Tries to establish a connection to the given address
+    /**
+     * CONNECT <IPv4-Adresse>
+     * Verbindet den Client mit einem Server
+     * @param client
+     * @param args
+     */
     public static void handleClientCommandCONNECT(Client client, String[] args) {
         client.currentHost = args[1];
         client.hostPort = 7000;
@@ -248,8 +280,12 @@ public abstract class ClientHelper {
         }
     }
 
-    // INFO <NETWORK | RESSOURCE> <networkUUID | ressourceUUID | ALL>
-    // Gives information about all or a specific network / ressource
+    /**
+     * INFO <NETWORK | RESSOURCE> <networkUUID | ressourceUUID | ALL>
+     * Gibt Auskunft über lokal vorhandene Metadaten, die bereits verfügbar sind
+     * @param client
+     * @param args
+     */
     public static void handleClientCommandINFO(Client client, String[] args) {
         switch (args[1]) {
             case "NETWORK" -> {
@@ -325,10 +361,13 @@ public abstract class ClientHelper {
         }
     }
 
-    // AUTOGET <ressourceUUID>
-    // Assembles GETBLOCK commands from the ressourcefile and
-    // sends the command to the according server where its
-    // hosted - one after another
+    /**
+     * AUTOGET <ressourceUUID>
+     * Erstellt alle nötigen GETBLOCK Kommandos aus der vollständigen
+     * Ressourcedatei und sendet sie and die Host-Server
+     * @param client
+     * @param args
+     */
     public static void handleClientCommandAUTOGET(Client client, String[] args) {
         RessourceFile ressourceFile = new RessourceFile(Client.RESSOURCE_DIRECTORY + args[1] + ".g2g");
 
@@ -366,7 +405,14 @@ public abstract class ClientHelper {
         }
     }
 
-    // FULLUPLOAD <networkUUID> <ressourceUUID>
+    /**
+     * FULLUPLOAD <networkUUID> <ressourceUUID>
+     * Übernimmt den gesamten Upload-Prozess einer Ressource
+     * Dabei wird der Client und die Ressource, sowie alle Blöcke autorisiert
+     * und nacheinander hochgeladen
+     * @param client
+     * @param args
+     */
     public static void handleClientCommandFULLUPLOAD(Client client, String[] args) {
         NetworkFile networkFile = new NetworkFile(Client.RESSOURCE_DIRECTORY + args[1] + ".g2gnet");
 
@@ -400,10 +446,13 @@ public abstract class ClientHelper {
         handleClientCommandAUTOUPLOAD(client, new String[] { "AUTOUPLOAD", args[2] });
     }
 
-    // AUTOUPLOAD <ressourceUUID>
-    // Assembles AUTH commands from the ressourcefile and
-    // sends the command to the according server where its
-    // hosted - one after another
+    /**
+     * AUTOUPLOAD <ressourceUUID>
+     * Erstellt alle nötigen AUTH Kommandos aus der vollständigen Ressourcedatei
+     * und sendet diese an alle entsprechenden Host-Server
+     * @param client
+     * @param args
+     */
     public static void handleClientCommandAUTOUPLOAD(Client client, String[] args) {
         RessourceFile ressourceFile = new RessourceFile(Client.RESSOURCE_DIRECTORY + args[1] + ".g2g");
 
@@ -432,13 +481,21 @@ public abstract class ClientHelper {
         Logger.success("Ressource uploaded successfully!");
     }
 
-    // EXIT
-    // Simply shuts the client down relatively gracefully
+    /**
+     * EXIT
+     * Beendet die Client-Applikation
+     * @param client
+     * @param args
+     */
     public static void handleClientCommandEXIT(Client client, String[] args) {
         Logger.info("Shutting down...");
         System.exit(0);
     }
 
+    /**
+     * Beendet die Verbindung mit einem Server
+     * @param client
+     */
     public static void disconnect(Client client) {
         try {
             Logger.info("Disconnecting...");
@@ -455,6 +512,11 @@ public abstract class ClientHelper {
         }
     }
 
+    /**
+     * Sendet ein Kommando als String an den derzeitig verbundenen Server
+     * @param client
+     * @param args
+     */
     public static void sendCommand(Client client, String[] args) {
         String payload = String.join(" ", args);
 

@@ -34,6 +34,11 @@ public class RessourceList extends VBox {
     private ListProperty<RessourceListItem> listItems;
     private ListView<RessourceListItem> listView;
 
+    /**
+     * List aller auf diesem Netzwerk verfügbaren Ressourcen mit Upload-Funktionalität
+     * @param connectedNetworkProp
+     * @param primaryStage
+     */
     public RessourceList(ObjectProperty<NetworkDTO> connectedNetworkProp, Stage primaryStage) {
         this.ressources = connectedNetworkProp.get() != null ? connectedNetworkProp.get().getNetworkFile().getRessources() : new ArrayList<>();
         this.listItems = new SimpleListProperty<>(FXCollections.observableArrayList());
@@ -97,7 +102,9 @@ public class RessourceList extends VBox {
         this.getChildren().addAll(headerBox, this.listView);
     }
 
-    // Logik für das Hochladen der Datei
+    /**
+     * Logik für das Hochladen der Datei
+     */
     public void uploadFile() {
         if (G2GUI.client.isConnected) {
             ClientHelper.handleServerInteraction(G2GUI.client, new String[] { "DISCONNECT" });
@@ -106,7 +113,9 @@ public class RessourceList extends VBox {
         ClientHelper.handleClientCommandFULLUPLOAD(G2GUI.client, new String[] { "FULLUPLOAD" });
     }
 
-    // update der UI bei Änderungen
+    /**
+     * Updatet die UI bei Änderungen
+     */
     private void updateListItems() {
         listItems.clear();
         for (RessourceDTO dto : this.ressources) {

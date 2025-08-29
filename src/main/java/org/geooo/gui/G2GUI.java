@@ -52,7 +52,7 @@ public class G2GUI extends Application implements Runnable {
         primaryStage.show();
     }
 
-    /*
+    /**
      * Liest die bereits bekannten Netzwerke aus den bereits
      * heruntergeladenen Netzwerkdateien.
      */
@@ -71,7 +71,7 @@ public class G2GUI extends Application implements Runnable {
         }
     }
 
-    /*
+    /**
      * verbindet ein neues Netzwerk, indem Client-Methoden genutzt werden.
      */
     public static void connectNetwork(String IPv4) {
@@ -87,7 +87,7 @@ public class G2GUI extends Application implements Runnable {
         ClientHelper.handleServerInteraction(client, client.currentClientInput);
     }
 
-    /*
+    /**
      * Enthält Logik für die GUI beim Verbinden mit einem Netzwerk
      */
     public static void setConnectedNetwork(NetworkDTO network) {

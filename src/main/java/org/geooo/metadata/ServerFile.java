@@ -13,6 +13,10 @@ public class ServerFile extends ConfigFile {
         super(filePath);
     }
 
+    /**
+     * Schreibt alle Informationen aus dem HostServer in die Serverdatei
+     * @param server
+     */
     public void writeToFile(HostServer server) {
         ensureConfigFile(false);
 
@@ -41,6 +45,10 @@ public class ServerFile extends ConfigFile {
         }
     }
 
+    /**
+     * Generiert eine Pseudo-ServerDatei, sollte keine existieren.
+     * @param server
+     */
     public void generateBlankConfig(HostServer server) {
         ensureConfigFile(false);
 

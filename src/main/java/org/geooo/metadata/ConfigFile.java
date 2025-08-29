@@ -8,6 +8,9 @@ import java.util.HashMap;
 
 import org.geooo.util.Logger;
 
+/*
+ * Eine übergeordnete Klasse für alle Metadaten-Dateien
+ */
 public abstract class ConfigFile {
 
     public File file;
@@ -17,6 +20,9 @@ public abstract class ConfigFile {
         this.file = new File(filePath);
     }
 
+    /**
+     * @return Gibt alle Infos aus der Datei im Key-Value-Format aus
+     */
     public HashMap<String, String> getConfigContent() {
         if (this.configContent == null) {
             setConfigContentFromFile();
@@ -25,6 +31,9 @@ public abstract class ConfigFile {
         return this.configContent;
     }
 
+    /**
+     * Liest alle Informationen aus der Datei und schreibt sie in die HashMap im Key-Value-Format
+     */
     public void setConfigContentFromFile() {
         ensureConfigFile(true);
         this.configContent = new HashMap<>();
@@ -52,6 +61,10 @@ public abstract class ConfigFile {
         }
     }
 
+    /**
+     * Stellt sicher, dass die Datei existiert und übernimmt Fehlerbehandlung, falss das nicht der Fall ist
+     * @param isNeeded
+     */
     public void ensureConfigFile(boolean isNeeded) {
         if (this.file == null) {
             Logger.error("Configfile object is null! Should have been initialized on creation...");
@@ -75,6 +88,9 @@ public abstract class ConfigFile {
         }
     }
 
+    /**
+     * @return Gibt die Datei aus
+     */
     public File getFile() {
         return this.file;
     }

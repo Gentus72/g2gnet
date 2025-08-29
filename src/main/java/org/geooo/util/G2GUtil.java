@@ -26,10 +26,16 @@ import javax.crypto.NoSuchPaddingException;
 
 public abstract class G2GUtil {
 
+    /**
+     * @return Gibt eine einzigartige UUID ohne Bindestriche aus
+     */
     public static String getRandomUUID() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
+    /**
+     * @return Gibt die lokale IPv4-Adresse aus
+     */
     public static String getLocalIPv4Address() {
         try {
             return InetAddress.getLocalHost().getHostAddress();
@@ -46,6 +52,11 @@ public abstract class G2GUtil {
      * Inspiriert von
      * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-socket-in-java/
      * Letzter Zugriff: 28.03.2025, 12:21 Uhr
+     */
+    /**
+     * Sendet eine Datei via Java Sockets
+     * @param fileName
+     * @param outputStream
      */
     public static void sendFileRemote(String fileName, DataOutputStream outputStream) {
         try (FileInputStream fileInputStream = new FileInputStream(fileName)) {
@@ -69,6 +80,11 @@ public abstract class G2GUtil {
      * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-socket-in-java/
      * Letzter Zugriff: 28.03.2025, 12:21 Uhr
      */
+    /**
+     * Sendet eine Datei via Java Sockets
+     * @param file
+     * @param outputStream
+     */
     public static void sendFileRemote(File file, DataOutputStream outputStream) {
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
             int bytes;
@@ -91,6 +107,11 @@ public abstract class G2GUtil {
      * https://www.geeksforgeeks.org/transfer-the-file-client-socket-to-server-socket-in-java/
      * Letzter Zugriff: 28.03.2025, 12:21 Uhr
      */
+    /**
+     * Empfängt eine Datei via Java Sockets
+     * @param fileName
+     * @param inputStream
+     */
     public static void receiveFileRemote(String fileName, DataInputStream inputStream) {
         try {
             int bytes = 0;
@@ -110,6 +131,11 @@ public abstract class G2GUtil {
         }
     }
 
+    /**
+     * Generiert die Prüfsumme aus eine Bytearray.
+     * @param data
+     * @return Die Prüfsumme der Daten
+     */
     public static String getHashsumFromBytes(byte[] data) {
         String hashSum = "";
 
@@ -132,6 +158,10 @@ public abstract class G2GUtil {
         return hashSum;
     }
 
+    /**
+     * @param source
+     * @return die Prüfsumme einer Datei (aller Daten)
+     */
     public static String getHashsumFromFile(File source) {
         String hashSum = "";
 
@@ -151,6 +181,12 @@ public abstract class G2GUtil {
         return hashSum;
     }
 
+    /**
+     * Verschlüsselt Daten mithilfe eines privaten Schlüssels um authentizität zu gewährleisten
+     * @param plainText
+     * @param privateKey
+     * @return Die verschlüsselten Daten
+     */
     public static String encryptWithPrivateKey(String plainText, PrivateKey privateKey) {
         try {
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
@@ -166,6 +202,12 @@ public abstract class G2GUtil {
         return null;
     }
 
+    /**
+     * Entschlüsselt Daten mithilfe eines öffentlichen Schlüssels um authentizität zu gewährleisten
+     * @param encryptedText
+     * @param publicKey
+     * @return die entschlüsselten Daten
+     */
     public static String decryptWithPublicKey(String encryptedText, PublicKey publicKey) {
         try {
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");

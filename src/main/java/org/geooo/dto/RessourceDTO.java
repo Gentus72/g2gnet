@@ -15,6 +15,11 @@ public class RessourceDTO {
         
     }
 
+    /**
+     * @param uuid
+     * @param title
+     * @param blockAmount
+     */
     public RessourceDTO(String uuid, String title, int blockAmount) {
         this.title = title;
         this.uuid = uuid;
@@ -22,34 +27,45 @@ public class RessourceDTO {
     }
 
     /**
-     * @return String return the totalHashSum
+     * @return Gibt die Prüfsumme aller Daten der Originaldatei aus
      */
     public String getTotalHashSum() {
         return this.totalHashSum;
     }
 
     /**
-     * @return String return the title
+     * @return Gibt den Titel der Ressource aus
      */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Setzt den Titel der Ressource
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     * @return String return the uuid
+     * @return Gibt die UUID der Ressource aus
      */
     public String getUUID() {
         return uuid;
     }
 
+    /**
+     * @return Gibt die Anzahl an Blöcken der Ressource aus
+     */
     public int getBlockAmount() {
         return this.blockAmount;
     }
 
+    /**
+     * Setzt die Anzahl an Blöcken der Ressource
+     * @param blockAmount
+     */
     public void setBlockAmount(int blockAmount) {
         this.blockAmount = blockAmount;
     }

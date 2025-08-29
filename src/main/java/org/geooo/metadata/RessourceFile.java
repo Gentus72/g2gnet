@@ -22,6 +22,12 @@ public class RessourceFile extends ConfigFile {
         super(filePath);
     }
 
+    /**
+     * Schreibt alle Informationen der Ressource in die Ressourcedatei,
+     * lässt aber einige Stellen so, dass sie noch vom CCServer ausgefüllt werden müssen
+     * @param ressource
+     * @param clientPublicKey
+     */
     public void writeToFile(Ressource ressource, String clientPublicKey) {
         ensureConfigFile(false);
 
@@ -43,6 +49,9 @@ public class RessourceFile extends ConfigFile {
         }
     }
 
+    /**
+     * @return Gibt alle Blöcke der Ressource aus
+     */
     public ArrayList<RessourceBlockDTO> getBlocks() {
         ensureConfigFile(true);
         ArrayList<RessourceBlockDTO> blocks = new ArrayList<>();
@@ -81,6 +90,10 @@ public class RessourceFile extends ConfigFile {
         return null;
     }
 
+    /**
+     * Generiert aus den Blöcken der Ressource die GETBLOCK-Kommandos für den Client
+     * @return die fertigen GETBLOCK-Kommandos
+     */
     public HashMap<String[], String> getGETBLOCKCommands() {
         HashMap<String[], String> commands = new HashMap<>();
         ArrayList<RessourceBlockDTO> ressourceBlocks = getBlocks();
@@ -95,6 +108,11 @@ public class RessourceFile extends ConfigFile {
         return commands;
     }
 
+    /**
+     * Generiert aus den Blöcken der Ressource die nötigen verschlüsselten AUTH-Kommandos für den Client
+     * @param clientPrivateKey
+     * @return die fertigen AUTH-Kommandos
+     */
     public HashMap<String[], String> getAUTHCommands(PrivateKey clientPrivateKey) {
         HashMap<String[], String> commands = new HashMap<>();
         ArrayList<RessourceBlockDTO> ressourceBlocks = getBlocks();
@@ -113,6 +131,10 @@ public class RessourceFile extends ConfigFile {
         return commands;
     }
 
+    /**
+     * Lässt den CCServer die Ressourcedatei ergänzen, sodass alle IPv4-Adressen der Hostserver eingetragen sind
+     * @param blockLocations
+     */
     public void replaceBlockLocations(HashMap<Integer, String> blockLocations) {
         ensureConfigFile(true);
         ArrayList<String> content = new ArrayList<>();

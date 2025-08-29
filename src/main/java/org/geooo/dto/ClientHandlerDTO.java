@@ -90,6 +90,7 @@ public class ClientHandlerDTO<T extends HostServer> implements Runnable {
      * Gibt informationen an den Client über den Netzwerkstatus,
      * verfügbare Ressourcen und erlaubte Upload-UUIDs / -Publickeys,
      * also Publickeys, die gerade Blöcke hochladen dürfen.
+     * @param args
      */
     public void handleCommandSTATUS(String[] args) {
         String response = "SUCCESS \nStatus: ";
@@ -125,10 +126,13 @@ public class ClientHandlerDTO<T extends HostServer> implements Runnable {
         sendResponse(response);
     }
 
-    // GETBLOCK <ressourceUUID> <blockUUID>
-    // Lässt den Client beliebige Ressourcenblöcke herunterladen
-    // Sendet zuerst ERROR oder DOWNLOAD um zu zeigen,
-    // ob der Block verfügbar ist
+    /**
+     * GETBLOCK <ressourceUUID> <blockUUID>
+     * Lässt den Client beliebige Ressourcenblöcke herunterladen
+     * Sendet zuerst ERROR oder DOWNLOAD um zu zeigen,
+     * ob der Block verfügbar ist
+     * @param args
+     */
     public void handleCommandGETBLOCK(String[] args) {
         // check if ressource directory exists
         String ressourceUUID = args[1];
@@ -151,8 +155,11 @@ public class ClientHandlerDTO<T extends HostServer> implements Runnable {
         G2GUtil.sendFileRemote(blockFile, outputStream);
     }
 
-    // DISCONNECT
-    // Schließt die Verbindung zwischen Client und Server
+    /**
+     * DISCONNECT
+     * Schließt die Verbindung zwischen Client und Server
+     * @param args
+     */
     public void handleCommandCLOSE(String[] args) {
         try {
             Logger.info(String.format("Client [%s] has closed their connection!", this.serverSocket.getInetAddress().getHostAddress()));
@@ -165,7 +172,9 @@ public class ClientHandlerDTO<T extends HostServer> implements Runnable {
         }
     }
 
-    // Methode zum schließen der Verbindung
+    /**
+     * Methode zum schließen der Verbindung
+     */
     public void close() {
         try {
             this.inputStream.close();
@@ -183,9 +192,11 @@ public class ClientHandlerDTO<T extends HostServer> implements Runnable {
         this.registeredCommands.put(command, function);
     }
 
-    // Hauptmethode des Threads
-    // Liest kontinuierlich die Eingabe des Clients und versucht,
-    // die zugehörige Funktion auszuführen
+    /**
+     * Hauptmethode des Threads
+     * Liest kontinuierlich die Eingabe des Clients und versucht,
+     * die zugehörige Funktion auszuführen
+     */
     @Override
     public void run() {
         setup();

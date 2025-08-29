@@ -31,6 +31,7 @@ public class ConnectNewNetwork extends HBox {
 
         Button connectButton = new Button();
         connectButton.setText("Connect");
+        // Funktionalität zum Verbinden mit einem Netzwerk
         connectButton.setOnMousePressed((mouseEvent) -> {
             if (mouseEvent.isPrimaryButtonDown()) {
                 if (inputField.getText().isEmpty() || !isValidIPv4(inputField.getText())) {

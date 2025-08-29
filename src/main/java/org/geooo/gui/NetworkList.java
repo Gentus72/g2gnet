@@ -23,6 +23,11 @@ public class NetworkList extends VBox {
     private final ListProperty<NetworkListItem> listItems;
     private final ListView<NetworkListItem> listView;
 
+    /**
+     * Eine Schnellzugriffsliste aller bekannten Netzwerke
+     * @param networkProp
+     * @param connectedNetworkProp
+     */
     public NetworkList(ListProperty<NetworkDTO> networkProp, ObjectProperty<NetworkDTO> connectedNetworkProp) {
         this.networks = networkProp;
         this.listItems = new SimpleListProperty<>(FXCollections.observableArrayList());
@@ -52,7 +57,10 @@ public class NetworkList extends VBox {
         });
     }
 
-    // löst ein update der UI aus, sollte ein Netzwerk hinzugefügt worden sein
+    /**
+     * löst ein update der UI aus, sollte ein Netzwerk hinzugefügt worden sein
+     * @param connectedNetworkProp
+     */
     private void updateListItems(ObjectProperty<NetworkDTO> connectedNetworkProp) {
         listItems.clear();
         for (NetworkDTO dto : networks) {
