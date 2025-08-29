@@ -2,7 +2,7 @@ package org.geooo.util;
 
 public enum ServerCommand implements Command {
     INFO(2), // INFO <NETWORK | RESSOURCE> <? ressourceUUID>
-    STATUS(1),
+    STATUS(1), // STATUS
     REGISTER(2), // REGISTER <serverUUID> // server sends this to the ccServer
     ALLOW(4), // ALLOW <publicKey> <ressourceUUID> <blockUUID> // command from ccserver to allow a client to upload a block
     AUTH(2), // AUTH <ressourceUUID> <encryptedBlockUUID> // command from client to check whether he can upload

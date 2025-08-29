@@ -26,7 +26,7 @@ import org.geooo.util.ServerResponse;
 
 public abstract class ClientHelper {
 
-    private static boolean wasCommandSuccessfull = false;
+    public static boolean wasCommandSuccessfull = false;
 
     public static void handleServerInteraction(Client client, String[] args) {
         wasCommandSuccessfull = false;

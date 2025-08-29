@@ -19,11 +19,10 @@ import org.geooo.util.Logger;
 public class Ressource extends RessourceDTO {
 
     public static final long BLOCK_SIZE = 16 * 1024 * 1024; // 16 MiB
-
     private File sourceFile;
     private File parentDirectory;
-    RessourceFile ressourceFile;
-    HashMap<RessourceBlockDTO, String> blockLocations;
+    private RessourceFile ressourceFile;
+    private HashMap<RessourceBlockDTO, String> blockLocations;
 
     public Ressource(File sourceFile, String title) {
         super();

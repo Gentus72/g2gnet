@@ -89,7 +89,7 @@ public class Logger {
      * Befehlszeile und in der Logdatei mit Zeitstempel und
      * Nachrichtenklassifizierung aus.
      */
-    private static void log(LoggingType loggingType, String message) {
+    public static void log(LoggingType loggingType, String message) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         String currentDateTimeFormatted = currentDateTime.toString().replace("T", " ").split("\\.")[0];
         currentDateTimeFormatted = currentDateTimeFormatted.substring(currentDateTimeFormatted.indexOf(" ") + 1); // only get time

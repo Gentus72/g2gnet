@@ -7,13 +7,12 @@ package org.geooo.dto;
 public class RessourceDTO {
 
     public String title;
-    public String parentDirectory;
     public String uuid;
-    public String totalHashSum; // hash sum of the whole uploaded file
+    public String totalHashSum; // Prüfsumme der gesamten Originaldatei
     public int blockAmount;
 
     public RessourceDTO() {
-        // do nothing;
+        
     }
 
     public RessourceDTO(String uuid, String title, int blockAmount) {

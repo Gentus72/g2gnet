@@ -4,12 +4,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class ChunkedFileReader implements AutoCloseable {
-    private final FileInputStream fis;
+    private final FileInputStream fileOutputStream;
     private final int chunkSize;
     private boolean endOfFile = false;
 
     public ChunkedFileReader(String filePath, int chunkSize) throws IOException {
-        this.fis = new FileInputStream(filePath);
+        this.fileOutputStream = new FileInputStream(filePath);
         this.chunkSize = chunkSize;
     }
 
@@ -17,7 +17,7 @@ public class ChunkedFileReader implements AutoCloseable {
         if (endOfFile) return null;
 
         byte[] buffer = new byte[chunkSize];
-        int bytesRead = fis.read(buffer);
+        int bytesRead = fileOutputStream.read(buffer);
 
         if (bytesRead == -1) {
             endOfFile = true;
@@ -35,6 +35,6 @@ public class ChunkedFileReader implements AutoCloseable {
 
     @Override
     public void close() throws IOException {
-        fis.close();
+        fileOutputStream.close();
     }
 }

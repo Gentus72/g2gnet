@@ -14,6 +14,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
+/*
+ * JavaFX-Komponente zum Darstellen von allen bekannten Netzwerken
+ */
 public class NetworkList extends VBox {
 
     private final ListProperty<NetworkDTO> networks;
@@ -31,6 +34,7 @@ public class NetworkList extends VBox {
         VBox.setVgrow(listView, Priority.ALWAYS);
         listView.setPrefHeight(620);
 
+        // überschrift
         Label header = new Label("Available Networks");
         header.setFont(Fonts.headerFont);
         header.setPrefWidth(300);
@@ -40,6 +44,7 @@ public class NetworkList extends VBox {
 
         getChildren().addAll(header, listView);
 
+        // update der UI initialisieren
         updateListItems(connectedNetworkProp);
 
         networks.addListener((ListChangeListener<NetworkDTO>) change -> {
@@ -47,6 +52,7 @@ public class NetworkList extends VBox {
         });
     }
 
+    // löst ein update der UI aus, sollte ein Netzwerk hinzugefügt worden sein
     private void updateListItems(ObjectProperty<NetworkDTO> connectedNetworkProp) {
         listItems.clear();
         for (NetworkDTO dto : networks) {

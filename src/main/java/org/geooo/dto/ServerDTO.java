@@ -9,13 +9,18 @@ import java.util.Base64;
 import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 
+/*
+ * Helfer-Klasse für HostServer und CCServer.
+ * enthält wichtige Informationen und Methoden, die
+ * für einen Server jeglicher ARt wichtig sind.
+ */
 public class ServerDTO {
 
     public static final int SERVER_PORT = 7000;
 
     private String uuid;
     private String address;
-    private ArrayList<PublicKey> clientPublicKeys;
+    private ArrayList<PublicKey> clientPublicKeys; // erlaubte Publickeys von Clients, die gerade hochladen dürfen
     private ArrayList<String> allowedBlockUUIDs;
 
     public ServerDTO(String uuid, String address) {
@@ -55,6 +60,7 @@ public class ServerDTO {
         return this.clientPublicKeys;
     }
 
+    // Diese Warnung wird unterdrückt, da VS-Code hier einen Fehler macht. Weitere Exceptions können auftreten.
     public ArrayList<String> getClientPublicKeysBase64() {
         if (this.clientPublicKeys == null) {
             return new ArrayList<>();
@@ -77,6 +83,7 @@ public class ServerDTO {
         this.clientPublicKeys = clientPublicKeys;
     }
 
+    // Diese Warnung wird unterdrückt, da VS-Code hier einen Fehler macht. Weitere Exceptions können auftreten.
     @SuppressWarnings("UseSpecificCatch")
     public void addClientPublicKey(String clientPublicKeyBase64) {
         if (this.clientPublicKeys == null) {

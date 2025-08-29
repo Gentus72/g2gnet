@@ -13,6 +13,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/*
+ * JavaFX-Komponente mit Suchleiste und Eingabeknopf
+ * zum Verbinden eines neuen Netzwerks
+ * Enthält auch die Möglichkeit das Dateisystem zu öffnen.
+ */
 public class ConnectNewNetwork extends HBox {
     public ConnectNewNetwork() {
         this.setBackground(new Background(new BackgroundFill(new Color(0.9d, 0.9d, 0.9d, 1), null, null)));
@@ -24,9 +29,9 @@ public class ConnectNewNetwork extends HBox {
         inputField.setMinWidth(500);
         inputField.setPromptText("Connect a new network by IPv4...");
 
-        Button addButton = new Button();
-        addButton.setText("Connect");
-        addButton.setOnMousePressed((mouseEvent) -> {
+        Button connectButton = new Button();
+        connectButton.setText("Connect");
+        connectButton.setOnMousePressed((mouseEvent) -> {
             if (mouseEvent.isPrimaryButtonDown()) {
                 if (inputField.getText().isEmpty() || !isValidIPv4(inputField.getText())) {
                     return;
@@ -37,6 +42,9 @@ public class ConnectNewNetwork extends HBox {
             }
         });
 
+        // Dieser Knopf ermöglicht es dem Nutzer trotz Docker Container,
+        // auf dessen Dateisystem zuzugreifen, damit der Nutzer gucken kann,
+        // ob heruntergeladene Dateien auch angekommen sind.
         FileChooser fileChooser = new FileChooser();
         Button openFS = new Button("Open Filesystem");
         openFS.setPrefWidth(150);
@@ -51,7 +59,7 @@ public class ConnectNewNetwork extends HBox {
             }
         });
 
-        this.getChildren().addAll(openFS, inputField, addButton);
+        this.getChildren().addAll(openFS, inputField, connectButton);
     }
 
     /*

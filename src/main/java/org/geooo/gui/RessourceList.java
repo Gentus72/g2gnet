@@ -21,6 +21,11 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/*
+ * JavaFX-Komponente zum Anzeigen aller verfügbaren Ressourcen / Dateien
+ * des Netzwerks, mit dem man verbunden ist.
+ * Ermöglicht auch den Upload einer neuen Datei via Knopfdruck.
+ */
 public class RessourceList extends VBox {
     private Label header;
     private Button uploadButton;
@@ -36,6 +41,7 @@ public class RessourceList extends VBox {
         this.uploadFileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("All Files", "*.*"));
 
+        // Überschrift
         header = new Label("Available Ressources");
         header.setFont(Fonts.headerFont);
         header.setPrefWidth(400);
@@ -43,6 +49,7 @@ public class RessourceList extends VBox {
         header.setTextAlignment(TextAlignment.CENTER);
         header.setAlignment(Pos.CENTER);
 
+        // Uploadknopf
         uploadButton = new Button("Upload");
         uploadButton.setPrefWidth(400);
         uploadButton.setPrefHeight(30);
@@ -52,6 +59,7 @@ public class RessourceList extends VBox {
                     return;
                 }
 
+                // neues Fenster zum Spezifizieren der hochzuladenden Datei
                 UploadModal uploadModal = new UploadModal();
                 String ressourceUUID = uploadModal.display();
                 String networkUUID = connectedNetworkProp.get().getNetworkUUID();
@@ -76,6 +84,8 @@ public class RessourceList extends VBox {
         this.listView = new ListView<>();
         this.listView.itemsProperty().bind(listItems);
 
+        // verfügbare Ressourcen werden erneuert, sobald sich der Status
+        // des verbundenen Netzwerks ändert
         connectedNetworkProp.addListener(change -> {
             this.ressources.clear();
             this.ressources = connectedNetworkProp.get().getNetworkFile().getRessources();
@@ -87,8 +97,8 @@ public class RessourceList extends VBox {
         this.getChildren().addAll(headerBox, this.listView);
     }
 
+    // Logik für das Hochladen der Datei
     public void uploadFile() {
-        // String networkUUID = connectedNetworkProp.get().getNetworkUUID();
         if (G2GUI.client.isConnected) {
             ClientHelper.handleServerInteraction(G2GUI.client, new String[] { "DISCONNECT" });
         }
@@ -96,6 +106,7 @@ public class RessourceList extends VBox {
         ClientHelper.handleClientCommandFULLUPLOAD(G2GUI.client, new String[] { "FULLUPLOAD" });
     }
 
+    // update der UI bei Änderungen
     private void updateListItems() {
         listItems.clear();
         for (RessourceDTO dto : this.ressources) {

@@ -18,6 +18,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/*
+ * Ein eigenes Fenster zum Spezifizieren der hochzuladenden Datei.
+ * Gibt die Möglichkeit Datei und Titel der Ressource zu wählen und
+ * enthält Logik für das "Ressource-ifizieren" der Datei.
+ */
 public class UploadModal {
     private String ressourceUUID;
     private File selectedFile;
@@ -27,17 +32,16 @@ public class UploadModal {
         this.selectedFileName = new SimpleStringProperty();
     }
 
+    // Hauptmethode dieser Klasse. Gibt die UUID der erstellten Ressource zurück.
     public String display() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Upload a File");
         window.setMinWidth(250);
 
+        // Dateiwahl
         Label label = new Label("Choose a file to upload:");
         FileChooser fileChooser = new FileChooser();
-        TextField titleInput = new TextField();
-        titleInput.setPromptText("Enter a title...");
-        Button submitButton = new Button("Submit");
 
         Button fileButton = new Button("Select File");
         fileButton.setOnMousePressed(mouseEvent -> {
@@ -47,11 +51,20 @@ public class UploadModal {
             }
         });
 
+        // Titelwahl
+        TextField titleInput = new TextField();
+        titleInput.setPromptText("Enter a title...");
+
+        // Eingabeknopf
+        Button submitButton = new Button("Submit");
+
+        // Label zum Anzeigen der ausgewählten Datei
         Label selectedFileLabel = new Label();
         this.selectedFileName.addListener(change -> {
             selectedFileLabel.setText(this.selectedFileName.get());
         });
 
+        // Logik zum Erstellen der Ressource
         submitButton.setOnAction(e -> {
             if (titleInput.getText().isEmpty()) {
                 Logger.warn("Tried to upload but title field was empty!");

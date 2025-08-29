@@ -6,10 +6,11 @@ import javafx.beans.property.ObjectProperty;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/*
+ * JavaFX-Komponente zum Darstellen von Netzwerkinformationen,
+ * sowie allen vorhanenen Ressourcen mit der Möglichkeit für Upload / Download.
+ */
 public class NetworkContent extends VBox {
-    // TODO add RessourceList
-    // TODO add Upload / Download
-
     private NetworkOverview overview;
     private RessourceList ressourceList;
 

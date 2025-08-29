@@ -20,6 +20,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/*
+ * Die Hauptklasse für die GUI des Nutzers.
+ * Enthält außerdem statische Variablen für die Nutzung dieser von anderen JavaFX Komponenten.
+ * Diese Klasse wird als Thread implementiert, da so die CLI zusammen mit der GUI laufen kann.
+ * Die CLI muss sowieso laufen, damit das Ganze funktioniert.
+ */
 public class G2GUI extends Application implements Runnable {
 
     public static Client client;
@@ -46,6 +52,10 @@ public class G2GUI extends Application implements Runnable {
         primaryStage.show();
     }
 
+    /*
+     * Liest die bereits bekannten Netzwerke aus den bereits
+     * heruntergeladenen Netzwerkdateien.
+     */
     public static void readNetworksFromFiles() {
         try {
             File[] networkFiles = new File(Client.RESSOURCE_DIRECTORY)
@@ -61,12 +71,10 @@ public class G2GUI extends Application implements Runnable {
         }
     }
 
+    /*
+     * verbindet ein neues Netzwerk, indem Client-Methoden genutzt werden.
+     */
     public static void connectNetwork(String IPv4) {
-        // if (connectedNetwork.get().getCCServerIPv4().equals(IPv4)) {
-        // Logger.warn("Client tried to connect to the netowrk he's already connected to!");
-        // return;
-        // }
-
         if (client.isConnected) {
             ClientHelper.handleServerInteraction(client, new String[] { "DISCONNECT" });
         }
@@ -79,8 +87,9 @@ public class G2GUI extends Application implements Runnable {
         ClientHelper.handleServerInteraction(client, client.currentClientInput);
     }
 
-    // is only called from ClientHelper.handleClientCommandCONNECT()
-    // all connect/disconnect logic is handled there
+    /*
+     * Enthält Logik für die GUI beim Verbinden mit einem Netzwerk
+     */
     public static void setConnectedNetwork(NetworkDTO network) {
         connectedNetwork.set(new NetworkDTO(network.getNetworkUUID(), network.getNetworkLabel(),
                 network.getCCServerIPv4(), network.getNetworkFile()));

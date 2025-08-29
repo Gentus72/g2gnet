@@ -13,7 +13,7 @@ public class RessourceBlock extends RessourceBlockDTO {
     private byte[] data;
 
     /*
-     * Standart Konstruktor
+     * Standard Konstruktor
      */
     public RessourceBlock(String uuid) {
         this.uuid = uuid;

@@ -12,22 +12,25 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+/*
+ * JavaFX-Komponente zum Anzeigen von allgemeinen Daten zu einem Netzwerk,
+ * mit dem man verbunden ist.
+ */
 public class NetworkOverview extends VBox {
-    private ObjectProperty<NetworkDTO> network;
     private Label headerLabel, connectedToLabel, serverCountLabel, ressourceCountLabel;
 
     public NetworkOverview(ObjectProperty<NetworkDTO> networkProp) {
-        this.network = networkProp;
-
+        // netzwerktitel / label
         headerLabel = new Label("not connected");
         headerLabel.textProperty().bind(Bindings.createStringBinding(() -> {
-            NetworkDTO network = networkProp.get();
-            return network != null ? network.getNetworkLabel() : "not connected";
+            NetworkDTO _network = networkProp.get();
+            return _network != null ? _network.getNetworkLabel() : "not connected";
         }, networkProp));
         headerLabel.setFont(Fonts.headerFont);
         headerLabel.setPrefWidth(400);
         headerLabel.setPrefHeight(30);
 
+        // IPv4 Adresse des CCServers des Netzwerks
         connectedToLabel = new Label("-");
         connectedToLabel.textProperty().bind(Bindings.createStringBinding(() -> {
             NetworkDTO network = networkProp.get();
@@ -37,6 +40,7 @@ public class NetworkOverview extends VBox {
         connectedToLabel.setPrefWidth(400);
         connectedToLabel.setPrefHeight(30);
 
+        // Anzahl der Server im Netzwerk (inkl. CCServer)
         serverCountLabel = new Label("Servers: -");
         serverCountLabel.textProperty().bind(Bindings.createStringBinding(() -> {
             NetworkDTO network = networkProp.get();
@@ -46,6 +50,7 @@ public class NetworkOverview extends VBox {
         serverCountLabel.setPrefWidth(400);
         serverCountLabel.setPrefHeight(20);
 
+        // Anzahl der verfügbaren Ressourcen / Dateien
         ressourceCountLabel = new Label("Ressources: -");
         ressourceCountLabel.textProperty().bind(Bindings.createStringBinding(() -> {
             NetworkDTO network = networkProp.get();

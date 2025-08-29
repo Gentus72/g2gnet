@@ -2,6 +2,12 @@ package org.geooo.dto;
 
 import org.geooo.metadata.NetworkFile;
 
+/*
+ * NetworkDTo ist ein einfaches Objekt, was wesentliche
+ * Informationen über ein Netzwerk enthält, dabei aber
+ * keine wichtige Logik ausführt, sondern nur Konstruktor,
+ * Getter und Setter enthält.
+ */
 public class NetworkDTO {
     private String networkUUID;
     private String networkLabel;

@@ -1,11 +1,11 @@
 package org.geooo.util;
 
 public enum ClientCommand implements Command {
-    DISASSEMBLE(2),
-    REASSEMBLE(2),
-    AUTOGET(2),
+    DISASSEMBLE(3), // DISASSEMBLE <filename> <ressourceTitle>
+    REASSEMBLE(2), // REASSEMBLE <ressourceUUID>
+    AUTOGET(2), // AUTOGET <ressourceUUID>
     AUTOUPLOAD(2),
-    FULLUPLOAD(3),
+    FULLUPLOAD(3), // FULLUPLOAD <networkUUID> <ressourceUUID>
     CONNECT(2),
     INFO(3),
     HELP(1),

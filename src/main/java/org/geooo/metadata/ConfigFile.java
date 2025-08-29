@@ -1,13 +1,10 @@
 package org.geooo.metadata;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.function.Function;
 
 import org.geooo.util.Logger;
 
@@ -18,26 +15,6 @@ public abstract class ConfigFile {
 
     public ConfigFile(String filePath) {
         this.file = new File(filePath);
-    }
-
-    public <T, K> void addSection(BufferedWriter writer, ArrayList<T> list, String header, Function<T, K>... extractors) {
-        try {
-            writer.write(header);
-
-            for (T element : list) {
-                String line = "";
-
-                for (Function<T, K> extractor : extractors) {
-                    line += extractor.apply(element).toString() + ",";
-                }
-
-                line += "\n";
-                writer.write(line);
-            }
-        } catch (IOException e) {
-            Logger.error("Error while writing config section!");
-            Logger.exception(e);
-        }
     }
 
     public HashMap<String, String> getConfigContent() {

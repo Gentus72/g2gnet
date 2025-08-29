@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.HashMap;
-import java.util.UUID;
 import java.util.function.Consumer;
 
 import org.geooo.CCServer;
@@ -31,16 +30,21 @@ public class ClientHandlerDTO<T extends HostServer> implements Runnable {
     public DataInputStream inputStream;
     public DataOutputStream outputStream;
     public HashMap<ServerCommand, Consumer<String[]>> registeredCommands;
-    public Consumer<String[]> fallbackFunction;
+    public Consumer<String[]> fallbackFunction; // die Funktion, die bei einem unbekannten Kommando ausgeführ wird
     public boolean running;
 
+    /**
+     * Im Konstruktor werden wesentliche Variablen initialisiert und die Serverbefehle werden verknüpft
+     * @param server
+     * @param serverSocket
+     */
     public ClientHandlerDTO(T server, Socket serverSocket) {
         this.server = server;
         this.serverSocket = serverSocket;
         this.running = true;
         this.registeredCommands = new HashMap<>();
 
-        this.client = new ClientDTO(UUID.randomUUID().toString().replace("-", ""));
+        this.client = new ClientDTO();
         this.client.setAddress(this.serverSocket.getInetAddress().getHostAddress());
 
         Logger.info(String.format("New client [%s] connected!", client.getAddress()));
@@ -56,7 +60,9 @@ public class ClientHandlerDTO<T extends HostServer> implements Runnable {
         };
     }
 
-    // Methode um eine Text-Antwort an den Client zu senden
+    /**
+     * Methode um eine Text-Antwort an den Client zu senden
+     */
     public void sendResponse(String payload) {
         try {
             this.outputStream.writeUTF(payload);
@@ -66,7 +72,9 @@ public class ClientHandlerDTO<T extends HostServer> implements Runnable {
         }
     }
 
-    // Methode für den Verbindungsaufbau
+    /**
+     * Methode für den Verbindungsaufbau
+     */
     public void setup() {
         try {
             this.inputStream = new DataInputStream(this.serverSocket.getInputStream());
@@ -77,9 +85,12 @@ public class ClientHandlerDTO<T extends HostServer> implements Runnable {
         }
     }
 
-    // STATUS
-    // Gibt informationen an den Client über den Netzwerkstatus,
-    // verfügbare Ressourcen und erlaubte Upload-UUIDs / -Publickeys
+    /**
+     * STATUS
+     * Gibt informationen an den Client über den Netzwerkstatus,
+     * verfügbare Ressourcen und erlaubte Upload-UUIDs / -Publickeys,
+     * also Publickeys, die gerade Blöcke hochladen dürfen.
+     */
     public void handleCommandSTATUS(String[] args) {
         String response = "SUCCESS \nStatus: ";
 

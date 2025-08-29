@@ -1,0 +1,458 @@
+@startuml
+!theme plain
+skinparam classAttributeIconSize 0
+
+class Client {
+  + RESSOURCE_DIRECTORY: String {static} {readOnly}
+  + currentHost: String 
+  + hostPort: int 
+  + socket: Socket 
+  + outputStream: DataOutputStream 
+  + inputStream: DataInputStream 
+  + userInputScanner: Scanner 
+  + clientFile: ClientFile 
+  + isConnected: boolean
+  + currentClientInput: String[] 
+  + registeredClientCommands: HashMap<ClientCommand, BiConsumer<Client, String[]>>
+  + registeredServerResponses: HashMap<ServerResponse, BiConsumer<Client, String[]>>
+  --
+  + main(args: String[]): void {static}
+  + Client()
+  + startClient(): void
+  + registerCommands(): void
+}
+
+class HostServer {
+  + clients: ArrayList<ClientDTO> 
+  + ccServer: CCServer 
+  + serverFile: ServerFile 
+  --
+  + main(args: String[]): void {static}
+  + HostServer()
+  + HostServer(address: String)
+  + connectToCC(ccAddress: String, networkUUID: String): void
+  + startServer(args: String[]): void
+  + getCCServer(): CCServer
+  + setCCServer(ccServer: CCServer): void
+  + getServerFile(): ServerFile
+  + setServerFile(serverFile: ServerFile): void
+  + getRessourceDirectory(): String {static}
+}
+
+class ClientHelper {
+  + wasCommandSuccessfull: boolean  {static}
+  --
+  + handleServerInteraction(client: Client, args: String[]): void {static}
+  + handleClientInteraction(client: Client, args: String[]): void {static}
+  + handleServerResponseREDIRECT(client: Client, args: String[]): void {static}
+  + handleServerResponseINFO(client: Client, args: String[]): void {static}
+  + handleServerResponseDOWNLOAD(client: Client, args: String[]): void {static}
+  + handleServerResponseAUTH(client: Client, args: String[]): void {static}
+  + handleServerResponseSUCCESS(client: Client, args: String[]): void {static}
+  + handleServerResponseERROR(clinet: Client, args: String[]): void {static}
+  + handleClientCommandCONNECT(client: Client, args: String[]): void {static}
+  + handleClientCommandINFO(client: Client, args: String[]): void {static}
+  + handleClientCommandAUTOGET(client: Client, args: String[]): void {static}
+  + handleClientCommandFULLUPLOAD(client: Client, args: String[]): void {static}
+  + handleClientCommandAUTOUPLOAD(client: Client, args: String[]): void {static}
+  + handleClientCommandEXIT(client: Client, args: String[]): void {static}
+  + disconnect(client: Client): void {static}
+  + sendCommand(client: Client, args: String[]): void {static}
+}
+
+class RessourceBlock {
+  - parentDirectory: String 
+  - data: byte[] 
+  --
+  + RessourceBlock(uuid: String)
+  + writeToFile(): void
+  + setData(data: byte[]): void
+  + getData(): byte[]
+  + setParentDirectory(parentDirectory: String): void
+}
+
+class Ressource {
+  + BLOCK_SIZE: long {static} {readOnly}
+  - sourceFile: File 
+  - parentDirectory: File 
+  - ressourceFile: RessourceFile 
+  - blockLocations: HashMap<RessourceBlockDTO, String> 
+  --
+  + Ressource(sourceFile: File, title: String)
+  + disassemble(parentDirectory: String, sourceFile: File, title: String, clientPublicKey: String): Ressource {static}
+  + reassemble(parentDirectory: String, uuid: String, outputFile: File): Ressource {static}
+  + doesLocalRessourceExist(parentDirectory: String, sourceFile: File): boolean {static}
+  + getSourceFile(): File
+  + getBlockAmount(): int
+  + getParentDirectory(): File
+  + setParentDirectory(parentDirectory: File): void
+  + getRessourceFile(): RessourceFile
+  + setRessourceFile(ressourceFile: RessourceFile): void
+  + setBlockLocations(blockLocations: String>): void
+  + getBlockLocations(): HashMap<RessourceBlockDTO, String>
+}
+
+class CCClientHandler {
+  + CCClientHandler(server: CCServer, serverSocket: Socket)
+  + handleCommandINFO(args: String[]): void
+  + handleCommandAUTH(args: String[]): void
+  + handleCommandREGISTER(args: String[]): void
+  + sendAllow(address: String, clientPublicKey: String, ressourceUUID: String, blockUUID: String): boolean
+}
+
+class CCServer {
+  - networkUUID: String 
+  - servers: ArrayList<ServerDTO> 
+  - ressources: ArrayList<RessourceDTO> 
+  - networkFile: NetworkFile 
+  - networkLabel: String 
+  --
+  + main(args: String[]): void {static}
+  + CCServer()
+  + CCServer(address: String)
+  + startServer(args: String[]): void
+  + getNetworkUUID(): String
+  + setNetworkUUID(networkUUID: String): void
+  + getServers(): ArrayList<ServerDTO>
+  + setServers(servers: ArrayList<ServerDTO>): void
+  + addServer(server: ServerDTO): void
+  + getRessources(): ArrayList<RessourceDTO>
+  + setRessources(ressources: ArrayList<RessourceDTO>): void
+  + addRessource(ressource: RessourceDTO): void
+  + getNetworkFile(): NetworkFile
+  + getRessourceDirectory(): String {static}
+  + getNetworkLabel(): String
+  + setNetworkLabel(networkLabel: String): void
+}
+
+class HostClientHandler {
+  + HostClientHandler(server: HostServer, serverSocket: Socket)
+  + handleCommandALLOW(args: String[]): void
+  + handleCommandAUTH(args: String[]): void
+}
+
+class G2GUtil {
+  + getRandomUUID(): String {static}
+  + getLocalIPv4Address(): String {static}
+  + sendFileRemote(fileName: String, outputStream: DataOutputStream): void {static}
+  + sendFileRemote(file: File, outputStream: DataOutputStream): void {static}
+  + receiveFileRemote(fileName: String, inputStream: DataInputStream): void {static}
+  + getHashsumFromBytes(data: byte[]): String {static}
+  + getHashsumFromFile(source: File): String {static}
+  + encryptWithPrivateKey(plainText: String, privateKey: PrivateKey): String {static}
+  + decryptWithPublicKey(encryptedText: String, publicKey: PublicKey): String {static}
+}
+
+class ChunkedFileReader {
+  + fileOutputStream: FileInputStream 
+  + chunkSize: int 
+  - endOfFile: boolean 
+  --
+  + ChunkedFileReader(filePath: String, chunkSize: int)
+  + readNextChunk(): byte[]
+  + close(): void
+}
+
+class Logger {
+  + ANSI_RED: String {static} {readOnly}
+  + ANSI_WHITE: String {static} {readOnly}
+  + ANSI_YELLOW: String {static} {readOnly}
+  + ANSI_GREEN: String {static} {readOnly}
+  + ANSI_CYAN: String {static} {readOnly}
+  + ANSI_RESET: String {static} {readOnly}
+  - logger: Logger {static}
+  - logFile: File 
+  --
+  + Logger():
+  + getInstance(): Logger {static}
+  + info(message: String): void {static}
+  + success(message: String): void {static}
+  + warn(message: String): void {static}
+  + error(message: String): void {static}
+  + exception(e: Exception): void {static}
+  + log(loggingType: LoggingType, message: String): void {static}
+  + logToFile(message: String): void {static}
+}
+
+enum LoggingType {
+  - value: String
+  --
+  - LoggingType(value: String)
+}
+
+enum ServerCommand {
+  + argsAmount: int 
+  --
+  - ServerCommand(argsAmount: int)
+  + getArgsAmount(): int
+  + hasCorrectArgsAmount(currentArgsAmount: int): boolean
+}
+
+enum ServerResponse {
+}
+
+interface Command {
+  + hasCorrectArgsAmount(length: int): boolean
+}
+
+enum ClientCommand {
+  + argsAmount: int 
+  --
+  - ClientCommand(argsAmount: int)
+  + hasCorrectArgsAmount(currentArgsAmount: int): boolean
+}
+
+class NetworkFile {
+  + NetworkFile(filePath: String)
+  + writeToFile(ccServer: CCServer): void
+  + readFromFile(ccServer: CCServer): void
+  + updateRessources(ccServer: CCServer): void
+  + getServers(): ArrayList<ServerDTO>
+  + getRessources(): ArrayList<RessourceDTO>
+  + getNetwork(): NetworkDTO
+}
+
+class ConfigFile {
+  + file: File 
+  + configContent: HashMap<String, String> 
+  --
+  + ConfigFile(filePath: String)
+  + getConfigContent(): HashMap<String, String>
+  + setConfigContentFromFile(): void
+  + ensureConfigFile(isNeeded: boolean): void
+  + getFile(): File
+}
+
+class ServerFile {
+  + ServerFile(filePath: String)
+  + writeToFile(server: HostServer): void
+  + generateBlankConfig(server: HostServer): void
+}
+
+class RessourceFile {
+  + blockHeader: String {static} {readOnly}
+  --
+  + RessourceFile(filePath: String)
+  + writeToFile(ressource: Ressource, clientPublicKey: String): void
+  + getBlocks(): ArrayList<RessourceBlockDTO>
+  + getGETBLOCKCommands(): HashMap<String[], String>
+  + getAUTHCommands(clientPrivateKey: PrivateKey): HashMap<String[], String>
+  + replaceBlockLocations(blockLocations: String>): void
+}
+
+class ClientFile {
+  + ClientFile(filePath: String)
+  + writeToFile(client: Client): void
+  + readFromFile(client: Client): void
+}
+
+class G2GUI {
+  + client: Client {static}
+  + connectedNetwork: ObjectProperty<NetworkDTO> {static}
+  + availableNetworks: ListProperty<NetworkDTO> 
+  --
+  + start(primaryStage: Stage): void
+  + readNetworksFromFiles(): void {static}
+  + connectNetwork(IPv4: String): void {static}
+  + setConnectedNetwork(network: NetworkDTO): void {static}
+  + G2GUI()
+  + G2GUI(_client: Client)
+  + run(): void
+}
+
+class Fonts {
+  + headerFont: Font {static} {readOnly}
+  + subHeaderFont: Font {static} {readOnly}
+}
+
+class NetworkContent {
+  - overview: NetworkOverview 
+  - ressourceList: RessourceList 
+  --
+  + NetworkContent(network: ObjectProperty<NetworkDTO>, primaryStage: Stage)
+}
+
+class NetworkOverview {
+  + NetworkOverview(networkProp: ObjectProperty<NetworkDTO>)
+}
+
+class UploadModal {
+  - ressourceUUID: String 
+  - selectedFile: File 
+  - selectedFileName: StringProperty 
+  --
+  + UploadModal()
+  + display(): String
+}
+
+class NetworkListItem {
+  + network: NetworkDTO 
+  - button: Button 
+  - isConnected: boolean 
+  --
+  + NetworkListItem(network: NetworkDTO, connectedNetworkProp: ObjectProperty<NetworkDTO>)
+  + getNetwork(): NetworkDTO
+}
+
+class RessourceListItem {
+  - ressource: RessourceDTO 
+  - button: Button 
+  --
+  + RessourceListItem(ressource: RessourceDTO)
+  + downloadRessource(): void
+}
+
+class RessourceList {
+  - header: Label 
+  - uploadButton: Button 
+  - uploadFileChooser: FileChooser 
+  - ressources: ArrayList<RessourceDTO> 
+  - listItems: ListProperty<RessourceListItem> 
+  - listView: ListView<RessourceListItem> 
+  --
+  + RessourceList(connectedNetworkProp: ObjectProperty<NetworkDTO>, primaryStage: Stage)
+  + uploadFile(): void
+  - updateListItems(): void
+}
+
+class ConnectNewNetwork {
+  + ConnectNewNetwork()
+  + isValidIPv4(ip: String): boolean {static}
+}
+
+class NetworkList {
+  + networks: ListProperty<NetworkDTO> {readOnly}
+  + listItems: ListProperty<NetworkListItem> {readOnly}
+  + listView: ListView<NetworkListItem> {readOnly}
+  --
+  + NetworkList(networkProp: ListProperty<NetworkDTO>, connectedNetworkProp: ObjectProperty<NetworkDTO>)
+  - updateListItems(connectedNetworkProp: ObjectProperty<NetworkDTO>): void
+}
+
+class NetworkDTO {
+  - networkUUID: String 
+  - networkLabel: String 
+  - ccServerIPv4: String 
+  - networkFile: NetworkFile 
+  --
+  + NetworkDTO(networkUUID: String, networkLabel: String, ccServerIPv4: String, networkFile: NetworkFile)
+  + getNetworkUUID(): String
+  + setNetworkUUID(networkUUID: String): void
+  + getNetworkLabel(): String
+  + setNetworkLabel(networkLabel: String): void
+  + getCCServerIPv4(): String
+  + setCCServerIPv4(ccServerIPv4: String): void
+  + getNetworkFile(): NetworkFile
+  + setNetworkFile(networkFile: NetworkFile): void
+}
+
+class ServerDTO {
+  + SERVER_PORT: int {static} {readOnly}
+  - uuid: String 
+  - address: String 
+  - clientPublicKeys: ArrayList<PublicKey> 
+  - allowedBlockUUIDs: ArrayList<String> 
+  --
+  + ServerDTO(uuid: String, address: String)
+  + ServerDTO(address: String)
+  + ServerDTO()
+  + getUUID(): String
+  + getAddress(): String
+  + setUUID(uuid: String): void
+  + setAddress(address: String): void
+  + getClientPublicKeys(): ArrayList<PublicKey>
+  + getClientPublicKeysBase64(): ArrayList<String>
+  + setClientPublicKeys(clientPublicKeys: ArrayList<PublicKey>): void
+  + addClientPublicKey(clientPublicKeyBase64: String): void
+  + getAllowedBlockUUIDs(): ArrayList<String>
+  + setAllowedBlockUUIDs(allowedBlockUUIDs: ArrayList<String>): void
+  + addAllowedBlockUUID(allowedBlockUUID: String): void
+  + getRessourceDirectory(): String {static}
+}
+
+class ClientHandlerDTO {
+  + serverSocket: Socket 
+  + client: ClientDTO 
+  # server: T 
+  + inputStream: DataInputStream 
+  + outputStream: DataOutputStream 
+  + fallbackFunction: Consumer<String[]> 
+  + running: boolean 
+  --
+  + ClientHandlerDTO(server: T, serverSocket: Socket)
+  + sendResponse(payload: String): void
+  + setup(): void
+  + handleCommandSTATUS(args: String[]): void
+  + handleCommandGETBLOCK(args: String[]): void
+  + handleCommandCLOSE(args: String[]): void
+  + close(): void
+  + registerCommand(command: ServerCommand, function: Consumer<String[]>): void
+  + run(): void
+}
+
+class ClientDTO {
+  - uuid: String 
+  - address: String 
+  - publicKey: PublicKey 
+  - privateKey: PrivateKey 
+  --
+  + ClientDTO()
+  + ClientDTO(uuid: String)
+  + getUUID(): String
+  + setUUID(uuid: String): void
+  + getPublicKeyBase64(): String
+  + getPublicKey(): PublicKey
+  + getPrivateKeyBase64(): String
+  + getPrivateKey(): PrivateKey
+  + setPublickeyBase64(publickeyBase64: String): void
+  + setPrivateKeyBase64(privateKeyBase64: String): void
+  + generateRSAKeyPair(): void
+  + getAddress(): String
+  + setAddress(address: String): void
+}
+
+class RessourceDTO {
+  + title: String 
+  + uuid: String 
+  + totalHashSum: String 
+  + blockAmount: int 
+  --
+  + RessourceDTO()
+  + RessourceDTO(uuid: String, title: String, blockAmount: int)
+  + getTotalHashSum(): String
+  + getTitle(): String
+  + setTitle(title: String): void
+  + getUUID(): String
+  + getBlockAmount(): int
+  + setBlockAmount(blockAmount: int): void
+}
+
+class RessourceBlockDTO {
+  + uuid: String 
+  + location: String 
+  + hashSum: String 
+  + sequenceID: int 
+  --
+  + getUUID(): String
+  + setUUID(uuid: String): void
+  + getLocation(): String
+  + setLocation(location: String): void
+  + getHashSum(): String
+  + setHashSum(hashSum: String): void
+  + getSequenceID(): int
+  + setSequenceID(sequenceID: int): void
+}
+
+ServerDTO --> HostServer
+HostServer --> CCServer
+ClientDTO --> Client
+RessourceDTO --> Ressource
+RessourceBlockDTO --> RessourceBlock
+ClientHandlerDTO --> HostClientHandler
+ClientHandlerDTO --> CCClientHandler
+ConfigFile --> ClientFile
+ConfigFile --> NetworkFile
+ConfigFile --> RessourceFile
+ConfigFIle --> ServerFile
+
+@enduml
