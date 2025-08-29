@@ -16,6 +16,9 @@ import org.geooo.util.ChunkedFileReader;
 import org.geooo.util.G2GUtil;
 import org.geooo.util.Logger;
 
+/**
+ * Datenstruktur für das Speichern von Dateien auf mehreren Servern
+ */
 public class Ressource extends RessourceDTO {
 
     public static final long BLOCK_SIZE = 16 * 1024 * 1024; // 16 MiB
@@ -31,12 +34,15 @@ public class Ressource extends RessourceDTO {
         this.title = title;
     }
 
+    /**
+     * Zerlegt eine Datei in einzelne Blöcke und erstellt ein Ressourcedatei mit wichtigen Metadaten
+     * @param parentDirectory
+     * @param sourceFile
+     * @param title
+     * @param clientPublicKey
+     * @return der fertige Ressource
+     */
     public static Ressource disassemble(String parentDirectory, File sourceFile, String title, String clientPublicKey) {
-        if (doesLocalRessourceExist(parentDirectory, sourceFile)) {
-            Logger.error("Ressource hashsum has been found locally!");
-            return null;
-        }
-
         Ressource ressource = new Ressource(sourceFile, title);
         Logger.info("Generating Ressource with title: " + title);
 
@@ -97,12 +103,14 @@ public class Ressource extends RessourceDTO {
         return ressource;
     }
 
+    /**
+     * Baut eine Datei aus bestehenden Blöcken wieder zusammen
+     * @param parentDirectory
+     * @param uuid
+     * @param outputFile
+     * @return ein Ressource-Objekt mit allen Metadaten
+     */
     public static Ressource reassemble(String parentDirectory, String uuid, File outputFile) {
-        // if (!doesLocalRessourceExist(parentDirectory, outputFile)) {
-        //     Logger.error("Ressource doesn't exist! Can't reassemble!");
-        //     return null;
-        // }
-
         RessourceFile ressourceFile = new RessourceFile(String.format("%s%s/%s.g2g", parentDirectory, uuid, uuid));
         File[] blockFiles = new File(parentDirectory + uuid).listFiles((dir, name) -> name.endsWith(".g2gblock"));
 
@@ -147,28 +155,9 @@ public class Ressource extends RessourceDTO {
         return ressource;
     }
 
-    // TODO change
-    public static boolean doesLocalRessourceExist(String parentDirectory, File sourceFile) {
-        return false;
-
-        // String sourceHashSum = HashSum.fromFile(sourceFile);
-        // File[] ressourceDirectories = new File(parentDirectory).listFiles((dir, name) -> new File(dir, name).isDirectory());
-        // if (ressourceDirectories == null || ressourceDirectories.length == 0) {
-        //     return false;
-        // }
-        // Logger.info(Arrays.toString(ressourceDirectories));
-        // for (File ressourceDirectory : ressourceDirectories) {
-        //     RessourceFile ressourceFile = new RessourceFile(parentDirectory + ressourceDirectory.getName() + "/" + ressourceDirectory.getName() + ".g2g");
-        //     String ressourceHashSum = ressourceFile.getConfigContent().get("TotalHashSum");
-        //     if (sourceHashSum.equals(ressourceHashSum)) {
-        //         Logger.info(String.format("source: %s", sourceHashSum));
-        //         Logger.info(String.format("resfile: %s", ressourceHashSum));
-        //         return true;
-        //     }
-        // }
-        // return false;
-    }
-
+    /**
+     * @return die ursprüngliche Datei
+     */
     public File getSourceFile() {
         return sourceFile;
     }
@@ -178,26 +167,47 @@ public class Ressource extends RessourceDTO {
         return this.blockAmount;
     }
 
+    /**
+     * @return den Ordner in dem die Ressource mit ihren Blöcken und der Ressourcedatei gespeichert ist
+     */
     public File getParentDirectory() {
         return this.parentDirectory;
     }
 
+    /**
+     * Setzt den Ordner, indem die Ressource mit ihren Blöcken und der Ressourcedatei gespeichert ist
+     * @param parentDirectory
+     */
     public void setParentDirectory(File parentDirectory) {
         this.parentDirectory = parentDirectory;
     }
 
+    /**
+     * @return die Ressourcedatei dieser Ressource
+     */
     public RessourceFile getRessourceFile() {
         return this.ressourceFile;
     }
 
+    /**
+     * Setzt die Ressourcedatei dieser Ressource
+     * @param ressourceFile
+     */
     public void setRessourceFile(RessourceFile ressourceFile) {
         this.ressourceFile = ressourceFile;
     }
 
+    /**
+     * Setzt die Ipv4-Adressen der Host-Serve, auf denen die entsprechenden Blöcke gespeichert werden sollen
+     * @param blockLocations
+     */
     public void setBlockLocations(HashMap<RessourceBlockDTO, String> blockLocations) {
         this.blockLocations = blockLocations;
     }
 
+    /**
+     * @return eine Zuordnung von Blöcken zu IPv4-Adressen der Host-Server, auf denen sie gespeichert werden sollen
+     */
     public HashMap<RessourceBlockDTO, String> getBlockLocations() {
         return this.blockLocations;
     }

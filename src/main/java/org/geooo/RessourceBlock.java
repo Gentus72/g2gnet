@@ -7,18 +7,21 @@ import java.io.IOException;
 import org.geooo.dto.RessourceBlockDTO;
 import org.geooo.util.Logger;
 
+/**
+ * Eine Datenstruktur für einen Teil der Daten einer Datei / Ressource
+ */
 public class RessourceBlock extends RessourceBlockDTO {
 
     private String parentDirectory;
     private byte[] data;
 
-    /*
-     * Standard Konstruktor
-     */
     public RessourceBlock(String uuid) {
         this.uuid = uuid;
     }
 
+    /**
+     * Nimmt alle in diesem Objekt vorhandenen daten und erstellt die Block-Datei
+     */
     public void writeToFile() {
         if (data == null) {
             Logger.error("Error while writing RessourceBlock to file: No data supplied!");
@@ -44,14 +47,25 @@ public class RessourceBlock extends RessourceBlockDTO {
         }
     }
 
+    /**
+     * Setzt die zu speichernden Datein (ein Teil der Originaldatei)
+     * @param data
+     */
     public void setData(byte[] data) {
         this.data = data;
     }
 
+    /**
+     * @return die Daten die dieser Block speichern soll
+     */
     public byte[] getData() {
         return this.data;
     }
 
+    /**
+     * Setzt den Ordner, indem dieser Block gespeichert werden soll
+     * @param parentDirectory
+     */
     public void setParentDirectory(String parentDirectory) {
         this.parentDirectory = parentDirectory;
     }
